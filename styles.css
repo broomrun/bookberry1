@@ -1,0 +1,452 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(255, 255, 255);
+    color: #FFFFFF;
+    margin: 0;
+    padding-top: 90px;
+}
+
+header {
+    position: fixed; /* Mengubah posisi menjadi tetap */
+    top: 0; /* Menetapkan posisi di bagian atas */
+    width: 100%; /* Memastikan lebar penuh */
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff; /* Pastikan warna latar belakang untuk kontras */
+    z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
+}
+
+header .logo {
+    color: #1a2a5e;
+    font-size: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin: 0 auto;
+}
+
+.book-info {
+    background-color: #ffffff;
+    border-radius: 15px;
+    width: 1000px;
+    padding: 25px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between; /* Menyusun gambar, detail buku, dan link baca secara horizontal */
+    gap: 25px;
+    margin: 30px auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.book-details {
+    flex: 1;
+    padding-right: 20px; /* Tambahkan sedikit ruang antara detail buku dan link */
+}
+
+
+.read-link {
+    background-color: #1e2a5e;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    align-self: center;
+    transition: background-color 0.3s ease;
+}
+
+.read-link:hover {
+    background-color: #4a5bb6;
+}
+
+.book-cover {
+    width: 130px;
+    height: 190px; /* Tetapkan tinggi gambar */
+    object-fit: cover; /* Menjaga aspek rasio dengan crop gambar bila perlu */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tambah shadow untuk kesan modern */
+}
+
+.title {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+.author {
+    font-size: 14px;
+    color: #777;
+}
+.description {
+    font-size: 14px;
+    color: #555;
+    margin-top: 15px;
+}
+
+.navigation {
+    display: flex;
+}
+
+.navigation a {
+    color: #1a2a5e;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    transition: 0.3s background;
+    margin-right: 30px;
+}
+
+.navigation a:hover {
+    background: #1a2a5e;
+    color: #FFFFFF;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: #1e2a5e;
+    font-family: 'Poppins', sans-serif;
+}
+
+.text-desc {
+    text-align: center;
+    color: #1e2a5e;
+    font-size: larger;
+}
+
+.text-top {
+    margin-left: 100px;
+    display: inline-block;
+    border-bottom: 2px solid #1e2a5e;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    font-size: large;
+}
+
+.container-field {
+    height: 100vh; 
+    background-color: #1e2a5e;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    color: #ffffff;
+    position: relative;
+}
+
+.text-center {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1a2a5e;
+    margin-top: 50px;
+}
+
+.button {
+    background-color: #ffffff;
+    color: #1e2a5e;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    margin-right: 500px;
+}
+
+.button:hover {
+    color: #FFFFFF;
+    background-color: transparent;
+    border-color: #ffffff;
+}
+
+footer {
+    color: #1e2a5e;
+    background-color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 30px;
+    padding-bottom: 9px;
+}
+
+.navbar {
+    background-color: #1e2a5e; 
+    width: 100%; 
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.nav-links li {
+    margin-right: 25px;
+}
+
+.nav-links a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(100%);
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin: 25px auto;
+}
+
+.dropdown select {
+    -webkit-appearance: none; /* Untuk browser berbasis WebKit (Chrome, Safari) */
+    -moz-appearance: none;    /* Untuk Firefox */
+    appearance: none;         /* Default */
+    background: none;        /* Menghapus background */
+    border: none;            /* Menghapus border jika perlu */
+    padding: 10px;           /* Sesuaikan padding */
+    width: auto;             /* Sesuaikan lebar sesuai kebutuhan */
+    outline: none;           /* Menghapus outline */
+}
+
+.book-card {
+    text-align: center;
+    justify-content: center;
+    margin: 0 15px;
+  }
+  .book-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  .book-card .book-title {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .book-card .author-name {
+    color: #666;
+    font-size:medium;
+  }
+  .book-card .rating {
+    color: #ffa500;
+  }
+
+  .book-title{
+    color: #1a2a5e;
+    font-size: medium;
+  }
+
+
+  /* Card Styles */
+  .card {
+    overflow: hidden;
+    transition: transform 0.2s;
+    border: none; /* Remove any default border */
+    box-shadow: none; /* Remove box-shadow if it's applied */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Optional: If there is padding or margin you want to adjust */
+.card.mb-3 {
+    margin: 0; /* Adjust margin if necessary */
+    border-radius: 0; /* Optional: Remove rounded corners */
+}
+
+
+.card-img-top {
+    width: 150px; /* Lebar khusus */
+    height: 220px; /* Tinggi khusus */
+    border-radius: 5px;
+    object-fit: cover; /* Menjaga agar gambar tidak terdistorsi */
+    margin-left: 85px;
+    margin-top: 25px;
+}
+
+.card-body {
+    text-align: center;
+    justify-content: center;
+}
+
+.card-text {
+    color: #ffa500;
+    font-weight: bold;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+/* Search Container Styles */
+.search-container {
+    margin: 20px 0;
+}
+
+.search {
+    width: 300px; /* Adjust width as necessary */
+    border-radius: 5px;
+}
+
+.search-button {
+    margin-left: 10px;
+}
+
+  
+
+/* Jika Anda menggunakan Bootstrap, Anda mungkin perlu menambahkan ini juga */
+.form-select {
+    border: 1px solid #ccc; /* Ubah warna border jika diperlukan */
+}
+
+.search {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #1e2a5e;
+    border-radius: 50px;
+    font-size: 16px;
+    margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
+}
+
+.dropdown select {
+    padding: 10px;
+    border: 2px solid #1e2a5e;
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+.search-button {
+    background-color: #1e2a5e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s;
+    height: 48px; /* Menyesuaikan tinggi tombol */
+}
+
+.search-button:hover {
+    background-color: #fff;
+    color: #1e2a5e;
+    border: 2px solid #1e2a5e;
+}
+
+.img-container {
+    width: 120px; /* Sesuaikan ukuran lebar buku */
+    height: auto; /* Tinggi mengikuti proporsi dari lebar */
+    margin: 10px; /* Spasi antar buku */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan pada buku */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi */
+}
+
+.img-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.img-carousel {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container-field h1 {
+        font-size: 4 rem;
+    }
+
+    .button {
+        margin-right: 0;
+    }
+
+    .text-top {
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    header {
+        padding: 20px 5%;
+    }
+
+    .text-center {
+        font-size: 2rem;
+    }
+
+    .button {
+        font-size: 0.8rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+
+    .search {
+        width: 90%;
+    }
+
+    .img-container {
+        margin-left: 0;
+    }
+}
+
+
