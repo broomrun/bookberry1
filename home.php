@@ -65,6 +65,7 @@ if(isset($_POST['submit'])){
     <h2 class="text-desc">Picked where you left off.</h2>
     <div class="search-container d-flex justify-content-center mb-5">
         <input type="text" class="search me-2" id="searchInput" placeholder="Search...">
+        <div class="dropdown">
         <select id="genreFilter" class="form-select">
         <option value="allgenre">All Genre</option>
         <option value="fiction">Fiction</option>
@@ -75,6 +76,7 @@ if(isset($_POST['submit'])){
 </select>
         <button class="search-button btn btn-primary" id="search-button">Search</button>
     </div>
+</div>
 
     <hr>
 
