@@ -33,7 +33,7 @@ include 'config.php';
                         <span>We believe that every book has a story to tell, and every author deserves recognition.</span>
                     </h2>
                 </div>
-                <div class="image">
+                <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
                     <img src="assets/13.jpg" alt="BookBerry Image">
                 </div>
             </div>
