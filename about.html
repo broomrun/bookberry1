@@ -7,6 +7,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
         <link href="stylea.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <header>
@@ -21,7 +22,7 @@
 
         <div class="container">
             <div class="opening left">
-                <div class="text">
+                <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
                     <h1>Welcome to BookBerry!</h1>
                     <h2>We are dedicated to celebrating and promoting local literature.<br>
                         <span>We believe that every book has a story to tell, and every author deserves recognition.</span>
@@ -84,5 +85,9 @@
         <p>&copy; 2024 Bookberry. All rights reserved.</p>
     </footer>
     <script src="js/book.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+   <script>
+     AOS.init({offset:0});
+     </script>
 </body>
 </html>
