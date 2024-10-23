@@ -1,11 +1,6 @@
 <?php
 include 'config.php';
 session_start();
-
-if (!isset($_SESSION['user_name'])) {
-    header('location:login.php');
-    exit;
-} 
 ?>
 
 <!DOCTYPE html>
@@ -229,7 +224,7 @@ if (!isset($_SESSION['user_name'])) {
     </header>
     <div class="content">
       <div class="info">
-        <h2>Hi, <br><span><?php echo $_SESSION['user_name']; ?>!</span></h2> <!-- Menampilkan nama pengguna -->
+        <h2>Hi, <br><span>BERRYs!</span></h2> 
         <p>Your one-stop platform for discovering and rating your favorite books<br><span>Dive into the world of literature and share your thoughts with others!</span></p>
         <a href="login.php" class="info-btn">More Info</a>
       </div>
