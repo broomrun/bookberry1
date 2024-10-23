@@ -1,3 +1,8 @@
+<?php
+
+include 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +18,7 @@
     <header>
         <h2><a href="#" class="logo">logo</a></h2>
         <nav class="navigation">
-          <a href="home.html">Home</a>
+          <a href="home.php">Home</a>
           <a href="#">About</a>
           <a href="#">Profile</a>
         </nav>
