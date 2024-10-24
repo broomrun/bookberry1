@@ -1,3 +1,12 @@
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('header');
+    if (window.scrollY > 0) {
+        navbar.classList.add('navbar-shadow');
+    } else {
+        navbar.classList.remove('navbar-shadow');
+    }
+});
+
 function searchBooks() {
     // Get selected genre
     let genre = $('#genreFilter').val();
