@@ -20,7 +20,7 @@ include 'config.php';
         <nav class="navigation">
           <a href="home.php">Home</a>
           <a href="#">About</a>
-          <a href="#">Profile</a>
+          <a href="detail.php">Profile</a>
         </nav>
       </header>
     <main>
@@ -89,7 +89,7 @@ include 'config.php';
     <footer>
         <p>&copy; 2024 Bookberry. All rights reserved.</p>
     </footer>
-    <script src="js/book.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
    <script>
      AOS.init({offset:0});

@@ -60,52 +60,18 @@ if(isset($_POST['submit'])){
     </nav>
 </header>
 
-<div id="content" class="container">
-    <h1 class="text-center">Hi, <?php echo $_SESSION['user_name']; ?>!</h1>
-    <h2 class="text-desc">Picked where you left off.</h2>
-    <div class="search-container d-flex justify-content-center mb-5">
-        <input type="text" class="search me-2" id="searchInput" placeholder="Search...">
-        <div class="dropdown">
-        <select id="genreFilter" class="form-select">
-        <option value="allgenre">All Genre</option>
-        <option value="fiction">Fiction</option>
-        <option value="science">Science</option>
-        <option value="history">History</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="biography">Biography</option>
-</select>
-        <button class="search-button btn btn-primary" id="search-button">Search</button>
-    </div>
+<div class="main">
+    <aside class = "left">
+        left
+    </aside>
+    <main>
+        MAIN
+    </main>
+    <aside class = "right">
+        left
+    </aside>
 </div>
 
-    <hr>
-
-    <div class="row" id="book-list"></div> <!-- Only one book-list -->
-    
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Book Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="book-detail">Book details will appear here...</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="parent">
-    <h3 class="text-top">Discover Our Book!</h3>
-</div>
-      
 <footer>
     <p>© 2024 BookBerry. All Rights Reserved.</p>
 </footer>

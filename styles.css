@@ -181,6 +181,12 @@ footer {
     z-index: 1000;
 }
 
+.navbar-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+    transition: box-shadow 0.3s ease; /* Transisi halus */
+}
+
+
 .nav-links {
     list-style: none;
     display: flex;
@@ -255,7 +261,7 @@ footer {
   }
   .book-card .author-name {
     color: #666;
-    font-size:medium;
+    font-size:small;
   }
   .book-card .rating {
     color: #ffa500;
@@ -273,6 +279,10 @@ footer {
     transition: transform 0.2s;
     border: none; /* Remove any default border */
     box-shadow: none; /* Remove box-shadow if it's applied */
+    justify-content: center;
+    display: flex;
+    flex-direction: column; /* Ensure content is stacked vertically */
+    align-items: center; /* Center the content horizontally */
 }
 
 .card:hover {
@@ -291,8 +301,10 @@ footer {
     height: 220px; /* Tinggi khusus */
     border-radius: 5px;
     object-fit: cover; /* Menjaga agar gambar tidak terdistorsi */
-    margin-left: 85px;
     margin-top: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card-body {
@@ -323,11 +335,6 @@ footer {
     justify-content: center;
 }
 
-/* Search Container Styles */
-.search-container {
-    margin: 20px 0;
-}
-
 .search {
     width: 300px; /* Adjust width as necessary */
     border-radius: 5px;
@@ -335,9 +342,7 @@ footer {
 
 .search-button {
     margin-left: 10px;
-}
-
-  
+} 
 
 /* Jika Anda menggunakan Bootstrap, Anda mungkin perlu menambahkan ini juga */
 .form-select {

@@ -104,6 +104,11 @@ header .logo {
     font-weight:lighter;
 }
 
+.navbar-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+    transition: box-shadow 0.3s ease; /* Transisi halus */
+}
+
 
 main {
     padding: 20px;
