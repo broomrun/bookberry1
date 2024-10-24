@@ -8,6 +8,10 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['password'];
     $cpass = $_POST['confirmPassword'];
     $user_type = $_POST['user_type'];
+    $image = $_FILES['profile_picture']['name']; // Changed 'image' to 'profile_picture'
+    $image_size = $_FILES['profile_picture']['size']; // Changed 'image' to 'profile_picture'
+    $image_tmp_name = $_FILES['profile_picture']['tmp_name']; // Changed 'image' to 'profile_picture'
+    $image_folder = 'uploaded_img/' . $image;
 
     // Cek apakah user dengan email sudah ada
     $select = "SELECT * FROM user_form WHERE email = '$email'";
@@ -17,17 +21,53 @@ if (isset($_POST['submit'])) {
         $error[] = 'User already exists!';
     } else {
         if ($pass != $cpass) {
-            $error[] = 'Password not matched!';
+            $error[] = 'Password does not match!';
+        } elseif ($image_size > 2000000) { // Ukuran gambar lebih dari 2MB
+            $error[] = 'Image size is too large! Maximum size is 2MB.';
         } else {
             // Hash password setelah validasi
-            $hashed_password = md5($pass);
-            $insert = "INSERT INTO user_form(name, email, password, user_type) VALUES('$name','$email','$hashed_password','$user_type')";
-            mysqli_query($conn, $insert);
-            header('location:login.php');
+            $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+
+            // Insert user data ke database
+            $insert = "INSERT INTO user_form(name, email, password, user_type, image) 
+                       VALUES('$name','$email','$hashed_password','$user_type','$image')";
+
+            // Cek apakah query insert berhasil
+            // Insert user data ke database
+$insert = "INSERT INTO user_form(name, email, password, user_type, image) 
+VALUES('$name','$email','$hashed_password','$user_type','$image')";
+
+// Cek apakah query insert berhasil
+            if (mysqli_query($conn, $insert)) {
+            if ($_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+            if (move_uploaded_file($image_tmp_name, $image_folder)) {
+            header('location:login.php'); // Redirect to the login page after success
+            } else {
+            $error[] = 'Failed to upload image!';
+            }
+            } else {
+            $error[] = 'File upload error: ' . $_FILES['profile_picture']['error'];
+            }
+            } else {
+            $error[] = 'Failed to register user!';
+            }
+
         }
     }
 }
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +95,7 @@ if (isset($_POST['submit'])) {
             max-width: 400px;
             padding: 2rem;
             background-color: #f8f9fa;
-            color:#1E2A5E;
+            color: #1E2A5E;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
@@ -144,14 +184,9 @@ if (isset($_POST['submit'])) {
             border-radius: 5px;
             color: white;
         }
-
-
     </style>
 </head>
 <body>
-
-
-
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container">
@@ -171,14 +206,14 @@ if (isset($_POST['submit'])) {
             <h2>Sign Up</h2>
 
             <?php
-            if(isset($error)){
-                foreach($error as $error){
-                    echo '<span class="error-msg">'.$error.'</span>';
-                };
-            };
+            if (isset($error)) {
+                foreach ($error as $error) {
+                    echo '<span class="error-msg">' . $error . '</span>';
+                }
+            }
             ?>
 
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="name" class="form-label">Username</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter your username" required>
@@ -201,13 +236,20 @@ if (isset($_POST['submit'])) {
                         <option value="admin">Admin</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="chooseFile" class="form-label">Choose File</label>
+                    <input type="file" class="form-control" id="chooseFile" accept="image/jpg, image/jpeg, image/png" name="profile_picture" placeholder="Choose File" required>
+                </div>
                 <button type="submit" class="btn custom-button w-100" name="submit">Sign Up</button>
-                <p>already have an account? <a href="login.php">login now</a></p>
+                <p>Already have an account? <a href="login.php">Login now</a></p>
             </form>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
 </body>
 </html>

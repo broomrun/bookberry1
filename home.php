@@ -56,7 +56,11 @@ if(isset($_POST['submit'])){
     <nav class="navigation">
         <a href="home.php">Home</a>
         <a href="about.php">About</a>
+<<<<<<< HEAD
         <a href="profile.php">Profile</a>
+=======
+        <a href="update_profile.php">Profile</a>
+>>>>>>> 8c0dba992c95443fcd5a880a591a4c93834f6f57
     </nav>
 </header>
 
