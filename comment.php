@@ -1,7 +1,105 @@
 <?php
+// Set the default timezone
 date_default_timezone_set('Asia/Jakarta');
-include 'comments.inc.php';
-session_start();
+
+// Function to check if a user is logged in
+function getLogin() {
+    session_start(); // Start the session
+    // Check if the user ID is stored in the session
+    return isset($_SESSION['user_id']);
+}
+
+// Function to connect to the database
+function dbConnect() {
+    $conn = new mysqli("localhost", "root", "", "bookberry");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    return $conn;
+}
+
+// Function to set a new comment in the database
+function setComment() {
+    if (isset($_POST['commentSubmit'])) {
+        // Get user input
+        $uid = $_POST['uid'];
+        $date = date("Y-m-d H:i:s"); // Set the current date and time
+        $message = $_POST['message'];
+
+        // Connect to the database
+        $conn = dbConnect();
+
+        // Prepare and bind the SQL statement to prevent SQL injection
+        $stmt = $conn->prepare("INSERT INTO comments (uid, date, message) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $uid, $date, $message);
+
+        if ($stmt->execute()) {
+            // Return the new comment HTML for appending
+            echo "<div class='comment-box'>";
+            echo "<p><strong>" . htmlspecialchars($uid) . "</strong> at " . htmlspecialchars($date) . "</p>";
+            echo "<p>" . nl2br(htmlspecialchars($message)) . "</p>";
+            echo "</div><br>";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close the statement and connection
+        $stmt->close();
+        $conn->close();
+    }
+}
+
+// Function to get comments from the database
+function getComments() {
+    // Connect to the database
+    $conn = dbConnect();
+
+    $sql = "SELECT * FROM comments ORDER BY date DESC";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<div class='comment-box'>";
+            echo "<p><strong>" . htmlspecialchars($row['uid']) . "</strong> at " . htmlspecialchars($row['date']) . "</p>";
+            echo "<p>" . nl2br(htmlspecialchars($row['message'])) . "</p>";
+            echo "</div><br>";
+        }
+    } else {
+        echo "<div class='alert alert-warning'>No comments yet!</div>";
+    }
+
+    $conn->close();
+}
+
+// Function to delete a comment (optional)
+function deleteComment($id) {
+    // Connect to the database
+    $conn = dbConnect();
+
+    // Prepare and bind the SQL statement
+    $stmt = $conn->prepare("DELETE FROM comments WHERE id = ?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        echo "<div class='alert alert-success'>Comment deleted successfully.</div>";
+    } else {
+        echo "<div class='alert alert-danger'>Error deleting comment: " . $stmt->error . "</div>";
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
+}
+
+// Handle the submission of a new comment
+setComment();
+
+// Handle comment deletion (if necessary)
+// This assumes you have a way to pass the comment ID to delete
+if (isset($_POST['deleteComment'])) {
+    $commentId = $_POST['commentId'];
+    deleteComment($commentId);
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,79 +107,33 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment Section</title>
-    <style>
-        /* Add your CSS styles here */
-        .comment-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        .error-message {
-            color: red;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
-    <script>
-        $(document).ready(function() {
-            $('#commentForm').on('submit', function(e) {
-                e.preventDefault(); // Prevent default form submission
-                $.ajax({
-                    type: 'POST',
-                    url: 'comments.inc.php',
-                    data: $(this).serialize(), // Serialize form data
-                    success: function(response) {
-                        // Check if the response contains an error message
-                        if (response.error) {
-                            $('#commentsSection').prepend(`<div class="error-message">${response.error}</div>`);
-                        } else {
-                            // Append the new comment to the comments section
-                            $('#commentsSection').prepend(response);
-                            $('#message').val(''); // Clear the message textarea
-                        }
-                    },
-                    error: function() {
-                        alert('Error submitting comment.');
-                    }
-                });
-            });
-        });
-    </script>
+    <title>Comments</title>
+    <link rel="stylesheet" href="path/to/bootstrap.css">
 </head>
 <body>
+    <div class="container">
+        <h1 class="mt-5">Comments</h1>
 
-<?php
-// Display login form
-echo "<form method='post' action='".getLogin($conn)."'>
-    <input type='text' name='uid' placeholder='Username' required>
-    <input type='password' name='pwd' placeholder='Password' required>
-    <button type='submit' name='loginSubmit'>Login</button>
-</form>";
+        <?php if (getLogin()): ?>
+            <form method="POST" action="">
+                <input type="hidden" name="uid" value="<?php echo htmlspecialchars($_SESSION['username']); ?>">
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Comment:</label>
+                    <textarea class="form-control" id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" name="commentSubmit" class="btn btn-primary">Submit Comment</button>
+            </form>
+        <?php else: ?>
+            <div class="alert alert-warning">You need to be logged in to comment.</div>
+            <a href="login.php" class="btn btn-link">Login</a>
+        <?php endif; ?>
 
-// Display logout form if user is logged in
-if (isset($_SESSION['user'])) {
-    echo "<form method='post' action='".userLogout()."'>
-        <button type='submit' name='logoutSubmit'>Logout</button>
-    </form>";
-}
-?>
+        <h2 class="mt-5">Existing Comments</h2>
+        <div id="comments">
+            <?php getComments(); ?>
+        </div>
+    </div>
 
-<br><br>
-
-<!-- Form to add comments -->
-<form id="commentForm" method="POST">
-    <input type="hidden" name="uid" value="Anonymous">
-    <input type="hidden" name="date" value="<?php echo date('Y-m-d H:i:s'); ?>">
-    <textarea id="message" name="message" placeholder="Write your comment here..." required></textarea>
-    <button type="submit" name="commentSubmit">Comment</button>
-</form>
-
-<!-- Display comments -->
-<h2>Comments:</h2>
-<div id="commentsSection">
-    <?php getComments($conn); ?>
-</div>
-
+    <script src="path/to/bootstrap.bundle.js"></script>
 </body>
 </html>
