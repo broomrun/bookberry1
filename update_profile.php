@@ -15,7 +15,7 @@ $message = [];
 $user_data = null;
 
 // Fetch user data from the database
-$query = mysqli_query($conn, "SELECT * FROM `user_form` WHERE name = '$user_name'") or die('query failed');
+$query = mysqli_query($conn, "SELECT * FROM `user_form` WHERE name = '$user_name'") or die('Query failed');
 
 if (mysqli_num_rows($query) > 0) {
     $user_data = mysqli_fetch_assoc($query);
@@ -29,54 +29,28 @@ if (isset($_POST['update_profile'])) {
     $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
 
     // Update name and email
-    $update_query = mysqli_query($conn, "UPDATE `user_form` SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('query failed');
+    $update_query = mysqli_query($conn, "UPDATE `user_form` SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update query failed');
 
-    // Handle password update
-    $old_pass = isset($_POST['old_pass']) ? trim($_POST['old_pass']) : '';
-    $new_pass = isset($_POST['new_pass']) ? trim($_POST['new_pass']) : '';
-    $confirm_pass = isset($_POST['confirm_pass']) ? trim($_POST['confirm_pass']) : '';
-
-    if (!empty($new_pass) || !empty($confirm_pass)) {
-        $result = mysqli_query($conn, "SELECT password FROM `user_form` WHERE name = '$user_name'") or die('query failed');
-        $row = mysqli_fetch_assoc($result);
-    
-        if ($row) {
-            // Verify old password
-            if (!password_verify($old_pass, $row['password'])) {
-                $message[] = 'Old password not matched!';
-            } elseif ($new_pass !== $confirm_pass) {
-                $message[] = 'Confirm password not matched!';
-            } else {
-                // Hash new password and update in database
-                $hashed_password = password_hash($new_pass, PASSWORD_DEFAULT);
-                mysqli_query($conn, "UPDATE `user_form` SET password = '$hashed_password' WHERE name = '$user_name'") or die('query failed');
-                $message[] = 'Password updated successfully!';
-            }
-        } else {
-            $message[] = 'User not found!';
-        }
-    } else {
-        $message[] = 'New password and confirmation are required to change the password.';
+    // Update the session variable if name is successfully changed
+    if ($update_query) {
+        $_SESSION['user_name'] = $update_name;
+        $user_name = $update_name;  // Update local variable too
+        $message[] = "Profile updated successfully!";
     }
 
-    // Handle image update
-    if (isset($_FILES['update_image']) && $_FILES['update_image']['error'] == UPLOAD_ERR_OK) {
-        $update_image = $_FILES['update_image']['name'];
-        $update_image_size = $_FILES['update_image']['size'];
-        $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
-        $update_image_folder = 'uploaded_img/' . basename($update_image);
+    // Debug output for session
+    if (!isset($_SESSION['user_name'])) {
+        echo "User name not set in session.";
+    } else {
+        echo "Current session user: " . htmlspecialchars($_SESSION['user_name']);
+    }
 
-        if (!empty($update_image)) {
-            if ($update_image_size > 2000000) {
-                $message[] = 'Image is too large';
-            } else {
-                $image_update_query = mysqli_query($conn, "UPDATE `user_form` SET image = '$update_image' WHERE name = '$user_name'") or die('query failed');
-                if ($image_update_query) {
-                    move_uploaded_file($update_image_tmp_name, $update_image_folder);
-                    $message[] = 'Image updated successfully!';
-                }            
-            }
-        }
+    // Re-fetch updated user data for verification
+    $query = mysqli_query($conn, "SELECT * FROM `user_form` WHERE name = '$user_name'") or die('Query failed');
+    if (mysqli_num_rows($query) == 0) {
+        echo 'User not found after update.';
+    } else {
+        $user_data = mysqli_fetch_assoc($query);
     }
 }
 ?>
