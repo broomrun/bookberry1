@@ -1,29 +1,27 @@
 <?php
-
 include 'config.php';
 session_start();
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
 
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = md5($_POST['password']);
+    $pass = $_POST['password']; // jangan gunakan md5 di sini, karena kita akan verifikasi dengan password_verify nanti
     
-    // Cek email saja di database
+    // Cek email di database
     $select = "SELECT * FROM user_form WHERE email = '$email'";
-    
     $result = mysqli_query($conn, $select);
 
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
 
         $row = mysqli_fetch_array($result);
-        
-        // Cek apakah password cocok
-        if($row['password'] == $pass){
+
+        // Verifikasi apakah password cocok
+        if (password_verify($pass, $row['password'])) {
             
-            if($row['user_type'] == 'admin'){
+            if ($row['user_type'] == 'admin') {
                 $_SESSION['admin_name'] = $row['name'];
                 header('location:admin_page.php');
-            } elseif($row['user_type'] == 'user'){
+            } elseif ($row['user_type'] == 'user') {
                 $_SESSION['user_name'] = $row['name'];
                 header('location:home.php');
             }
@@ -35,8 +33,7 @@ if(isset($_POST['submit'])){
     } else {
         $error[] = 'Incorrect email or password!';
     }
-
-};
+}
 ?>
 
 <!DOCTYPE html>
