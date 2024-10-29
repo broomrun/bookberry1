@@ -19,8 +19,8 @@ include 'config.php';
         <h2><a href="#" class="logo">logo</a></h2>
         <nav class="navigation">
           <a href="home.php">Home</a>
-          <a href="#">About</a>
-          <a href="detail.php">Profile</a>
+          <a href="about.php">About</a>
+          <a href="update_profile.php">Profile</a>
         </nav>
       </header>
     <main>
