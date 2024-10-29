@@ -34,8 +34,8 @@ if (isset($_POST['submit'])) {
 
             // Cek apakah query insert berhasil
             // Insert user data ke database
-$insert = "INSERT INTO user_form(name, email, password, user_type, image) 
-VALUES('$name','$email','$hashed_password','$user_type','$image')";
+            $insert = "INSERT INTO user_form(name, email, password, user_type, image) 
+            VALUES('$name','$email','$hashed_password','$user_type','$image')";
 
 // Cek apakah query insert berhasil
             if (mysqli_query($conn, $insert)) {
