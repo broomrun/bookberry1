@@ -15,7 +15,7 @@ $message = [];
 $user_data = null;
 
 // Fetch user data from the database
-$query = mysqli_query($conn, "SELECT * FROM `user_form` WHERE name = '$user_name'") or die('Query failed');
+$query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
 
 if (mysqli_num_rows($query) > 0) {
     $user_data = mysqli_fetch_assoc($query);
@@ -29,7 +29,7 @@ if (isset($_POST['update_profile'])) {
     $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
 
     // Update name and email
-    $update_query = mysqli_query($conn, "UPDATE `user_form` SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update query failed');
+    $update_query = mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update query failed');
 
     // Update the session variable if name is successfully changed
     if ($update_query) {
@@ -46,7 +46,7 @@ if (isset($_POST['update_profile'])) {
     }
 
     // Re-fetch updated user data for verification
-    $query = mysqli_query($conn, "SELECT * FROM `user_form` WHERE name = '$user_name'") or die('Query failed');
+    $query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
     if (mysqli_num_rows($query) == 0) {
         echo 'User not found after update.';
     } else {
@@ -63,129 +63,74 @@ if (isset($_POST['update_profile'])) {
     <title>Profile Page Account</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .alert {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #e0f7fa;
-            color: #00695c;
-            border-radius: 5px;
-        }
-        .content-section {
-            display: block;
-        }
-        .navigation {
-            display: flex;
-        }
-        .navigation a {
-            color: #1a2a5e;
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 1px;
-            padding: 2px 15px;
-            border-radius: 20px;
-            transition: 0.3s background;
-            margin-right: 30px;
-        }
-        .navigation a:hover {
-            background: #1a2a5e;
-            color: #FFFFFF;
-        }
-        .navbar {
-            background-color: #1e2a5e; 
-            width: 100%; 
-            height: 70px;
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-        }
-        h1, h2, h3, h4, h5, h6, p {
-            color: #1e2a5e;
-            font-family: 'Poppins', sans-serif;
-        }
-        header .logo {
-            color: #1a2a5e;
-            font-size: 30px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin: 0 auto;
-        }
+        body { font-family: 'Poppins', sans-serif;  background-color: #1e2a5e}
+        .alert { margin: 10px 0; padding: 10px; background-color: #e0f7fa; color: #00695c; border-radius: 50px; }
+        .navbar { background-color: #1e2a5e; width: 100%; height: 70px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 1000; }
+        header .logo { color: #FFFFFF; font-size: 30px; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin: 0 auto; }
+        .navigation a { color: #FFFFFF; text-decoration: none; font-weight: 500; padding: 2px 15px; margin-right: 20px; }
+        .navigation a:hover { background: #FFFFFF; color: #1e2a5e; border-radius: 50px; }
+        .container { margin-top: 100px; }
+        .profile-image { width: 100px; height: 100px; border-radius: 50%; }
     </style>
 </head>
-<body class="bg-gray-100 font-roboto">
-    <header>
-        <h2><a href="#" class="logo">logo</a></h2>
+<body class="bg-white-100">
+    <header class="navbar flex justify-between items-center px-10">
+        <h2><a href="#" class="logo">Logo</a></h2>
         <nav class="navigation">
             <a href="home.php">Home</a>
             <a href="about.php">About</a>
             <a href="update_profile.php">Profile</a>
         </nav>
     </header>
-    <div class="container mt-20">
 
+    <div class="container mx-auto">
+        <?php foreach ($message as $msg): ?>
+            <div class="alert"><?php echo htmlspecialchars($msg); ?></div>
+        <?php endforeach; ?>
 
-
-        <?php
-        if (!empty($message)) {
-            foreach ($message as $msg) {
-                echo '<div class="alert alert-info">' . htmlspecialchars($msg) . '</div>';
-            }
-        }
-        ?>
-
-        <!-- Update Profile Form -->
-        <div class="w-3/4 bg-white p-8 mt-6">
-            <!-- Profile Info Section -->
-            <div id="profile-info-section" class="content-section p-8">
-                <h2 class="text-2xl font-bold mb-6">Account Information</h2>
-                <div class="flex flex-col items-center mb-6">
-                    <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center mb-2">
-                        <img src="uploaded_img/<?php echo htmlspecialchars($user_data['image'] ?? 'default_image.jpg'); ?>" alt="Profile Image" class="w-full h-full rounded-full object-cover">
-                    </div>
-                    <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
-                    <p class="text-gray-600"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
-                    <button onclick="showPhotoModal()" class="mt-2 text-pink-600 flex items-center">
-                        <i class="fas fa-camera mr-2"></i>
-                        <input type="file" id="update_image" name="update_image">
-                        <div>
+        <div class="bg-white p-8 shadow-md rounded-[20px]">
+            <h2 class="text-2xl font-bold mb-4">Account Information</h2>
+            <div class="text-center mb-6">
+                <div class="flex justify-center items-center">
+                    <img src="uploaded_img/<?php echo htmlspecialchars($user_data['image'] ?? 'default_image.jpg'); ?>" alt="Profile Image" class="profile-image mb-2">
                 </div>
-                    </button>
-                </div>
+                <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
+                <p class="text-gray-600"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
             </div>
-        </div>
-            <h3 class="text-xl font-bold mb-4">Profile Information</h3>
+
             <form method="POST" enctype="multipart/form-data" class="space-y-4">
-                <div class="flex flex-col md:flex-row md:space-x-4">
-                    <div class="w-full md:w-1/2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
                         <label class="block text-gray-700" for="update_name">Name:</label>
-                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required>
+                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required>
                     </div>
-                    <div class="w-full md:w-1/2">
+                    <div>
                         <label class="block text-gray-700" for="update_email">Email:</label>
-                        <input type="email" id="update_email" name="update_email" class="w-full p-2 border border-gray-300 rounded" value="<?php echo htmlspecialchars($user_data['email'] ?? ''); ?>" required>
+                        <input type="email" id="update_email" name="update_email" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['email'] ?? ''); ?>" required>
                     </div>
                 </div>
+                
                 <div>
                     <label for="old_pass" class="block text-gray-700">Old Password:</label>
-                    <input type="password" id="old_pass" name="old_pass" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="password" id="old_pass" name="old_pass" class="w-full p-2 border border-gray-300 rounded-[50px]">
                 </div>
                 <div>
                     <label for="new_pass" class="block text-gray-700">New Password:</label>
-                    <input type="password" id="new_pass" name="new_pass" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="password" id="new_pass" name="new_pass" class="w-full p-2 border border-gray-300 rounded-[50px]">
                 </div>
                 <div>
                     <label for="confirm_pass" class="block text-gray-700">Confirm New Password:</label>
-                    <input type="password" id="confirm_pass" name="confirm_pass" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="password" id="confirm_pass" name="confirm_pass" class="w-full p-2 border border-gray-300 rounded-[50px]">
                 </div>
-                <button type="submit" name="update_profile" class="bg-blue-500 text-white px-4 py-2 rounded">Update Profile</button>
+                
+                <div>
+                    <label for="update_image" class="block text-gray-700">Update Profile Picture:</label>
+                    <input type="file" id="update_image" name="update_image" class="w-full p-2 border border-gray-300 rounded-[50px]">
+                </div>
+                
+                <button type="submit" name="update_profile" class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
             </form>
         </div>
     </div>
