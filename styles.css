@@ -408,6 +408,50 @@ footer {
     border-radius: 10px;
 }
 
+/* Style for the title */
+.title {
+    font-size: 2.5em;
+    color: #1e2a5e;
+    margin: 20px 0;
+}
+
+/* Common styles for all tiles */
+.tile {
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    font-size: 1em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tile:hover {
+    transform: scale(1.05); /* Sedikit membesarkan ukuran tile */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan saat di-hover */
+}
+
+/* Background color for each tile */
+.green {
+    background-color: #004d00;
+}
+
+.red {
+    background-color: #b30000;
+}
+
+.brown {
+    background-color: #b5651d;
+}
+
+.yellow {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.orange {
+    background-color: #ff8c00;
+}
+
+
 @media only screen and (max-width: 768px) {
     header {
         flex-direction: column;

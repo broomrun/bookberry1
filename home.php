@@ -102,9 +102,55 @@ if(isset($_POST['submit'])){
     </div>
 </div>
 
-<div class="parent">
-    <h3 class="text-top">Discover Our Book!</h3>
-</div>
+<div class="container">
+    <div class="row g-4 mt-4">
+      <div class="col-md-4">
+        <div class="tile green d-flex align-items-center p-4" style="border-radius: 20px;">
+          <div class="content">
+            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
+            <p style="color: #FFFFFF">picked where you left off.</p>
+          </div>
+          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="tile red d-flex align-items-center p-4" style="border-radius: 20px;">
+          <div class="content">
+            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
+            <p style="color: #FFFFFF">picked where you left off.</p>
+          </div>
+          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="tile brown d-flex align-items-center p-4" style="border-radius: 20px;">
+          <div class="content">
+            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
+            <p style="color: #FFFFFF">picked where you left off.</p>
+          </div>
+          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile yellow d-flex align-items-center p-4" style="border-radius: 20px;">
+          <div class="content">
+            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
+            <p style="color: #FFFFFF">picked where you left off.</p>
+          </div>
+          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tile orange d-flex align-items-center p-4" style="border-radius: 20px;">
+          <div class="content">
+            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
+            <p style="color: #FFFFFF">picked where you left off.</p>
+          </div>
+          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+        </div>
+      </div>
+    </div>
+  </div>
       
 <footer>
     <p>© 2024 BookBerry. All Rights Reserved.</p>
