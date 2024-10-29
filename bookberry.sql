@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 05:47 AM
+-- Generation Time: Oct 29, 2024 at 04:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,10 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comments` (
-  `cid` int(11) NOT NULL,
-  `uid` varchar(128) NOT NULL,
-  `date` datetime NOT NULL,
-  `message` text NOT NULL
+  `comment_id` int(11) NOT NULL,
+  `parent_comment_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `comment_sender_nama` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -60,10 +61,10 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `user_type`, `Image`
 (4, 'alissya', 'alissya11@gmail.com', '68f669ac00b5e8092d523a14efe939b0', 'user', ''),
 (5, 'erun', 'erun11@gmail.com', '8c49d9f5e65f6435ad1aaf332957f71b', 'user', ''),
 (6, 'leesya', 'leesya11@gmail.com', '$2y$10$By6uh5rWrWtoVu9cWaE65uXc5sifAmxOZIxTqZ8oGVcV6HBhYOBR.', 'user', 'Screenshot 2024-03-02 231840.png'),
-(7, 'nada', 'nada11@gmail.com', '$2y$10$JiO3k5N4.4bEGLE4/NZK.ueyyAoKiROjYewecg0zhKZwXCF0/QETS', 'user', 'logo.jpg'),
+(7, 'nadahai', 'nada11@gmail.com', '$2y$10$JiO3k5N4.4bEGLE4/NZK.ueyyAoKiROjYewecg0zhKZwXCF0/QETS', 'user', 'logo.jpg'),
 (8, 'erunerun', 'erunerun11@gmail.com', '$2y$10$/dAnnSqE4hmWr3yIjko3h.vgLtQtIDSwM8mpTr2mY5cfLE9bFbqp.', 'user', 'logo.jpg'),
 (9, 'fanin11', 'fanin11@gmail.com', '$2y$10$DEVQGCtmnHxAxkzPE1Xk6e.YNEl/zim5ydYmCTDcmJozSJq25wune', 'user', 'logo.jpg'),
-(10, 'erun13', 'erun13@gmail.com', '$2y$10$jMUx1LJGd07c0YnGVfxueu5I.mn/1MaaQroPteRu..3z5lIma5uZO', 'user', 'logo_fakultas-removebg-preview.png');
+(10, 'erunaja', 'erun13@gmail.com', '$2y$10$QZYZLWpFn1KFVUMH2JehEeHRKzz02i3KuwRy5qPgYkmHEzK/FYKHG', 'user', 'ipb.png');
 
 --
 -- Indexes for dumped tables
@@ -73,7 +74,7 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `user_type`, `Image`
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`cid`);
+  ADD PRIMARY KEY (`comment_id`);
 
 --
 -- Indexes for table `user_form`
@@ -89,7 +90,7 @@ ALTER TABLE `user_form`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_form`
