@@ -1,6 +1,15 @@
 <?php 
 session_start();
-include "config.php"; // Ensure this file sets up $conn
+include "config.php"; 
+
+// Redirect jika belum login
+if (!isset($_SESSION['user_name'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,19 +23,24 @@ include "config.php"; // Ensure this file sets up $conn
   <br />
   <h2 align="center"><a href="#">Comment System</a></h2>
   <br />
+  
   <div class="container">
-   <form method="POST" id="comment_form">
+   <!-- Form komentar -->
+<form method="POST" id="comment_form">
     <div class="form-group">
-     <input type="text" name="comment_name" id="comment_name" class="form-control" placeholder="Enter Name" required />
+        <!-- Ubah input name menjadi hidden dan gunakan session -->
+        <input type="hidden" name="comment_name" id="comment_name" class="form-control" value="<?php echo $_SESSION['user_name']; ?>" />
+        <!-- Tambahkan display nama user -->
+        <p>Commenting as: <?php echo $_SESSION['user_name']; ?></p>
     </div>
     <div class="form-group">
-     <textarea name="comment_content" id="comment_content" class="form-control" placeholder="Enter Comment" rows="5" required></textarea>
+        <textarea name="comment_content" id="comment_content" class="form-control" placeholder="Enter Comment" rows="5" required></textarea>
     </div>
     <div class="form-group">
-     <input type="hidden" name="comment_id" id="comment_id" value="0" />
-     <input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" />
+        <input type="hidden" name="comment_id" id="comment_id" value="0" />
+        <input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" />
     </div>
-   </form>
+</form>
    <span id="comment_message"></span>
    <br />
    <div id="display_comment"></div>
@@ -37,25 +51,26 @@ include "config.php"; // Ensure this file sets up $conn
 <script>
 $(document).ready(function(){
  
- $('#comment_form').on('submit', function(event){
-  event.preventDefault();
-  var form_data = $(this).serialize();
-  $.ajax({
-   url: "add_comment.php", // Ensure this file is set up correctly
-   method: "POST",
-   data: form_data,
-   dataType: "JSON",
-   success: function(data) {
-       console.log(data); // Log the response to check for errors
-       $('#comment_message').html(data.error); // Show the success/error message
-       if(data.error == '<label class="text-success">Comment Added</label>') {
-           $('#comment_form')[0].reset(); // Reset the form
-           $('#comment_id').val('0'); // Reset comment ID
-           load_comment(); // Load updated comments
-       }
-   }
-  });
- });
+    $('#comment_form').on('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    var form_data = $(this).serialize(); // Serialize the form data
+    $.ajax({
+        url: "add_comment.php", // Ensure this URL is correct
+        method: "POST",
+        data: form_data,
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data); // Log the response to check for errors
+            if (data.error != '') {
+                $('#comment_form')[0].reset(); // Reset the form
+                $('#comment_message').html(data.error); // Show the success message
+                $('#comment_id').val('0'); // Reset comment ID
+                load_comment(); // Load updated comments
+            }
+        }
+    });
+});
+
 
  load_comment();
 
