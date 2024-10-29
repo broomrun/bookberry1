@@ -115,6 +115,20 @@ session_start();
         </div>   
         
         <div class="container">
+            <div class="opening right">
+                <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+                    <h1>Build your own library!</h1>
+                    <h2>Create a personal library filled with your favorite books!<br>
+                        <span>Make your reading journey truly yours.</span>
+                    </h2>
+                </div>
+                <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
+                    <img src="assets/libra.png" alt="BookBerry Image">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
             <div class="opening left">
                 <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
                     <h1>Share reads, rate favorites!</h1>
@@ -123,11 +137,17 @@ session_start();
                     </h2>
                 </div>
                 <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
-                    <img src="assets/reads.png" alt="BookBerry Image">
+                    <img src="assets/rate.png" alt="BookBerry Image">
                 </div>
             </div>
         </div>
 
+        <div class="bawah">
+    <div class="info" style="text-align: center; color: #1e2a5e; margin-top: -20px;">
+    <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to, <br><span>Start your book journey?</span></h2>
+        <a href="login.php" class="info-btn" style="font-size: 1.2em; padding: 10px 20px;">Start my journey!</a>
+    </div>
+</div>
     
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
