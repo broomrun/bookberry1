@@ -13,7 +13,7 @@ body {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background-image: url('assets/header.png');
+            background-image: url('assets/awal.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -268,7 +268,36 @@ h1 {
                 margin-bottom: 50px;
                 letter-spacing: 2px;
             }
-        }
+            .bawah {
+                background-image: url('assets/footer.png'); /* Path ke gambar */
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 50px;
+                color: white;
+                min-height: 100vh; /* Pastikan elemen memiliki tinggi minimal penuh layar */
+            }            
+            
+            .info-btn {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #1e2a5e; /* Ganti warna sesuai keinginan */
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                text-align: center;
+                align-items: center;
+            }
+            
+            .info-btn:hover {
+                background-color: #FFF; /* Warna saat tombol di-hover */
+                color: #1e2a5e;
+                border: 3px solid #1e2a5e;
+            }
 
         @media (max-width: 500px) {
             .content .info h2 {
