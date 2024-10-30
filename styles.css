@@ -28,6 +28,12 @@ header .logo {
     margin: 0 auto;
 }
 
+.logo-image {
+    max-width: 170px; /* Maksimal lebar gambar */
+    height: auto; /* Menjaga proporsi gambar */
+    display: block; /* Memastikan gambar tampil sebagai block-level element */
+}
+
 .book-info {
     background-color: #ffffff;
     border-radius: 15px;
@@ -515,6 +521,10 @@ footer {
 .icons a:hover {
     color: #fff;
     transform: translateY(-5px);
+}
+
+.custom-small-text {
+    font-size: 1rem; /* Sesuaikan ukuran sesuai kebutuhan */
 }
 
 @media only screen and (max-width: 768px) {
