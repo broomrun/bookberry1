@@ -9,14 +9,17 @@
     <link rel="stylesheet" href="gaay.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <a href="#" class="logo"><img src="assets/logo.png" alt="logo image"></a>
-        <div class="menu">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Profile</a>
-        </div>
+
+<header>
+    <h2>
+    <a href="user_page.php" class="logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
+    <nav class="navigation">
+        <a href="home.php">Home</a>
+        <a href="about.php">About</a>
+        <a href="profile.php">Profile</a>
     </nav>
 
     <!-- Header Section with Background Image -->

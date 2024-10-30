@@ -1,17 +1,11 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: Poppins, sans-serif;
     line-height: 1.6;
     background-color: #ffffff;
     color: #333;
-    padding-top: 90px;
+    padding-top: 55px;
+    
 }
-
 
 header {
     position: fixed; /* Mengubah posisi menjadi tetap */
@@ -21,34 +15,32 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff; /* Pastikan warna latar belakang untuk kontras */
+    background-color: #1e2a5e; /* Pastikan warna latar belakang untuk kontras */
     z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
 }
 
 header .logo {
-    color: #1e2a5e;
+    color: #fff;
     font-size: 30px;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 800;
     letter-spacing: 1px;
+    margin: 0 auto;
 }
 
-.logo img {
-    max-height: 50px; /* Adjust as needed for logo size */
-    width: auto;
-    vertical-align: left; /* Aligns the image with the navigation */
-    align-items: left;
-    margin-right: auto;
+.logo-image {
+    max-width: 200px; /* Maksimal lebar gambar */
+    height: auto; /* Menjaga proporsi gambar */
+    display: block; /* Memastikan gambar tampil sebagai block-level element */
 }
 
 .navigation {
     display: flex;
-    justify-content: space-between;
 }
 
 .navigation a {
-    color: #1e2a5e
+    color: #fff;
     text-decoration: none;
     font-weight: 500;
     letter-spacing: 1px;
@@ -59,8 +51,8 @@ header .logo {
 }
 
 .navigation a:hover {
-    background: #1a2a5e;
-    color: #FFFFFF;
+    background: #fff;
+    color: #1e2a5e;
 }
 
 .container {

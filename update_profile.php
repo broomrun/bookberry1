@@ -64,6 +64,7 @@ if (isset($_POST['update_profile'])) {
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
     <style>
         body { font-family: 'Poppins', sans-serif;  background-color: #1e2a5e}
         .alert { margin: 10px 0; padding: 10px; background-color: #e0f7fa; color: #00695c; border-radius: 50px; }
@@ -77,7 +78,11 @@ if (isset($_POST['update_profile'])) {
 </head>
 <body class="bg-white-100">
     <header class="navbar flex justify-between items-center px-10">
-        <h2><a href="user_page.php" class="logo">Logo</a></h2>
+    <h2>
+    <a href="user_page.php" class="logo">
+        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
         <nav class="navigation">
             <a href="home.php">Home</a>
             <a href="about.php">About</a>
@@ -97,7 +102,7 @@ if (isset($_POST['update_profile'])) {
                     <img src="uploaded_img/<?php echo htmlspecialchars($user_data['image'] ?? 'default_image.jpg'); ?>" alt="Profile Image" class="profile-image mb-2">
                 </div>
                 <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
-                <p class="text-gray-600"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
+                <p class="text-gray-600 custom-small-text"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
             </div>
 
             <form method="POST" enctype="multipart/form-data" class="space-y-4">
