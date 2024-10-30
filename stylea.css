@@ -32,11 +32,19 @@ header .logo {
     text-transform: uppercase;
     font-weight: 800;
     letter-spacing: 1px;
-    margin: 0 auto;
+}
+
+.logo img {
+    max-height: 50px; /* Adjust as needed for logo size */
+    width: auto;
+    vertical-align: left; /* Aligns the image with the navigation */
+    align-items: left;
+    margin-right: auto;
 }
 
 .navigation {
     display: flex;
+    justify-content: space-between;
 }
 
 .navigation a {
@@ -126,7 +134,7 @@ main {
 footer {
     text-align: center;
     padding: 10px 0;
-    background: #5c4d7d;
+    background: #1a2a5e;
     color: white;
     position: relative;
     bottom: 0;
@@ -134,7 +142,7 @@ footer {
 }
 
 a {
-    color: #5c4d7d;
+    color: #1a2a5e;
     text-decoration: none;
 }
 

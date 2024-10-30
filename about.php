@@ -13,10 +13,11 @@ include 'config.php';
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
         <link href="stylea.css" rel="stylesheet">
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 </head>
 <body>
     <header>
-        <h2><a href="user_page.php" class="logo">logo</a></h2>
+        <a href="#" class="logo"><img src="assets/logo.png" alt="logo image"></a>
         <nav class="navigation">
           <a href="home.php">Home</a>
           <a href="about.php">About</a>
