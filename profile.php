@@ -31,7 +31,7 @@
             <img src="ava.jpeg" alt="Profile Picture" class="profile-pic">
             <div class="user-info">
                 <h1 class="username">amamiyaws</h1>
-                <p class="edit-profile">edit profile</p>
+                <a href="update_profile.php"> Edit Profile</a> 
                 <div class="stats">
                     <span><strong>550</strong> books</span>
                     <span><strong>40</strong> this year</span>

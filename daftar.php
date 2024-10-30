@@ -198,10 +198,9 @@ if (isset($_POST['submit'])) {
         <div class="container">
         <a href="#" class="logo"><img src="assets/logowhite.png" alt="logo image"></a>
             <ul class="nav-links">
-                <li><a href="#content">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Help</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="profile.php">Profile</a></li>
             </ul>
         </div>
     </nav>
