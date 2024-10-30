@@ -48,11 +48,12 @@ if(isset($_POST['submit'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
     <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
 
 <header>
-    <h2><a href="#" class="logo">logo</a></h2>
+    <h2><a href="user_page.php" class="logo">logo</a></h2>
     <nav class="navigation">
         <a href="home.php">Home</a>
         <a href="about.php">About</a>
@@ -103,57 +104,101 @@ if(isset($_POST['submit'])){
 </div>
 
 <div class="container">
-    <div class="row g-4 mt-4">
-      <div class="col-md-4">
-        <div class="tile green d-flex align-items-center p-4" style="border-radius: 20px;">
-          <div class="content">
-            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
-            <p style="color: #FFFFFF">picked where you left off.</p>
-          </div>
-          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+  <div class="row g-4 mt-4">
+    <div class="col-md-4">
+      <div class="tile green d-flex align-items-center p-4" style="border-radius: 20px;">
+        <div class="content" style="flex: 1;">
+          <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
+          <p style="color: #FFFFFF; max-width: 200px; text-align: justify;">
+            Magic-filled worlds of adventure and mythical creatures.
+          </p>
         </div>
+        <img src="assets/fantasyy.png" alt="Fantasy Image" style="width: 150px; height: 150px;">
       </div>
-      <div class="col-md-4">
-        <div class="tile red d-flex align-items-center p-4" style="border-radius: 20px;">
-          <div class="content">
-            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
-            <p style="color: #FFFFFF">picked where you left off.</p>
-          </div>
-          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+    </div>
+    <div class="col-md-4">
+      <div class="tile red d-flex align-items-center p-4" style="border-radius: 20px;">
+        <div class="content" style="flex: 1;">
+          <h2 style="color: #FFFFFF"><strong>Fiction</strong></h2>
+          <p style="color: #FFFFFF; max-width: 150px; text-align: justify;">
+            Creative stories exploring life and emotions.
+          </p>
         </div>
+        <img src="assets/fiction.png" alt="Fiction Image" style="width: 150px; height: 150px;">
       </div>
-      <div class="col-md-4">
-        <div class="tile brown d-flex align-items-center p-4" style="border-radius: 20px;">
-          <div class="content">
-            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
-            <p style="color: #FFFFFF">picked where you left off.</p>
-          </div>
-          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+    </div>
+    <div class="col-md-4">
+      <div class="tile brown d-flex align-items-center p-4" style="border-radius: 20px;">
+        <div class="content" style="flex: 1;">
+          <h2 style="color: #FFFFFF"><strong>History</strong></h2>
+          <p style="color: #FFFFFF; max-width: 150px; text-align: justify;">
+            Real events and cultures that shaped our world.
+          </p>
         </div>
+        <img src="assets/history.png" alt="History Image" style="width: 150px; height: 150px;">
       </div>
-      <div class="col-md-6">
-        <div class="tile yellow d-flex align-items-center p-4" style="border-radius: 20px;">
-          <div class="content">
-            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
-            <p style="color: #FFFFFF">picked where you left off.</p>
-          </div>
-          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+    </div>
+    <div class="col-md-6">
+      <div class="tile yellow d-flex align-items-center p-4" style="border-radius: 20px;">
+        <div class="content" style="flex: 1;">
+          <h2 style="color: #FFFFFF"><strong>Science</strong></h2>
+          <p style="color: #FFFFFF; max-width: 300px; text-align: justify;">
+            Fascinating insights into the workings of our universe.
+          </p>
         </div>
+        <img src="assets/science.png" alt="Science Image" style="width: 150px; height: 150px;">
       </div>
-      <div class="col-md-6">
-        <div class="tile orange d-flex align-items-center p-4" style="border-radius: 20px;">
-          <div class="content">
-            <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
-            <p style="color: #FFFFFF">picked where you left off.</p>
-          </div>
-          <img src="image.jpg" alt="Fantasy Image" class="rounded-circle ms-4" style="width: 100px;">
+    </div>
+    <div class="col-md-6">
+      <div class="tile orange d-flex align-items-center p-4" style="border-radius: 20px;">
+        <div class="content" style="flex: 1;">
+          <h2 style="color: #FFFFFF"><strong>Biography</strong></h2>
+          <p style="color: #FFFFFF; max-width: 300px; text-align: justify;">
+            Inspiring life stories of remarkable people.
+          </p>
         </div>
+        <img src="assets/bio.png" alt="Biography Image" style="width: 150px; height: 150px;">
       </div>
     </div>
   </div>
+</div>
       
-<footer>
-    <p>© 2024 BookBerry. All Rights Reserved.</p>
+<footer class="footer">
+    <div class="footer-content">
+        <img src="img/logo.png">
+        <p>halo </p>
+
+        <div class="icons">
+            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+            <a href="#"><i class='bx bxl-youtube'></i></a>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <h4>Projects</h4>
+        <li><a href="#">Houses</a></li>
+        <li><a href="#">Rooms</a></li>
+        <li><a href="#">Flats</a></li>
+        <li><a href="#">Apartments</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>Company</h4>
+        <li><a href="#">How we work</a></li>
+        <li><a href="#">Capital</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Sellings</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>Movement</h4>
+        <li><a href="#">Halo</a></li>
+        <li><a href="#">Support Us</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Renting</a></li>
+    </div>
 </footer>
 
 <!-- Optional JavaScript -->

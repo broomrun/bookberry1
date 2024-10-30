@@ -5,6 +5,7 @@ body {
     background-color: #ffffff;
     color: #333;
     padding-top: 55px;
+    
 }
 
         section {
@@ -246,6 +247,68 @@ h1 {
     font-size: 1.1rem;
     font-weight:lighter;
 }
+
+footer {
+    display: flex;
+    justify-content: space-around; /* Memberi jarak antar kolom */
+    align-items: flex-start;
+    width: 100%;
+    padding: 80px 10%; /* Mengurangi padding agar lebih lebar */
+    background-color: #1e2a5e;
+    flex-wrap: wrap;
+}
+
+.footer-content {
+    flex: 1 1 220px; /* Menambah minimal lebar kolom */
+    margin: 0 1rem;
+    max-width: 300px; /* Menghindari kolom terlalu lebar */
+}
+
+
+.footer-content h4 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+    list-style: none;
+}
+
+.footer-content li a {
+    display: block;
+    color: #d6d6d6;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all 0.4s ease;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: #fff;
+}
+
+.footer-content p {
+    color: #d6d6d6;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: #d6d6d6;
+    transition: all 0.4s ease;
+    margin-right: 15px;
+}
+
+.icons a:hover {
+    color: #fff;
+    transform: translateY(-5px);
+}
+
 
 
             #check:checked ~ header .navigation {

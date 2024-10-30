@@ -15,6 +15,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link href="gaya.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
     <section>
@@ -149,6 +150,44 @@ session_start();
     </div>
 </div>
     
+<footer class="footer">
+    <div class="footer-content">
+        <img src="img/logo.png">
+        <p>halo </p>
+
+        <div class="icons">
+            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+            <a href="#"><i class='bx bxl-youtube'></i></a>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <h4>Projects</h4>
+        <li><a href="#">Houses</a></li>
+        <li><a href="#">Rooms</a></li>
+        <li><a href="#">Flats</a></li>
+        <li><a href="#">Apartments</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>Company</h4>
+        <li><a href="#">How we work</a></li>
+        <li><a href="#">Capital</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Sellings</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>Movement</h4>
+        <li><a href="#">Halo</a></li>
+        <li><a href="#">Support Us</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Renting</a></li>
+    </div>
+</footer>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

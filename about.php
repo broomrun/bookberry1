@@ -16,7 +16,7 @@ include 'config.php';
 </head>
 <body>
     <header>
-        <h2><a href="#" class="logo">logo</a></h2>
+        <h2><a href="user_page.php" class="logo">logo</a></h2>
         <nav class="navigation">
           <a href="home.php">Home</a>
           <a href="about.php">About</a>
