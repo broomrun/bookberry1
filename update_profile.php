@@ -109,11 +109,11 @@ if (isset($_POST['update_profile'])) {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700" for="update_name">Name:</label>
-                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required>
+                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required style="color: black;">
                     </div>
                     <div>
                         <label class="block text-gray-700" for="update_email">Email:</label>
-                        <input type="email" id="update_email" name="update_email" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['email'] ?? ''); ?>" required>
+                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required style="color: black;">
                     </div>
                 </div>
                 

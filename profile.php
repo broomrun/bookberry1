@@ -60,6 +60,8 @@
             </div>
             <!-- Add more book divs as needed -->
         </section>
+
+        <a href="logout.php">Log out</a>
     </main>
 </body>
 </html>
