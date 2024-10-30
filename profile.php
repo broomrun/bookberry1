@@ -28,7 +28,7 @@
             <!-- Background image container -->
         </div>
         <div class="profile-header">
-            <img src="ava.jpeg" alt="Profile Picture" class="profile-pic">
+            <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
             <div class="user-info">
                 <h1 class="username">amamiyaws</h1>
                 <a href="update_profile.php"> Edit Profile</a> 
@@ -47,16 +47,16 @@
         <!-- Bookshelf Section -->
         <section class="bookshelf">
             <div class="book">
-                <img src="book.jpg" alt="Book Cover">
+                <img src="assets/fav1.jpg" alt="Book Cover">
             </div>
             <div class="book">
-                <img src="book.jpg" alt="Book Cover">
+                <img src="assets/fav23.jpg" alt="Book Cover">
             </div>
             <div class="book">
-                <img src="book.jpg" alt="Book Cover">
+                <img src="assets/fav3.jpg" alt="Book Cover">
             </div>
             <div class="book">
-                <img src="book.jpg" alt="Book Cover">
+                <img src="assets/fav4.jpg" alt="Book Cover">
             </div>
             <!-- Add more book divs as needed -->
         </section>
