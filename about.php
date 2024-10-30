@@ -16,11 +16,11 @@ include 'config.php';
 </head>
 <body>
     <header>
-        <a href="#" class="logo"><img src="assets/logo.png" alt="logo image"></a>
+        <a href="user_page.php" class="logo"><img src="assets/logo.png" alt="logo image"></a>
         <nav class="navigation">
           <a href="home.php">Home</a>
-          <a href="#">About</a>
-          <a href="detail.php">Profile</a>
+          <a href="about.php">About</a>
+          <a href="update_profile.php">Profile</a>
         </nav>
       </header>
     <main>

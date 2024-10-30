@@ -174,16 +174,6 @@ h1, h2, h3, h4, h5, h6, p {
     background-color: transparent;
     border-color: #ffffff;
 }
-
-footer {
-    color: #1e2a5e;
-    background-color: #ffffff;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 30px;
-    padding-bottom: 9px;
-}
-
 .navbar {
     background-color: #1e2a5e; 
     width: 100%; 
@@ -420,6 +410,111 @@ footer {
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+
+/* Style for the title */
+.title {
+    font-size: 2.5em;
+    color: #1e2a5e;
+    margin: 20px 0;
+}
+
+/* Common styles for all tiles */
+.tile {
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    font-size: 1em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tile:hover {
+    transform: scale(1.05); /* Sedikit membesarkan ukuran tile */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan saat di-hover */
+}
+
+/* Background color for each tile */
+.green {
+    background-color: #004d00;
+}
+
+.red {
+    background-color: #b30000;
+}
+
+.brown {
+    background-color: #b5651d;
+}
+
+.yellow {
+    background-color: #89094E;
+}
+
+.orange {
+    background-color: #ff8c00;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around; /* Memberi jarak antar kolom */
+    align-items: flex-start;
+    width: 100%;
+    padding: 80px 10%; /* Mengurangi padding agar lebih lebar */
+    background-color: #1e2a5e;
+    flex-wrap: wrap;
+    margin-top: 100px;
+    z-index: 10;
+}
+
+.footer-content {
+    flex: 1 1 220px; /* Menambah minimal lebar kolom */
+    margin: 0 1rem;
+    max-width: 300px; /* Menghindari kolom terlalu lebar */
+}
+
+
+.footer-content h4 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+    list-style: none;
+}
+
+.footer-content li a {
+    display: block;
+    color: #d6d6d6;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all 0.4s ease;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: #fff;
+}
+
+.footer-content p {
+    color: #d6d6d6;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: #d6d6d6;
+    transition: all 0.4s ease;
+    margin-right: 15px;
+}
+
+.icons a:hover {
+    color: #fff;
+    transform: translateY(-5px);
 }
 
 @media only screen and (max-width: 768px) {
