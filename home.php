@@ -169,7 +169,7 @@ if(isset($_POST['submit'])){
       
 <footer class="footer">
     <div class="footer-content">
-        <img src="img/logo.png">
+    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
         <p>halo </p>
 
         <div class="icons">

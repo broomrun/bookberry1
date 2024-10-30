@@ -32,65 +32,122 @@ include 'config.php';
             <div class="opening left">
                 <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
                     <h1>Welcome to BookBerry!</h1>
-                    <h2>We are dedicated to celebrating and promoting local literature.<br>
-                        <span>We believe that every book has a story to tell, and every author deserves recognition.</span>
-                    </h2>
+                    <a href="login.php" class="info-btn" style="font-size: 1.2em; padding: 10px 20px;">Get to Know us!</a>
                 </div>
                 <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
-                    <img src="assets/13.jpg" alt="BookBerry Image">
+                    <img src="assets/abouts.png" alt="BookBerry Image">
                 </div>
             </div>
         </div>
         
         <div class="container">
             <div class="opening right">
-                <div class="text">
-                    <h1>Our Mission</h1>
-                    <h2>At Bookberry, our mission is to bridge the gap between readers and local writers,<br>
-                        <span>providing a space to discover, discuss, and celebrate the literary works that emerge from our rich cultural landscape.</span>
-                    </h2>
-                </div>
-                <div class="image">
-                    <img src="assets/13.jpg" alt="BookBerry Image">
+            <div class="text">
+    <h1>Our Story Behind</h1>
+    <h2 class="story-description">
+        Bookberry was born from a simple idea: what if discovering a great book could be just as enjoyable as reading one? Founded by passionate readers, we realized that the journey through a book is even richer when shared. With countless books out there, it’s easy to feel overwhelmed—Bookberry is here to bring order and excitement to your reading journey.
+    </h2>
+</div>
+<div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
+                    <img src="assets/story.png" alt="BookBerry Image">
                 </div>
             </div>
         </div>
         
         <div class="container">
             <div class="opening left">
-                <div class="text">
-                    <h1>Our Vision</h1>
-                    <h2>We aim to foster a reading culture in our community, making books an integral part of everyday life.</h2>
-                </div>
-                <div class="image">
-                    <img src="assets/13.jpg" alt="BookBerry Image">
+            <div class="text">
+    <h1>Our Vision</h1>
+    <h2 class="story-description">
+    To inspire a community where readers of all kinds connect, share insights, and celebrate the joy of reading through meaningful discussions and recommendations.
+    </h2>
+</div>
+<div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
+                    <img src="assets/vision.png" alt="BookBerry Image">
                 </div>
             </div>
-        </div>        
+        </div>      
         
+        <section class="services" id="services">
+    <div class="content">
+    <h1 style="font-weight: bold; text-align: center;">Our Mission</h1>
+        <div class="boxes">
+            <div class="box"data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+                <div class="topic" style="font-weight: bold;">Foster a space where readers can discover, review, and rate books from all genres.</div>
+            </div>
+            <div class="box"data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+                <div class="topic" style="font-weight: bold;">Encourage thoughtful exchanges between readers and authors through comments and recommendations.</div>
+            </div>
+            <div class="box"data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+                <div class="topic" style="font-weight: bold;">Empower readers to build personal digital libraries, tracking their progress and favorite reads along the way.</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <!-- <section class="about-section">
-            <h2>Welcome to Bookberry!</h2>
-            <p>We are dedicated to celebrating and promoting local literature. We believe that every book has a story to tell, and every author deserves recognition.</p>
+<div id="our-team" class="team-section">
+    <h2 class="text-center mb-5">Our Team</h2>
+    <div class="team-container">
+        <div class="team-member">
+            <img src="assets/salwaa.png" alt="Member Name" class="team-image">
+            <h3 class="member-name">Salwa</h3>
+            <p class="member-role">Member</p>
+        </div>
+        <div class="team-member">
+            <img src="assets/chairunn.png" alt="Member Name" class="team-image">
+            <h3 class="member-name">Chairun</h3>
+            <p class="member-role">Member</p>
+        </div>
+        <div class="team-member">
+            <img src="assets/alissyaa.png" alt="Member Name" class="team-image">
+            <h3 class="member-name">Alissya</h3>
+            <p class="member-role">Member</p>
+        </div>
+        <div class="team-member">
+            <img src="assets/rimaa.png" alt="Member Name" class="team-image">
+            <h3 class="member-name">Rima</h3>
+            <p class="member-role">Member</p>
+        </div>
+    </div>
+</div>
 
-            <h3>Our Mission</h3>
-            <p>At Bookberry, our mission is to bridge the gap between readers and local writers, providing a space to discover, discuss, and celebrate the literary works that emerge from our rich cultural landscape.</p>
 
-            <h3>Our Vision</h3>
-            <p>We aim to foster a reading culture in our community, making books an integral part of everyday life.</p>
+<footer class="footer">
+    <div class="footer-content">
+    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
+        <p>halo </p>
 
-            <h3>Meet Our Team</h3>
-            <p>We are a group of book lovers committed to supporting local authors and sharing our insights through in-depth reviews. Each member brings a unique perspective and passion for literature.</p>
+        <div class="icons">
+            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+            <a href="#"><i class='bx bxl-youtube'></i></a>
+        </div>
+    </div>
 
-            <h3>Join Us</h3>
-            <p>We invite you to contribute! Share your reviews or recommend your favorite local books, and become part of the Bookberry community.</p>
+    <div class="footer-content">
+        <h4>Reading Lists</h4>
+        <li><a href="#">Genres</a></li>
+        <li><a href="#">Book Categories</a></li>
+        <li><a href="#">Top Reviews</a></li>
+        <li><a href="#">Top Authors</a></li>
+    </div>
 
-            <h3>Contact Us</h3>
-            <p>For more information or collaboration inquiries, feel free to reach out to us at <a href="mailto:email@example.com">email@example.com</a>.</p>
-        </section> -->
-    <footer>
-        <p>&copy; 2024 Bookberry. All rights reserved.</p>
-    </footer>
+    <div class="footer-content">
+        <h4>About Us</h4>
+        <li><a href="#">How we work</a></li>
+        <li><a href="#">Book of the Month</a></li>
+        <li><a href="#">Privacy & Security</a></li>
+        <li><a href="#">Recommend Reads</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>Reading Challenges</h4>
+        <li><a href="#">Join Us</a></li>
+        <li><a href="#">Subscription</a></li>
+        <li><a href="#">Borrow Books</a></li>
+    </div>
+</footer>
     <script src="js/script.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
    <script>

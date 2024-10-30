@@ -527,6 +527,150 @@ footer {
     font-size: 1rem; /* Sesuaikan ukuran sesuai kebutuhan */
 }
 
+.opening {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Menjaga jarak antara teks dan gambar */
+}
+
+.text {
+    flex: 1; /* Mengambil ruang yang tersedia untuk teks */
+    padding: 20px; /* Tambahkan padding untuk mempercantik tampilan */
+}
+
+.image {
+    flex: 1; /* Mengambil ruang yang tersedia untuk gambar */
+    text-align: center; /* Menempatkan gambar di tengah */
+}
+
+.image img {
+    max-width: 100%; /* Memastikan gambar responsif */
+    height: auto;
+    border-radius: 10px; /* Opsi untuk tampilan gambar yang lebih halus */
+}
+
+.left {
+    flex-direction: row; /* Gambar di kanan */
+}
+
+.right {
+    flex-direction: row-reverse; /* Gambar di kiri */
+}
+
+.opening h1{
+    color: #1e2a5e;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.info-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1e2a5e; /* Ganti warna sesuai keinginan */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+}
+
+.info-btn:hover {
+    background-color: #FFF; /* Warna saat tombol di-hover */
+    color: #1e2a5e;
+    border: 3px solid #1e2a5e;
+}
+
+.story-description {
+    font-size: 17px; /* Adjust the size as needed */
+    line-height: 1.5; /* Optional: adjust line height for better readability */
+    display: flex;
+}
+
+.services .boxes {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    gap: 20px; 
+    margin: 0 auto; 
+    max-width: 1200px; 
+    padding: 20px; 
+}
+
+/* Individual service box */
+.services .box {
+    flex: 1 1 calc(33% - 20px); 
+    margin: 20px 0; 
+    text-align: center; 
+    border-radius: 12px; 
+    padding: 30px 10px; 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background: #fff; 
+    transition: all 0.4s ease; 
+    cursor: default; 
+    color: #1a2a5e;
+}
+
+/* Hover effect for boxes */
+.services .box:hover {
+    background: #1e2a5e; 
+    color: #fff; 
+}
+
+/* Icon style */
+.services .box .icon {
+    height: 50px; 
+    width: 50px; 
+    background: #1e2a5e; 
+    border-radius: 50%; 
+    text-align: center; 
+    line-height: 50px; 
+    font-size: 18px;
+    color: #fff; 
+    margin: 0 auto 10px auto; 
+    transition: all 0.4s ease; 
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between team members */
+}
+
+.team-member {
+    background-color: #f9f9f9; /* Background color for team member card */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding around the content */
+    text-align: center; /* Center text alignment */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+    width: 250px; /* Set the width of the member card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.team-member:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+.team-image {
+    width: 100%; /* Ensure image fills the width of the card */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for the image */
+}
+
+.member-name {
+    margin: 10px 0 5px;
+    font-size: 18px; /* Ukuran font nama */
+    color: #4b2e10;
+}
+
+.member-role {
+    margin: 5px 0;
+    font-size: 14px; /* Ukuran font peran */
+    color: gray; /* Warna teks peran */
+}
 @media only screen and (max-width: 768px) {
     header {
         flex-direction: column;
