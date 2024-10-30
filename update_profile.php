@@ -77,7 +77,7 @@ if (isset($_POST['update_profile'])) {
 </head>
 <body class="bg-white-100">
     <header class="navbar flex justify-between items-center px-10">
-        <h2><a href="#" class="logo">Logo</a></h2>
+        <h2><a href="user_page.php" class="logo">Logo</a></h2>
         <nav class="navigation">
             <a href="home.php">Home</a>
             <a href="about.php">About</a>
