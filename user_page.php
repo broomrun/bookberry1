@@ -20,7 +20,11 @@ session_start();
 <body>
     <section>
         <header>
-            <h2><a href="#" class="logo">logo</a></h2>
+        <h2>
+    <a href="#" class="logo">
+        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
                 <nav class="navigation">
                  <a href="home.php">Home</a>
                 <a href="about.php">About</a>

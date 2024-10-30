@@ -42,6 +42,12 @@ header .logo {
     margin: 0 auto;
 }
 
+.logo-image {
+    max-width: 200px; /* Maksimal lebar gambar */
+    height: auto; /* Menjaga proporsi gambar */
+    display: block; /* Memastikan gambar tampil sebagai block-level element */
+}
+
 .navigation {
     display: flex;
 }
