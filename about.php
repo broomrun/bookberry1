@@ -11,20 +11,22 @@ include 'config.php';
         <title>BookBerry</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
-        <link href="stylea.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+        <link href="styles.css" rel="stylesheet">
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 </head>
 <body>
-    <header>
-        <a href="#" class="logo"><img src="assets/logo.png" alt="logo image"></a>
-        <nav class="navigation">
-          <a href="home.php">Home</a>
-          <a href="about.php">About</a>
-          <a href="update_profile.php">Profile</a>
-        </nav>
-      </header>
-    <main>
+<header>
+        <h2>
+    <a href="user_page.php" class="logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
+                <nav class="navigation">
+                 <a href="home.php">Home</a>
+                <a href="about.php">About</a>
+                <a href="update_profile.php">Profile</a>
+                </nav>
+        </header>
 
         <div class="container">
             <div class="opening left">
@@ -86,7 +88,6 @@ include 'config.php';
             <h3>Contact Us</h3>
             <p>For more information or collaboration inquiries, feel free to reach out to us at <a href="mailto:email@example.com">email@example.com</a>.</p>
         </section> -->
-    </main>
     <footer>
         <p>&copy; 2024 Bookberry. All rights reserved.</p>
     </footer>

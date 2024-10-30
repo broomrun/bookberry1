@@ -53,7 +53,11 @@ if(isset($_POST['submit'])){
 <body>
 
 <header>
-    <h2><a href="user_page.php" class="logo">logo</a></h2>
+<h2>
+    <a href="user_page.php" class="logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
     <nav class="navigation">
         <a href="home.php">Home</a>
         <a href="about.php">About</a>
