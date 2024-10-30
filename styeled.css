@@ -156,6 +156,20 @@ header .logo {
     z-index: 1000;
 }
 
+
+.logo img {
+    max-height: 50px; /* Adjust as needed for logo size */
+    width: auto;
+    vertical-align: left; /* Aligns the image with the navigation */
+    align-items: left;
+    margin-right: auto;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
 .nav-links {
     list-style: none;
     display: flex;

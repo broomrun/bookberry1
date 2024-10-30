@@ -87,12 +87,18 @@ if(isset($_POST['submit'])){
             z-index: 1000; 
         }
 
-        .logo {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 25px;
-            margin-left: 15px;
-            margin-top: 10px;
+                
+        .logo img {
+            max-height: 50px; /* Adjust as needed for logo size */
+            width: auto;
+            vertical-align: left; /* Aligns the image with the navigation */
+            align-items: left;
+            margin-right: auto;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
         }
 
         .nav-links {
@@ -144,7 +150,7 @@ if(isset($_POST['submit'])){
             <!-- Navbar -->
             <nav class="navbar">
                 <div class="container">
-                    <h1 class="logo">BookBerry</h1>
+                    <a href="#" class="logo"><img src="assets/logowhite.png" alt="logo image"></a>
                     <ul class="nav-links">
                         <li><a href="#content">Home</a></li>
                         <li><a href="#about">About</a></li>
