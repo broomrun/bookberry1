@@ -50,7 +50,7 @@
                 <img src="assets/fav1.jpg" alt="Book Cover">
             </div>
             <div class="book">
-                <img src="assets/fav2.jpg" alt="Book Cover">
+                <img src="assets/fav23.jpg" alt="Book Cover">
             </div>
             <div class="book">
                 <img src="assets/fav3.jpg" alt="Book Cover">
