@@ -86,7 +86,7 @@ if (isset($_POST['update_profile'])) {
         <nav class="navigation">
             <a href="home.php">Home</a>
             <a href="about.php">About</a>
-            <a href="update_profile.php">Profile</a>
+            <a href="profile.php">Profile</a>
         </nav>
     </header>
 
