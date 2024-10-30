@@ -50,26 +50,26 @@ session_start();
                             <a href="login.php">
                             <img src="assets/10.jpeg" alt="Era Taylor Swift">
                             </a>
-                            <div class="book-title">Era Taylor Swift</div>
-                            <div class="author-name">Karolina Sulej</div>
+                            <div class="book-title">The God and the Gumiho</div>
+                            <div class="author-name">Sophie Kim</div>
                         </div>
                         <div class="book-card">
                             <img src="assets/5.jpeg" alt="Wonka">
-                            <div class="book-title">Wonka</div>
-                            <div class="author-name">Sibéal Pounder</div>
+                            <div class="book-title">Alice Neverland</div>
+                            <div class="author-name">Jeni Conrad</div>
                         </div>
                         <div class="book-card">
                             <img src="assets/4.jpeg" alt="The Wind in the Willows">
-                            <div class="book-title">The Wind in the Willows</div>
-                            <div class="author-name">Kenneth Grahame</div>
+                            <div class="book-title">The crimes of Steamfield</div>
+                            <div class="author-name">Alberto Rey</div>
                         </div>
                         <div class="book-card">
-                            <img src="assets/7.jpeg" alt="Mary Poppins">
+                            <img src="assets/mary poppins.jpg" alt="Mary Poppins">
                             <div class="book-title">Mary Poppins</div>
                             <div class="author-name">P.L. Travers</div>
                         </div>
                         <div class="book-card">
-                            <img src="assets/5.jpeg" alt="Harry Potter and the Philosopher's Stone">
+                            <img src="assets/5.jpg" alt="Harry Potter and the Philosopher's Stone">
                             <div class="book-title">Harry Potter</div>
                             <div class="author-name">J.K. Rowling</div>
                         </div>
@@ -91,8 +91,8 @@ session_start();
                         </div>
                         <div class="book-card">
                             <img src="assets/7.jpeg" alt="The Great Gatsby">
-                            <div class="book-title">The Great Gatsby</div>
-                            <div class="author-name">F. Scott Fitzgerald</div>
+                            <div class="book-title">Lost in the Never Woods </div>
+                            <div class="author-name">Aiden Thomas</div>
                         </div>
                         <div class="book-card">
                             <img src="assets/8.jpeg" alt="Moby Dick">
@@ -101,8 +101,8 @@ session_start();
                         </div>
                         <div class="book-card">
                             <img src="assets/9.jpeg" alt="War and Peace">
-                            <div class="book-title">War and Peace</div>
-                            <div class="author-name">Leo Tolstoy</div>
+                            <div class="book-title">Waves</div>
+                            <div class="author-name">Ingrid Chabbert</div>
                         </div>
                     </div>
                 </div>
