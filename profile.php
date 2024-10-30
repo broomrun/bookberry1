@@ -58,7 +58,6 @@
             <div class="book">
                 <img src="assets/fav4.jpg" alt="Book Cover">
             </div>
-            <!-- Add more book divs as needed -->
         </section>
 
         <a href="logout.php">Log out</a>

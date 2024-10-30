@@ -74,15 +74,59 @@ if (isset($_POST['update_profile'])) {
         .navigation a:hover { background: #FFFFFF; color: #1e2a5e; border-radius: 50px; }
         .container { margin-top: 100px; }
         .profile-image { width: 100px; height: 100px; border-radius: 50%; }
+
+        /* warna inputan */
+            input[type="text"],
+            input[type="password"],
+            input[type="file"] {
+            color: black; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            border-radius: 50px; 
+            transition: border-color 0.3s; 
+        }
+
+        /* Ubah border color */
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="file"]:focus {
+            border-color: #1e2a5e; 
+            outline: none; 
+        }
+        .toggle-password {
+            position: absolute;
+            top: 70%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #1E2A5E;
+            font-size: 0.7rem;
+        }
     </style>
+    <script>
+        function togglePasswordVisibility(id) {
+            const passwordField = document.getElementById(id);
+            const eyeIcon = document.getElementById(id + '-eye');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </head>
 <body class="bg-white-100">
     <header class="navbar flex justify-between items-center px-10">
-    <h2>
-    <a href="user_page.php" class="logo">
-        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
-    </a>
-</h2>
+        <h2>
+            <a href="user_page.php" class="logo">
+                <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
+            </a>
+        </h2>
         <nav class="navigation">
             <a href="home.php">Home</a>
             <a href="about.php">About</a>
@@ -109,30 +153,33 @@ if (isset($_POST['update_profile'])) {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700" for="update_name">Name:</label>
-                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required style="color: black;">
+                        <input type="text" id="update_name" name="update_name" class="w-full" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required>
                     </div>
                     <div>
                         <label class="block text-gray-700" for="update_email">Email:</label>
-                        <input type="text" id="update_name" name="update_name" class="w-full p-2 border border-gray-300 rounded-[50px]" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required style="color: black;">
+                        <input type="text" id="update_email" name="update_email" class="w-full" value="<?php echo htmlspecialchars($user_data['email'] ?? ''); ?>" required>
                     </div>
                 </div>
                 
-                <div>
-                    <label for="old_pass" class="block text-gray-700">Old Password:</label>
-                    <input type="password" id="old_pass" name="old_pass" class="w-full p-2 border border-gray-300 rounded-[50px]">
+                <div class="relative">
+                    <label class="block text-gray-700" for="old_pass">Old Password:</label>
+                    <input type="password" id="old_pass" name="old_pass" class="w-full" placeholder="Enter your old password">
+                    <i class="fas fa-eye toggle-password" id="old_pass-eye" onclick="togglePasswordVisibility('old_pass')"></i>
                 </div>
-                <div>
+                <div class="relative">
                     <label for="new_pass" class="block text-gray-700">New Password:</label>
-                    <input type="password" id="new_pass" name="new_pass" class="w-full p-2 border border-gray-300 rounded-[50px]">
+                    <input type="password" id="new_pass" name="new_pass" class="w-full" placeholder="Enter new password">
+                    <i class="fas fa-eye toggle-password" id="new_pass-eye" onclick="togglePasswordVisibility('new_pass')"></i>
                 </div>
-                <div>
+                <div class="relative">
                     <label for="confirm_pass" class="block text-gray-700">Confirm New Password:</label>
-                    <input type="password" id="confirm_pass" name="confirm_pass" class="w-full p-2 border border-gray-300 rounded-[50px]">
+                    <input type="password" id="confirm_pass" name="confirm_pass" class="w-full" placeholder="Confirm new password">
+                    <i class="fas fa-eye toggle-password" id="confirm_pass-eye" onclick="togglePasswordVisibility('confirm_pass')"></i>
                 </div>
                 
                 <div>
                     <label for="update_image" class="block text-gray-700">Update Profile Picture:</label>
-                    <input type="file" id="update_image" name="update_image" class="w-full p-2 border border-gray-300 rounded-[50px]">
+                    <input type="file" id="update_image" name="update_image" class="w-full">
                 </div>
                 
                 <button type="submit" name="update_profile" class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
@@ -141,3 +188,4 @@ if (isset($_POST['update_profile'])) {
     </div>
 </body>
 </html>
+

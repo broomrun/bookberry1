@@ -42,10 +42,11 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-</head>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+
+    <!-- Updated Font Awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         .login-container {
             padding-top: 10px;
@@ -54,14 +55,14 @@ if (isset($_POST['submit'])) {
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #1E2A5E;
         }
- 
         .login-form {
             width: 100%;
             max-width: 400px;
             padding: 2rem;
             background-color: #f8f9fa;
-            color:#1E2A5E;
+            color: #1E2A5E;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
@@ -70,94 +71,30 @@ if (isset($_POST['submit'])) {
             font-weight: bold;
             text-align: center;
         }
-
-        .navbar {
-            background-color: #1e2a5e; 
-            padding: 0; 
-            width: 100%; 
-            height: 70px;
-            margin: 0 auto;
-            position: fixed; 
-            top: 0; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            z-index: 1000; 
-        }
-
-                
-        .logo img {
-            max-height: 50px; /* Adjust as needed for logo size */
-            width: auto;
-            vertical-align: left; /* Aligns the image with the navigation */
-            align-items: left;
-            margin-right: auto;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        .nav-links li {
-            margin-right: 25px;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 15px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-
-        body {
-            background-color: #1E2A5E;
-            overflow: hidden;
-        }
-
-        .login-container {
-            margin-top: 80px; 
-        }
-
         .custom-button {
-            background-color: #1E2A5E; /* Custom color */
-            color: #E1D7B7
+            background-color: #1E2A5E;
+            color: #E1D7B7;
         }
-
         .custom-button:hover {
-            background-color: #28356c; /* Darker shade on hover */
+            background-color: #28356c;
             color: #f0ede1;
+        }
+        .password-container {
+            position: relative;
+        }
+        #togglePassword {
+            position: absolute;
+            top: 70%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #1E2A5E;
+            font-size: 0.75rem;
         }
     </style>
 </head>
+<body>
 
-            <script src="app.js"></script>
-
-            <!-- Navbar -->
-            <nav class="navbar">
-                <div class="container">
-                    <a href="#" class="logo"><img src="assets/logowhite.png" alt="logo image"></a>
-                    <ul class="nav-links">
-                        <li><a href="#content">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Help</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
-
-    <!-- Login Form -->
     <div class="login-container">
         <div class="login-form">
             <h2>Login</h2>
@@ -175,9 +112,10 @@ if (isset($_POST['submit'])) {
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 password-container">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    <span id="togglePassword"><i class="fas fa-eye"></i></span> <!-- Updated icon class here -->
                 </div>
                 <button type="submit" class="btn custom-button w-100" name="submit">Login</button>
                 <p>Don't have an account? <a href="daftar.php">Sign up now</a></p>
@@ -185,5 +123,25 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            var passwordField = document.getElementById("password");
+            var icon = this.querySelector("i");
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

@@ -66,20 +66,9 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         .signup-container {
             padding-top: 10px;
@@ -190,6 +179,20 @@ if (isset($_POST['submit'])) {
             border-radius: 5px;
             color: white;
         }
+
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            top: 70%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #1E2A5E;
+            font-size: 0.7rem;
+        }
+
     </style>
 </head>
 <body>
@@ -227,13 +230,15 @@ if (isset($_POST['submit'])) {
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 password-container">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    <span class="toggle-password" id="togglePassword"><i class="fas fa-eye"></i></span>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 password-container">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    <span class="toggle-password" id="toggleConfirmPassword"><i class="fas fa-eye"></i></span>
                 </div>
                 <div class="mb-3">
                     <select name="user_type" class="form-control">
@@ -252,7 +257,43 @@ if (isset($_POST['submit'])) {
     </div>
 
     <!-- Bootstrap JS -->
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Password visibility toggle for password field
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            var passwordField = document.getElementById("password");
+            var icon = this.querySelector("i");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+
+        // Password visibility toggle for confirm password field
+        document.getElementById("toggleConfirmPassword").addEventListener("click", function() {
+            var confirmPasswordField = document.getElementById("confirmPassword");
+            var icon = this.querySelector("i");
+
+            if (confirmPasswordField.type === "password") {
+                confirmPasswordField.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                confirmPasswordField.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
 
