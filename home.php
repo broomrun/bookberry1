@@ -181,27 +181,26 @@ if(isset($_POST['submit'])){
     </div>
 
     <div class="footer-content">
-        <h4>Projects</h4>
-        <li><a href="#">Houses</a></li>
-        <li><a href="#">Rooms</a></li>
-        <li><a href="#">Flats</a></li>
-        <li><a href="#">Apartments</a></li>
+        <h4>Reading Lists</h4>
+        <li><a href="#">Genres</a></li>
+        <li><a href="#">Book Categories</a></li>
+        <li><a href="#">Top Reviews</a></li>
+        <li><a href="#">Top Authors</a></li>
     </div>
 
     <div class="footer-content">
-        <h4>Company</h4>
+        <h4>About Us</h4>
         <li><a href="#">How we work</a></li>
-        <li><a href="#">Capital</a></li>
-        <li><a href="#">Security</a></li>
-        <li><a href="#">Sellings</a></li>
+        <li><a href="#">Book of the Month</a></li>
+        <li><a href="#">Privacy & Security</a></li>
+        <li><a href="#">Recommend Reads</a></li>
     </div>
 
     <div class="footer-content">
-        <h4>Movement</h4>
-        <li><a href="#">Halo</a></li>
-        <li><a href="#">Support Us</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Renting</a></li>
+        <h4>Reading Challenges</h4>
+        <li><a href="#">Join Us</a></li>
+        <li><a href="#">Subscription</a></li>
+        <li><a href="#">Borrow Books</a></li>
     </div>
 </footer>
 
