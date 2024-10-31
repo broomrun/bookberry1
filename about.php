@@ -15,24 +15,24 @@ include 'config.php';
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 </head>
 <body>
-<header>
+        <header>
         <h2>
-    <a href="user_page.php" class="logo">
+        <a href="user_page.php" class="logo">
         <img src="assets/logo.png" alt="Logo" class="logo-image" />
-    </a>
-</h2>
-                <nav class="navigation">
-                <a href="home.php">Home</a>
-                <a href="about.php">About</a>
-                <a href="profile.php">Profile</a>
-                </nav>
+        </a>
+        </h2>
+        <nav class="navigation">
+        <a href="home.php">Home</a>
+        <a href="about.php">About</a>
+        <a href="profile.php">Profile</a>
+        </nav>
         </header>
 
         <div class="container">
             <div class="opening left">
                 <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
                     <h1>Welcome to BookBerry!</h1>
-                    <a href="login.php" class="info-btn" style="font-size: 1.2em; padding: 10px 20px;">Get to Know us!</a>
+                    <a href="login.php" class="info-btn" style="font-size: 1.2rem; padding: 10px 20px;">Get to Know us!</a>
                 </div>
                 <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
                     <img src="assets/abouts.png" alt="BookBerry Image">
@@ -43,26 +43,26 @@ include 'config.php';
         <div class="container">
             <div class="opening right">
             <div class="text">
-    <h1>Our Story Behind</h1>
-    <h2 class="story-description">
-        Bookberry was born from a simple idea: what if discovering a great book could be just as enjoyable as reading one? Founded by passionate readers, we realized that the journey through a book is even richer when shared. With countless books out there, it’s easy to feel overwhelmed—Bookberry is here to bring order and excitement to your reading journey.
-    </h2>
-</div>
-<div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
-                    <img src="assets/story.png" alt="BookBerry Image">
-                </div>
+            <h1>Our Story Behind</h1>
+            <h2 class="story-description">
+            Bookberry was born from a simple idea: what if discovering a great book could be just as enjoyable as reading one? Founded by passionate readers, we realized that the journey through a book is even richer when shared. With countless books out there, it’s easy to feel overwhelmed—Bookberry is here to bring order and excitement to your reading journey.
+            </h2>
+        </div>
+        <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
+            <img src="assets/story.png" alt="BookBerry Image">
+            </div>
             </div>
         </div>
         
         <div class="container">
             <div class="opening left">
             <div class="text">
-    <h1>Our Vision</h1>
-    <h2 class="story-description">
-    To inspire a community where readers of all kinds connect, share insights, and celebrate the joy of reading through meaningful discussions and recommendations.
-    </h2>
-</div>
-<div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
+            <h1>Our Vision</h1>
+            <h2 class="story-description">
+            To inspire a community where readers of all kinds connect, share insights, and celebrate the joy of reading through meaningful discussions and recommendations.
+        </h2>
+        </div>
+        <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
                     <img src="assets/vision.png" alt="BookBerry Image">
                 </div>
             </div>

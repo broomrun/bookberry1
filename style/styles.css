@@ -583,8 +583,8 @@ footer {
 }
 
 .story-description {
-    font-size: 17px; /* Adjust the size as needed */
-    line-height: 1.5; /* Optional: adjust line height for better readability */
+    font-size: 17px; 
+    line-height: 1.5; 
     display: flex;
 }
 
