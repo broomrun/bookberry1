@@ -7,57 +7,10 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: #ffffff;
+    background-color: #1a2a5e;
     color: #333;
     padding-top: 90px;
     overflow-y: auto;
-}
-
-/* Navbar Styling */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.logo img {
-    max-height: 50px; /* Adjust as needed for logo size */
-    width: auto;
-}
-
-.menu {
-    display: flex;
-}
-
-.menu a {
-    color: #1e2a5e;
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: bold;
-    margin-left: 15px;
-    transition: color 0.3s ease;
-}
-
-.menu a:hover {
-    color: #1a2a5e;
-    text-decoration: underline;
-}
-
-/* Header Background */
-.header-bg {
-    width: 100%;
-    height: 200px; /* Adjust height as needed */
-    background-image: url('assets/header.jpg'); /* Replace with your header image */
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
 }
 
 /* Profile Header */
@@ -66,7 +19,7 @@ body {
     align-items: center;
     justify-content: center; /* Center the profile section */
     padding: 20px 5%;
-    margin-top: 0px; /* Pull up the profile section to overlap with header background */
+    margin-top: 150px; /* Pull up the profile section to overlap with header background */
     position: relative;
     z-index: 1;
     background-color: white;
@@ -77,6 +30,7 @@ body {
     margin-right: auto;
     transform: translateY(-50%);
 }
+
 
 .profile-pic {
     width: 100px;
@@ -135,4 +89,56 @@ main {
     height: auto;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between; /* Aligns logo to the left and navigation to the right */
+    align-items: center;
+    background-color: #1e2a5e;
+    z-index: 1000;
+}
+
+/* Logo on the Left */
+header .logo {
+    display: flex;
+    align-items: center;
+    margin-right: auto; /* Positions the logo to the left */
+    color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo-image {
+    max-width: 150px; /* Adjust size if needed */
+    height: auto;
+}
+
+/* Navigation on the Right */
+.navigation {
+    display: flex;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    transition: 0.3s background;
+    margin-right: 30px;
+}
+
+.navigation a:hover {
+    background: #fff;
+    color: #1e2a5e;
 }
