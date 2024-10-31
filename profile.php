@@ -10,18 +10,19 @@
 </head>
 <body>
 
+<!-- Main Header with Logo and Navigation -->
 <header>
-    <h2>
     <a href="user_page.php" class="logo">
-        <img src="assets/logo.png" alt="Logo" class="logo-image" />
+        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
     </a>
-</h2>
     <nav class="navigation">
         <a href="home.php">Home</a>
         <a href="about.php">About</a>
         <a href="profile.php">Profile</a>
     </nav>
+</header>
 
+<<<<<<< HEAD
     <!-- Header Section with Background Image -->
     <header>
         <div class="header-bg">
@@ -62,5 +63,43 @@
 
         <a href="logout.php">Log out</a>
     </main>
+=======
+
+
+<section class="profile-header">
+    <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
+    <div class="user-info">
+        <h1 class="username">amamiyaws</h1>
+        <p class="edit-profile">Edit Profile</p>
+        <div class="stats">
+            <span><strong>550</strong> books</span>
+            <span><strong>40</strong> this year</span>
+            <span><strong>3</strong> lists</span>
+            <span><strong>70</strong> streaks</span>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content Section -->
+<main>
+    <!-- Bookshelf Section -->
+    <section class="bookshelf">
+        <div class="book">
+            <img src="assets/fav1.jpg" alt="Book Cover">
+        </div>
+        <div class="book">
+            <img src="assets/fav23.jpg" alt="Book Cover">
+        </div>
+        <div class="book">
+            <img src="assets/fav3.jpg" alt="Book Cover">
+        </div>
+        <div class="book">
+            <img src="assets/fav4.jpg" alt="Book Cover">
+        </div>
+        <!-- Add more book divs as needed -->
+    </section>
+</main>
+
+>>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962
 </body>
 </html>
