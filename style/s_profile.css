@@ -7,12 +7,13 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: #ffffff;
+    background-color: #1a2a5e;
     color: #333;
     padding-top: 90px;
     overflow-y: auto;
 }
 
+<<<<<<< HEAD:style/s_profile.css
 .navbar {
     position: fixed;
     top: 0;
@@ -58,12 +59,19 @@ body {
     z-index: 1;
 }
 
+=======
+/* Profile Header */
+>>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962:gaay.css
 .profile-header {
     display: flex;
     align-items: center;
     justify-content: center; 
     padding: 20px 5%;
+<<<<<<< HEAD:style/s_profile.css
     margin-top: 0px; 
+=======
+    margin-top: 150px; /* Pull up the profile section to overlap with header background */
+>>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962:gaay.css
     position: relative;
     z-index: 1;
     background-color: white;
@@ -74,6 +82,7 @@ body {
     margin-right: auto;
     transform: translateY(-50%);
 }
+
 
 .profile-pic {
     width: 100px;
@@ -131,4 +140,60 @@ main {
     height: auto;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD:style/s_profile.css
 }
+=======
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between; /* Aligns logo to the left and navigation to the right */
+    align-items: center;
+    background-color: #1e2a5e;
+    z-index: 1000;
+}
+
+/* Logo on the Left */
+header .logo {
+    display: flex;
+    align-items: center;
+    margin-right: auto; /* Positions the logo to the left */
+    color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo-image {
+    max-width: 150px; /* Adjust size if needed */
+    height: auto;
+}
+
+/* Navigation on the Right */
+.navigation {
+    display: flex;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    transition: 0.3s background;
+    margin-right: 30px;
+}
+
+.navigation a:hover {
+    background: #fff;
+    color: #1e2a5e;
+}
+>>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962:gaay.css
