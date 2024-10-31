@@ -22,55 +22,13 @@
     </nav>
 </header>
 
-<<<<<<< HEAD
-    <!-- Header Section with Background Image -->
-    <header>
-        <div class="header-bg">
-            <!-- Background image container -->
-        </div>
-        <div class="profile-header">
-            <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
-            <div class="user-info">
-                <h1 class="username">amamiyaws</h1>
-                <a href="update_profile.php"> Edit Profile</a> 
-                <div class="stats">
-                    <span><strong>550</strong> friends</span>
-                    <span><strong>40</strong> books</span>
-                    <span><strong>3</strong> badges</span>
-                    <span><strong>70</strong> streaks</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Bookshelf Section -->
-        <section class="bookshelf">
-            <div class="book">
-                <img src="assets/fav1.jpg" alt="Book Cover">
-            </div>
-            <div class="book">
-                <img src="assets/fav23.jpg" alt="Book Cover">
-            </div>
-            <div class="book">
-                <img src="assets/fav3.jpg" alt="Book Cover">
-            </div>
-            <div class="book">
-                <img src="assets/fav4.jpg" alt="Book Cover">
-            </div>
-        </section>
-
-        <a href="logout.php">Log out</a>
-    </main>
-=======
 
 
 <section class="profile-header">
     <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
     <div class="user-info">
         <h1 class="username">amamiyaws</h1>
-        <p class="edit-profile">Edit Profile</p>
+        <a href="logout.php">Edit profile</a>
         <div class="stats">
             <span><strong>550</strong> books</span>
             <span><strong>40</strong> this year</span>
@@ -98,8 +56,8 @@
         </div>
         <!-- Add more book divs as needed -->
     </section>
+    <a href="logout.php">log out</a>
 </main>
 
->>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962
 </body>
 </html>

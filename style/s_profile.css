@@ -13,65 +13,13 @@ body {
     overflow-y: auto;
 }
 
-<<<<<<< HEAD:style/s_profile.css
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.logo img {
-    max-height: 50px; 
-    width: auto;
-}
-
-.menu {
-    display: flex;
-}
-
-.menu a {
-    color: #1e2a5e;
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: bold;
-    margin-left: 15px;
-    transition: color 0.3s ease;
-}
-
-.menu a:hover {
-    color: #1a2a5e;
-    text-decoration: underline;
-}
-
-.header-bg {
-    width: 100%;
-    height: 200px; 
-    background-image: url('assets/header.jpg'); 
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-}
-
-=======
 /* Profile Header */
->>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962:gaay.css
 .profile-header {
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center; /* Center the profile section */
     padding: 20px 5%;
-<<<<<<< HEAD:style/s_profile.css
-    margin-top: 0px; 
-=======
     margin-top: 150px; /* Pull up the profile section to overlap with header background */
->>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962:gaay.css
     position: relative;
     z-index: 1;
     background-color: white;
@@ -122,6 +70,7 @@ main {
     margin-top: 10px;
 }
 
+/* Bookshelf Section */
 .bookshelf {
     display: flex;
     justify-content: space-between;
@@ -140,9 +89,6 @@ main {
     height: auto;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD:style/s_profile.css
-}
-=======
 }
 
 /* Header */
@@ -196,4 +142,3 @@ header .logo {
     background: #fff;
     color: #1e2a5e;
 }
->>>>>>> 53bd63c6ac88fee6c167faf19bf6e4e3066cb962:gaay.css
