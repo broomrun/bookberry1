@@ -21,7 +21,7 @@ session_start();
     <section>
         <header>
         <h2>
-    <a href="#" class="logo">
+        <a href="#" class="logo">
         <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
     </a>
 </h2>
