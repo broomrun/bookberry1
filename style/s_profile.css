@@ -13,7 +13,6 @@ body {
     overflow-y: auto;
 }
 
-/* Navbar Styling */
 .navbar {
     position: fixed;
     top: 0;
@@ -28,7 +27,7 @@ body {
 }
 
 .logo img {
-    max-height: 50px; /* Adjust as needed for logo size */
+    max-height: 50px; 
     width: auto;
 }
 
@@ -50,23 +49,21 @@ body {
     text-decoration: underline;
 }
 
-/* Header Background */
 .header-bg {
     width: 100%;
-    height: 200px; /* Adjust height as needed */
-    background-image: url('assets/header.jpg'); /* Replace with your header image */
+    height: 200px; 
+    background-image: url('assets/header.jpg'); 
     background-size: cover;
     background-position: center;
     z-index: 1;
 }
 
-/* Profile Header */
 .profile-header {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the profile section */
+    justify-content: center; 
     padding: 20px 5%;
-    margin-top: 0px; /* Pull up the profile section to overlap with header background */
+    margin-top: 0px; 
     position: relative;
     z-index: 1;
     background-color: white;
@@ -116,7 +113,6 @@ main {
     margin-top: 10px;
 }
 
-/* Bookshelf Section */
 .bookshelf {
     display: flex;
     justify-content: space-between;
