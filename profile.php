@@ -33,7 +33,7 @@
             <span><strong>550</strong> books</span>
             <span><strong>40</strong> this year</span>
             <span><strong>3</strong> lists</span>
-            <span><strong>70</strong> badges</span>
+            <span><strong>70</strong> streaks</span>
         </div>
     </div>
 </section>
