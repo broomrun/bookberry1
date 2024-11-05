@@ -30,10 +30,10 @@
         <h1 class="username">amamiyaws</h1>
         <a href="logout.php">Edit profile</a>
         <div class="stats">
-            <span><strong>550</strong> books</span>
-            <span><strong>40</strong> this year</span>
-            <span><strong>3</strong> lists</span>
-            <span><strong>70</strong> streaks</span>
+            <span><strong>550</strong> friends </span>
+            <span><strong>40</strong> streaks </span>
+            <span><strong>3</strong> badges </span>
+            <span><strong>70</strong> books </span>
         </div>
     </div>
 </section>
