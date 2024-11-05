@@ -26,7 +26,10 @@ function searchBooks() {
     
 
     // Proceed with the AJAX request only if there's something to search for
-   z
+    if (!query) {
+        alert("Please enter a search term or select a genre."); // Optional: Alert if no search term is present
+        return;
+    }
 
     $.ajax({
         url: 'https://www.googleapis.com/books/v1/volumes',
