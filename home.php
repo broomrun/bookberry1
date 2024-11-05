@@ -110,7 +110,7 @@ if(isset($_POST['submit'])){
 <div class="container">
   <div class="row g-4 mt-4">
     <div class="col-md-4">
-      <div class="tile green d-flex align-items-center p-4" style="border-radius: 20px;">
+      <div id='fantasy-tile' class="tile green d-flex align-items-center p-4" style="border-radius: 20px;">
         <div class="content" style="flex: 1;">
           <h2 style="color: #FFFFFF"><strong>Fantasy</strong></h2>
           <p style="color: #FFFFFF; max-width: 200px; text-align: justify;">
@@ -121,7 +121,7 @@ if(isset($_POST['submit'])){
       </div>
     </div>
     <div class="col-md-4">
-      <div class="tile red d-flex align-items-center p-4" style="border-radius: 20px;">
+      <div id='fiction-tile' class="tile red d-flex align-items-center p-4" style="border-radius: 20px;">
         <div class="content" style="flex: 1;">
           <h2 style="color: #FFFFFF"><strong>Fiction</strong></h2>
           <p style="color: #FFFFFF; max-width: 150px; text-align: justify;">
@@ -132,7 +132,7 @@ if(isset($_POST['submit'])){
       </div>
     </div>
     <div class="col-md-4">
-      <div class="tile brown d-flex align-items-center p-4" style="border-radius: 20px;">
+      <div id='history-tile' class="tile brown d-flex align-items-center p-4" style="border-radius: 20px;">
         <div class="content" style="flex: 1;">
           <h2 style="color: #FFFFFF"><strong>History</strong></h2>
           <p style="color: #FFFFFF; max-width: 150px; text-align: justify;">
@@ -143,7 +143,7 @@ if(isset($_POST['submit'])){
       </div>
     </div>
     <div class="col-md-6">
-      <div class="tile yellow d-flex align-items-center p-4" style="border-radius: 20px;">
+      <div id='science-tile' class="tile yellow d-flex align-items-center p-4" style="border-radius: 20px;">
         <div class="content" style="flex: 1;">
           <h2 style="color: #FFFFFF"><strong>Science</strong></h2>
           <p style="color: #FFFFFF; max-width: 300px; text-align: justify;">
@@ -154,7 +154,7 @@ if(isset($_POST['submit'])){
       </div>
     </div>
     <div class="col-md-6">
-      <div class="tile orange d-flex align-items-center p-4" style="border-radius: 20px;">
+      <div id='biography-tile'class="tile orange d-flex align-items-center p-4" style="border-radius: 20px;">
         <div class="content" style="flex: 1;">
           <h2 style="color: #FFFFFF"><strong>Biography</strong></h2>
           <p style="color: #FFFFFF; max-width: 300px; text-align: justify;">

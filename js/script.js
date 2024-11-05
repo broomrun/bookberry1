@@ -7,27 +7,21 @@ window.addEventListener('scroll', function() {
     }
 });
 
-function searchBooks() {
-    // Get selected genre
-    let genre = $('#genreFilter').val();
+function searchBooks(genre = null) {
+    // Get the search input and genre filter, if available
     let query = $('#searchInput').val().trim(); // Trim whitespace from the search input
-
-    // Append genre to the search query if selected and if search input is not empty
-    if (genre === 'allgenre' && query) {
-        // Use the query only without genre filter
-        query = query;
-    } else if (genre && query) {
-        // Append genre if both are selected
-        query += ` +subject:${genre}`;
-    } else if (genre) {
-        // If only genre is selected, just use the genre in the query
+    if (genre) {
         query = `subject:${genre}`;
+    } else if ($('#genreFilter').val() && query) {
+        // Handle the genre filter only if it's selected along with a search term
+        query += ` +subject:${$('#genreFilter').val()}`;
+    } else if ($('#genreFilter').val()) {
+        // Use genre only if there is no search term
+        query = `subject:${$('#genreFilter').val()}`;
     }
-    
 
-    // Proceed with the AJAX request only if there's something to search for
     if (!query) {
-        alert("Please enter a search term or select a genre."); // Optional: Alert if no search term is present
+        alert("Please enter a search term or select a genre."); // Optional alert if no search term is present
         return;
     }
 
@@ -37,42 +31,37 @@ function searchBooks() {
         dataType: 'json',
         data: {
             'key': 'AIzaSyBqUPg1Itse_NYH1z7r8lA7-oA27aXBCW8',
-            q: query // Use the combined query here
+            q: query
         },
         success: function(result) {
             if (result.totalItems > 0) {
                 let books = result.items;
                 let output = '';
-
                 $.each(books, function(index, book) {
                     let bookInfo = book.volumeInfo;
                     let imageUrl = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'path/to/default-image.jpg';
-                    
-                    // Assign a default rating (if rating is available)
                     let averageRating = bookInfo.averageRating ? bookInfo.averageRating : 'N/A';
-
                     output += `
                         <div class="col-md-3">
                             <div class="card mb-5">
                                 <a href="#" class="card-link see-detail" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                       data-title="${bookInfo.title}" 
-                                       data-authors="${bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown'}" 
-                                       data-date="${bookInfo.publishedDate ? bookInfo.publishedDate : 'N/A'}" 
-                                       data-description="${bookInfo.description ? bookInfo.description : 'No description available'}" 
-                                       data-image="${imageUrl}" 
-                                       data-rating="${averageRating}"> <!-- Add data-rating attribute -->
-                                       <img src="${imageUrl}" class="card-img-top" alt="${bookInfo.title}">
+                                   data-title="${bookInfo.title}" 
+                                   data-authors="${bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown'}" 
+                                   data-date="${bookInfo.publishedDate ? bookInfo.publishedDate : 'N/A'}" 
+                                   data-description="${bookInfo.description ? bookInfo.description : 'No description available'}" 
+                                   data-image="${imageUrl}" 
+                                   data-rating="${averageRating}">
+                                   <img src="${imageUrl}" class="card-img-top" alt="${bookInfo.title}">
                                 </a>
                                 <div class="book-card">
                                     <h5 class="book-title">${bookInfo.title}</h5>
                                     <p class="author-name">By ${bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown'}</p>
-                                    <p class="card-text"><strong>Rating ⭐</strong> ${averageRating}</p> <!-- Display average rating -->
+                                    <p class="card-text"><strong>Rating ⭐</strong> ${averageRating}</p>
                                 </div>
                             </div>
                         </div>
                     `;
                 });
-
                 $('#searchInput').val(''); // Clear search input after search
                 $('#book-list').html(output); // Display search results
             } else {
@@ -99,6 +88,24 @@ $('#searchInput').on('keyup', function(event) {
     if (event.keyCode === 13) {
         searchBooks();
     }
+});
+
+$(document).ready(function() {
+    $('#fantasy-tile').on('click', function() {
+        searchBooks('Fantasy');
+    });
+    $('#fiction-tile').on('click', function() {
+        searchBooks('Fiction');
+    });
+    $('#history-tile').on('click', function() {
+        searchBooks('History');
+    });
+    $('#science-tile').on('click', function() {
+        searchBooks('Science');
+    });
+    $('#biography-tile').on('click', function() {
+        searchBooks('Biography');
+    });
 });
 
 // Click event for the "See Detail" button
