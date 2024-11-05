@@ -2,10 +2,13 @@
 include 'config.php';
 session_start();
 
+$emailValue = ''; // Untuk menyimpan email input
+
 if (isset($_POST['submit'])) {
 
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = $_POST['password']; // jangan gunakan md5 di sini, karena kita akan verifikasi dengan password_verify nanti
+    $pass = $_POST['password'];
+    $emailValue = $email; // Menyimpan email saat form dikirim
     
     // Cek email di database
     $select = "SELECT * FROM user_form WHERE email = '$email'";
@@ -27,11 +30,11 @@ if (isset($_POST['submit'])) {
             }
 
         } else {
-            $error[] = 'Incorrect password!';
+            $error = 'Incorrect password!';
         }
 
     } else {
-        $error[] = 'Incorrect email or password!';
+        $error = 'Incorrect email or password!';
     }
 }
 ?>
@@ -100,23 +103,23 @@ if (isset($_POST['submit'])) {
             <h2>Login</h2>
 
             <?php
-            if(isset($error)){
-                foreach($error as $error){
-                    echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
-                };
-            };
+            // Menampilkan pesan kesalahan di atas form jika ada
+            if (isset($error)) {
+                echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+            }
             ?>
 
             <form method="POST" action="">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required>
                 </div>
                 <div class="mb-3 password-container">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                    <span id="togglePassword"><i class="fas fa-eye"></i></span> <!-- Updated icon class here -->
+                    <span id="togglePassword"><i class="fas fa-eye"></i></span>
                 </div>
+                
                 <button type="submit" class="btn custom-button w-100" name="submit">Login</button>
                 <p>Don't have an account? <a href="daftar.php">Sign up now</a></p>
             </form>
@@ -142,6 +145,3 @@ if (isset($_POST['submit'])) {
     </script>
 </body>
 </html>
-
-
-
