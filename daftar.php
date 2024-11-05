@@ -8,10 +8,12 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['password'];
     $cpass = $_POST['confirmPassword'];
     $user_type = $_POST['user_type'];
-    $image = $_FILES['profile_picture']['name']; // Changed 'image' to 'profile_picture'
-    $image_size = $_FILES['profile_picture']['size']; // Changed 'image' to 'profile_picture'
-    $image_tmp_name = $_FILES['profile_picture']['tmp_name']; // Changed 'image' to 'profile_picture'
+    $image = $_FILES['profile_picture']['name'];
+    $image_size = $_FILES['profile_picture']['size'];
+    $image_tmp_name = $_FILES['profile_picture']['tmp_name'];
     $image_folder = 'uploaded_img/' . $image;
+
+    $errors = [];
 
     // Cek apakah user dengan email sudah ada
     $select = "SELECT * FROM user_form WHERE email = '$email'";
@@ -37,7 +39,7 @@ if (isset($_POST['submit'])) {
             $insert = "INSERT INTO user_form(name, email, password, user_type, image) 
             VALUES('$name','$email','$hashed_password','$user_type','$image')";
 
-// Cek apakah query insert berhasil
+            // Cek apakah query insert berhasil
             if (mysqli_query($conn, $insert)) {
             if ($_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
             if (move_uploaded_file($image_tmp_name, $image_folder)) {
@@ -146,7 +148,7 @@ if (isset($_POST['submit'])) {
 
         body {
             background-color: #1E2A5E;
-            overflow: auto;
+            overflow: hidden;
         }
 
         .signup-container {
@@ -221,7 +223,7 @@ if (isset($_POST['submit'])) {
             }
             ?>
 
-            <form method="POST" action="" enctype="multipart/form-data">
+            <form method="POST" action="" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <div class="mb-3">
                     <label for="name" class="form-label">Username</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter your username" required>
@@ -291,6 +293,17 @@ if (isset($_POST['submit'])) {
                 icon.classList.add("fa-eye");
             }
         });
+    </script>
+     <script>
+        function validateForm() {
+            const pass = document.getElementById("password").value;
+            const cpass = document.getElementById("confirmPassword").value;
+            if (pass !== cpass) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 </html>
