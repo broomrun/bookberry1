@@ -31,7 +31,7 @@
         <a href="logout.php">Edit profile</a>
         <div class="stats">
             <span><strong>550</strong> friends </span>
-            <span><strong>40</strong> streaks </span>
+            <span><strong>40</strong> streak </span>
             <span><strong>3</strong> badges </span>
             <span><strong>70</strong> books </span>
         </div>
