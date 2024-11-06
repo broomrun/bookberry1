@@ -102,7 +102,7 @@
       <div class="profile-pic"></div>
       <div>
         <div class="username">amamiyaws</div>
-        <div class="edit-profile">edit profile</div>
+        <a href="update_profile.php">Edit profile</a>
       </div>
     </div>
     
