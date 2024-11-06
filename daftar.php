@@ -307,8 +307,4 @@ if (isset($_POST['submit'])) {
     </script>
 </body>
 </html>
-</body>
-</html>
 
-</body>
-</html>
