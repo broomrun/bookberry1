@@ -1,63 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookBerry</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style/s_profile.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      width: 80%;
+      max-width: 800px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin-right: 20px;
+    }
+    .username {
+      font-size: 24px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .edit-profile {
+      font-size: 12px;
+      color: #3498db;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .statistics {
+      margin: 20px 0;
+    }
+    .stats-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .stats-grid {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      flex: 1 1 45%;
+      background-color: #2c3e50;
+      color: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 16px;
+    }
+    .stat-box.light {
+      background-color: #d1c4e9;
+      color: #2c3e50;
+    }
+    .bookshelf {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .bookshelf-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .book-list {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+    }
+    .book {
+      width: 80px;
+      height: 120px;
+      border-radius: 10px;
+      background-color: #e0e0e0;
+    }
+  </style>
 </head>
 <body>
-
-<!-- Main Header with Logo and Navigation -->
-<header>
-    <a href="user_page.php" class="logo">
-        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
-    </a>
-    <nav class="navigation">
-        <a href="home.php">Home</a>
-        <a href="about.php">About</a>
-        <a href="profile.php">Profile</a>
-    </nav>
-</header>
-
-
-
-<section class="profile-header">
-    <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
-    <div class="user-info">
-        <h1 class="username">amamiyaws</h1>
-        <a href="update_profile.php">Edit profile</a>
-        <div class="stats">
-            <span><strong>550</strong> friends gw </span>
-            <span><strong>40</strong> streaks akuuu </span>
-            <span><strong>3</strong> badges </span>
-            <span><strong>70</strong> books </span>
-        </div>
+  <div class="container">
+    <div class="header">
+      <div class="profile-pic"></div>
+      <div>
+        <div class="username">amamiyaws</div>
+        <div class="edit-profile">edit profile</div>
+      </div>
     </div>
-</section>
-
-<!-- Main Content Section -->
-<main>
-    <!-- Bookshelf Section -->
-    <section class="bookshelf">
-        <div class="book">
-            <img src="assets/fav1.jpg" alt="Book Cover">
+    
+    <div class="statistics">
+      <div class="stats-title">statistics</div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div>🔥</div>
+          <div>70</div>
+          <div>day streaks</div>
         </div>
-        <div class="book">
-            <img src="assets/fav23.jpg" alt="Book Cover">
+        <div class="stat-box light">
+          <div>📚</div>
+          <div>3</div>
+          <div>shelves</div>
         </div>
-        <div class="book">
-            <img src="assets/fav3.jpg" alt="Book Cover">
+        <div class="stat-box">
+          <div>🏅</div>
+          <div>70</div>
+          <div>badges</div>
         </div>
-        <div class="book">
-            <img src="assets/fav4.jpg" alt="Book Cover">
+        <div class="stat-box light">
+          <div>📖</div>
+          <div>40</div>
+          <div>shelves</div>
         </div>
-        <!-- Add more book divs as needed -->
-    </section>
-    <a href="logout.php">log out</a>
-</main>
-
+      </div>
+    </div>
+    
+    <div class="bookshelf">
+      <div class="bookshelf-title">amamiyaw’s top read</div>
+      <div class="book-list">
+        <div class="book"></div>
+        <div class="book"></div>
+        <div class="book"></div>
+        <div class="book"></div>
+        <div class="book"></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
