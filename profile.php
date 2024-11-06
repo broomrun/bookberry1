@@ -1,3 +1,8 @@
+<?php
+include 'config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,18 +10,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile Page</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <link href="style/styles.css" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
-      background-color: #f4f4f4;
+      background-color: #fff;
       margin: 0;
       padding: 20px;
+      padding-top: 80px; /* Menambahkan padding-top agar konten tidak tertutup oleh header */
     }
     .container {
       width: 80%;
       max-width: 800px;
+      margin-top: 50px; /* Memberikan ruang ekstra di bagian atas konten */
     }
     .header {
       display: flex;
@@ -97,6 +105,20 @@
   </style>
 </head>
 <body>
+
+<header>
+<h2>
+    <a href="user_page.php" class="logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
+    <nav class="navigation">
+        <a href="home.php">Home</a>
+        <a href="about.php">About</a>
+        <a href="profile.php">Profile</a>
+    </nav>
+</header>
+
   <div class="container">
     <div class="header">
       <div class="profile-pic"></div>
@@ -143,5 +165,6 @@
       </div>
     </div>
   </div>
+  <script src="js/script.js"></script>
 </body>
 </html>
