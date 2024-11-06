@@ -1,6 +1,13 @@
 <?php
 include 'config.php';
 session_start();
+
+$title = isset($_GET['title']) ? htmlspecialchars($_GET['title']) : 'Unknown';
+$authors = isset($_GET['authors']) ? htmlspecialchars($_GET['authors']) : 'Unknown';
+$date = isset($_GET['date']) ? htmlspecialchars($_GET['date']) : 'N/A';
+$description = isset($_GET['description']) ? htmlspecialchars($_GET['description']) : 'No description available';
+$image = isset($_GET['image']) ? htmlspecialchars($_GET['image']) : 'path/to/default-image.jpg';
+$rating = isset($_GET['rating']) ? htmlspecialchars($_GET['rating']) : 'N/A';
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +36,6 @@ session_start();
             <h2 class="title">Di Tanah Lada <span style="font-size: 12px; color: #777;">2022</span></h2>
             <p class="author">by Ziggy Zagga Ziggy tu Zagga</p>
             <p class="description">
-                Namanya Salva. Panggilannya Ava. Namun papanya memanggil dia Saliva atau ludah karena menganggapnya tidak berguna. Ava sekeluarga pindah ke Rusun Nero setelah Kakek Kia meninggal. Kakek Kia, ayahnya Papa, pernah memberi Ava kamus sebagai hadiah ulang tahun yang ketiga. Sejak itu Ava menjadi anak yang pintar berbahasa Indonesia. Sayangnya, kebanyakan orang dewasa lebih menganggap penting anak yang pintar berbahasa Inggris. Setelah pindah ke Rusun Nero, Ava bertemu dengan anak laki-laki bernama P. Iya, namanya hanya terdiri dari satu huruf P. Dari pertemuan itulah, petualangan Ava dan P bermula hingga sampai pada akhir yang mengejutkan.
-            </p>
-            <div class="stars">
                 <span>★</span><span>★</span><span>★</span><span>☆</span><span>☆</span>
             </div>
         </div>
@@ -54,6 +58,6 @@ session_start();
         <input type="text" class="input-box" id="comment-input" placeholder="Ketik komentar...">
         <button id="submit-comment" class="submit-comment">Kirim</button>
     </div>
-    <script src="js/book.js"></script>    
+    <script src="js/script.js"></script>    
 </body>
 </html>
