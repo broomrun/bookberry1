@@ -148,7 +148,7 @@ if (isset($_POST['submit'])) {
 
         body {
             background-color: #1E2A5E;
-            overflow: hidden;
+            overflow: auto;
         }
 
         .signup-container {
@@ -307,8 +307,4 @@ if (isset($_POST['submit'])) {
     </script>
 </body>
 </html>
-</body>
-</html>
 
-</body>
-</html>

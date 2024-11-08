@@ -1,3 +1,8 @@
+<?php
+include 'config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -457,5 +462,6 @@ footer {
     </div>
 </main>
 
+  <script src="js/script.js"></script>
 </body>
 </html>
