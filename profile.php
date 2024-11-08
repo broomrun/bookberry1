@@ -11,47 +11,8 @@ session_start();
     <title>BookBerry</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="style/styles.css" rel="stylesheet">
     <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f8f8;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 90px;
-        }
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #1e2a5e;
-            color: #fff;
-            z-index: 1000;
-        }
-        .logo img {
-            height: 40px;
-        }
-        .navigation a {
-            color: #fff;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: 500;
-        }
-        .navigation a:hover {
-            color: #ded3c2;
-        }
         /* Profile Header */
         .profile-header {
             display: flex;
@@ -102,13 +63,14 @@ session_start();
         }
         /* Bookshelf Section */
         .bookshelf {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            width: 80%;
-            max-width: 800px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px auto; /* Center horizontally */
+          width: 80%;
+          max-width: 800px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          text-align: center; /* Centers the content inside */
         }
         .bookshelf-title {
             font-size: 18px;
@@ -319,45 +281,6 @@ footer {
     transition: all 0.4s ease; 
 }
 
-.team-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px; /* Space between team members */
-}
-
-.team-member {
-    background-color: #f9f9f9; /* Background color for team member card */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding around the content */
-    text-align: center; /* Center text alignment */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
-    width: 250px; /* Set the width of the member card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-.team-member:hover {
-    transform: scale(1.05); /* Slightly enlarge on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
-}
-
-.team-image {
-    width: 100%; /* Ensure image fills the width of the card */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Rounded corners for the image */
-}
-
-.member-name {
-    margin: 10px 0 5px;
-    font-size: 18px; /* Ukuran font nama */
-    color: #4b2e10;
-}
-
-.member-role {
-    margin: 5px 0;
-    font-size: 14px; /* Ukuran font peran */
-    color: gray; /* Warna teks peran */
-}
 @media only screen and (max-width: 768px) {
     header {
         flex-direction: column;
@@ -410,9 +333,11 @@ footer {
 
 <!-- Main Header with Logo and Navigation -->
 <header>
+<h2>
     <a href="user_page.php" class="logo">
-        <img src="assets/logowhite.png" alt="Logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-image" />
     </a>
+</h2>
     <nav class="navigation">
         <a href="home.php">Home</a>
         <a href="about.php">About</a>
