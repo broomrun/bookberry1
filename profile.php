@@ -216,27 +216,27 @@ footer {
 }
 
 .text {
-    flex: 1; /* Mengambil ruang yang tersedia untuk teks */
-    padding: 20px; /* Tambahkan padding untuk mempercantik tampilan */
+    flex: 1; 
+    padding: 20px;
 }
 
 .image {
-    flex: 1; /* Mengambil ruang yang tersedia untuk gambar */
-    text-align: center; /* Menempatkan gambar di tengah */
+    flex: 1; /
+    text-align: center; 
 }
 
 .image img {
-    max-width: 100%; /* Memastikan gambar responsif */
+    max-width: 100%; 
     height: auto;
-    border-radius: 10px; /* Opsi untuk tampilan gambar yang lebih halus */
+    border-radius: 10px; 
 }
 
 .left {
-    flex-direction: row; /* Gambar di kanan */
+    flex-direction: row; 
 }
 
 .right {
-    flex-direction: row-reverse; /* Gambar di kiri */
+    flex-direction: row-reverse; 
 }
 
 .opening h1{
@@ -249,7 +249,7 @@ footer {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #1e2a5e; /* Ganti warna sesuai keinginan */
+    background-color: #1e2a5e; 
     color: white;
     text-decoration: none;
     border-radius: 50px;
@@ -259,14 +259,14 @@ footer {
 }
 
 .info-btn:hover {
-    background-color: #FFF; /* Warna saat tombol di-hover */
+    background-color: #FFF; 
     color: #1e2a5e;
     border: 3px solid #1e2a5e;
 }
 
 .story-description {
-    font-size: 17px; /* Adjust the size as needed */
-    line-height: 1.5; /* Optional: adjust line height for better readability */
+    font-size: 17px; 
+    line-height: 1.5; 
     display: flex;
 }
 
