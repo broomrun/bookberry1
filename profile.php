@@ -425,7 +425,7 @@ footer {
     <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
     <div class="user-info">
         <h1 class="username">amamiyaws</h1>
-        <a href="logout.php">Edit profile</a>
+        <a href="update_profile.php">Edit profile</a>
     </div>
     <div class="stats">
         <div class="stat-item">
