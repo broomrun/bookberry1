@@ -19,390 +19,271 @@ if (isset($_SESSION['user_name'])) {
     echo "You are not logged in!";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookBerry</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link href="style/styles.css" rel="stylesheet">
+    <title>Profile UI</title>
     <style>
-        /* Profile Header */
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            width: 900px;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        /* Header Section */
         .profile-header {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
-            margin: 30px 0;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
         }
-        .profile-pic {
-            width: 100px;
-            height: 100px;
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .profile-info img {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background-color: #ccc;
-            margin-bottom: 15px;
+            border: 2px solid #ddd;
         }
-        .username {
+        .profile-name {
             font-size: 24px;
-            font-weight: 700;
-            color: #1e2a5e;
+            font-weight: bold;
         }
-        .user-info a {
-            color: #3498db;
-            font-size: 14px;
-            text-decoration: none;
+        .edit-profile-btn {
+            font-size: 12px;
+            color: #555;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            text-decoration: underline;
         }
+        
+        /* Badge Container */
+        .badge-container {
+            display: flex;
+            align-items: center;
+            background-color: #f7f5f2;
+            padding: 20px; /* Increased padding */
+            border-radius: 15px; /* Slightly rounded corners */
+            gap: 15px; /* Added spacing between badges */
+        }
+        .badge-container img {
+            width: 70px; /* Increased image size */
+            height: 70px; /* Increased image size */
+        }
+
+
         /* Statistics Section */
         .stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 300px;
+            grid-template-columns: 1fr 1fr; /* Two items per row */
+            gap: 20px;
             margin-top: 20px;
         }
         .stat-item {
-            background-color: #1e2a5e;
-            color: #fff;
+            background-color: #E1D7B7;
+            padding: 20px;
             border-radius: 10px;
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .stat-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Top Reads Section */
+        .top-read {
+            margin-top: 20px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .bookshelf {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .book-item {
+            text-align: center;
+            background-color: #f8f9fb;
+            padding: 10px;
+            border-radius: 10px;
+            width: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px;
-            font-size: 14px;
         }
-        .stat-item-light {
-            background-color: #ded3c2;
+        .book-item img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .book-item p {
+            margin-top: 5px;
+            font-size: 12px;
             color: #333;
-        }
-        /* Bookshelf Section */
-        .bookshelf {
-          background-color: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          margin: 20px auto; /* Center horizontally */
-          width: 80%;
-          max-width: 800px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-          text-align: center; /* Centers the content inside */
-        }
-        .bookshelf-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1e2a5e;
-            margin-bottom: 15px;
             text-align: center;
         }
-        .book-list {
+
+        /* Shelves Section */
+        .shelves {
+            margin-top: 30px;
+        }
+        .shelves-container {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            gap: 20px;
+            margin-top: 10px;
         }
-        .book {
-            width: 90px;
-            height: 130px;
-            overflow: hidden;
+        .shelf {
+            flex: 1;
+            background-color: #1f3359;
+            color: white;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            text-align: left;
+            position: relative;
         }
-        .book img {
-            width: 100%;
-            height: auto;
+        .shelf img {
+            width: 70px;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
-        .book:hover {
-            transform: scale(1.05);
+        .shelf h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #ddd;
         }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .bookshelf {
-                width: 90%;
-            }
+        .shelf p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #bbb;
         }
-        
-footer {
-    display: flex;
-    justify-content: space-around; /* Memberi jarak antar kolom */
-    align-items: flex-start;
-    width: 100%;
-    padding: 80px 10%; /* Mengurangi padding agar lebih lebar */
-    background-color: #1e2a5e;
-    flex-wrap: wrap;
-    margin-top: 100px;
-    z-index: 10;
-}
+        .shelf-stats {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 10px;
+        }
 
-.footer-content {
-    flex: 1 1 220px; /* Menambah minimal lebar kolom */
-    margin: 0 1rem;
-    max-width: 300px; /* Menghindari kolom terlalu lebar */
-}
-
-
-.footer-content h4 {
-    color: #fff;
-    margin-bottom: 1.5rem;
-    font-size: 20px;
-}
-
-.footer-content li {
-    margin-bottom: 16px;
-    list-style: none;
-}
-
-.footer-content li a {
-    display: block;
-    color: #d6d6d6;
-    font-size: 15px;
-    font-weight: 400;
-    transition: all 0.4s ease;
-}
-
-.footer-content li a:hover {
-    transform: translateY(-3px) translateX(-5px);
-    color: #fff;
-}
-
-.footer-content p {
-    color: #d6d6d6;
-    font-size: 16px;
-    line-height: 30px;
-    margin: 20px 0;
-}
-
-.icons a {
-    display: inline-block;
-    font-size: 22px;
-    color: #d6d6d6;
-    transition: all 0.4s ease;
-    margin-right: 15px;
-}
-
-.icons a:hover {
-    color: #fff;
-    transform: translateY(-5px);
-}
-
-.custom-small-text {
-    font-size: 1rem; /* Sesuaikan ukuran sesuai kebutuhan */
-}
-
-.opening {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Menjaga jarak antara teks dan gambar */
-}
-
-.text {
-    flex: 1; 
-    padding: 20px;
-}
-
-.image {
-    flex: 1; /
-    text-align: center; 
-}
-
-.image img {
-    max-width: 100%; 
-    height: auto;
-    border-radius: 10px; 
-}
-
-.left {
-    flex-direction: row; 
-}
-
-.right {
-    flex-direction: row-reverse; 
-}
-
-.opening h1{
-    color: #1e2a5e;
-    font-size: 3rem;
-    font-weight: bold;
-}
-
-.info-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #1e2a5e; 
-    color: white;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: bold;
-    text-align: center;
-    align-items: center;
-}
-
-.info-btn:hover {
-    background-color: #FFF; 
-    color: #1e2a5e;
-    border: 3px solid #1e2a5e;
-}
-
-.story-description {
-    font-size: 17px; 
-    line-height: 1.5; 
-    display: flex;
-}
-
-.services .boxes {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: space-between; 
-    gap: 20px; 
-    margin: 0 auto; 
-    max-width: 1200px; 
-    padding: 20px; 
-}
-
-/* Individual service box */
-.services .box {
-    flex: 1 1 calc(33% - 20px); 
-    margin: 20px 0; 
-    text-align: center; 
-    border-radius: 12px; 
-    padding: 30px 10px; 
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    background: #fff; 
-    transition: all 0.4s ease; 
-    cursor: default; 
-    color: #1a2a5e;
-}
-
-/* Hover effect for boxes */
-.services .box:hover {
-    background: #1e2a5e; 
-    color: #fff; 
-}
-
-/* Icon style */
-.services .box .icon {
-    height: 50px; 
-    width: 50px; 
-    background: #1e2a5e; 
-    border-radius: 50%; 
-    text-align: center; 
-    line-height: 50px; 
-    font-size: 18px;
-    color: #fff; 
-    margin: 0 auto 10px auto; 
-    transition: all 0.4s ease; 
-}
-
-@media only screen and (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .container-field h1 {
-        font-size: 4 rem;
-    }
-
-    .button {
-        margin-right: 0;
-    }
-
-    .text-top {
-        margin-left: 0;
-        text-align: center;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    header {
-        padding: 20px 5%;
-    }
-
-    .text-center {
-        font-size: 2rem;
-    }
-
-    .button {
-        font-size: 0.8rem;
-    }
-
-    p {
-        font-size: 0.8rem;
-    }
-
-    .search {
-        width: 90%;
-    }
-
-    .img-container {
-        margin-left: 0;
-    }
-}
-
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <div class="profile-header">
+            <div class="profile-info">
+                <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" width="150" height="150">
+                <div>
+                    <div class="profile-name">amamiyaws</div>
+                    <button class="edit-profile-btn"><a href="update_profile.php">edit profile</a></button>
+                </div>
+            </div>
+            <div class="badge-container">
+                <img src="assets/badge.jpg" alt="Badge 1">
+                <img src="assets/badge1.png" alt="Badge 2">
+                <img src="assets/badge2.jpg" alt="Badge 3">
+            </div>
+        </div>
 
-<!-- Main Header with Logo and Navigation -->
-<header>
-<h2>
-    <a href="user_page.php" class="logo">
-        <img src="assets/logo.png" alt="Logo" class="logo-image" />
-    </a>
-</h2>
-    <nav class="navigation">
-        <a href="home.php">Home</a>
-        <a href="about.php">About</a>
-        <a href="profile.php">Profile</a>
-    </nav>
-</header>
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat-item">
+                <h3>70</h3>
+                <p>day streaks</p>
+            </div>
+            <div class="stat-item">
+                <h3>300</h3>
+                <p>reviews</p>
+            </div>
+            <div class="stat-item">
+                <h3>70</h3>
+                <p>badges</p>
+            </div>
+            <div class="stat-item">
+                <h3>40</h3>
+                <p>shelves</p>
+            </div>
+        </div>
 
-<section class="profile-header">
-    <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" width="150" height="150">
-    <div class="user-info">
-        <h1 class="username">amamiyaws</h1>
-        <a href="update_profile.php">Edit profile</a>
+        <!-- Top Reads -->
+        <div class="top-read">
+            <div class="section-title">amamiyaw's top read</div>
+            <div class="bookshelf">
+                <div class="book-item">
+                    <img src="assets/fav1.jpg" alt="Book Cover">
+                    <p>Di Tanah Lada</p>
+                </div>
+                <div class="book-item">
+                    <img src="assets/fav23.jpg" alt="Book Cover">
+                    <p>The Riddle of the Sea</p>
+                </div>
+                <div class="book-item">
+                    <img src="assets/fav3.jpg" alt="Book Cover">
+                    <p>The Princess in Black</p>
+                </div>
+                <div class="book-item">
+                    <img src="assets/fav4.jpg" alt="Book Cover">
+                    <p>Waves</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shelves -->
+        <div class="shelves">
+            <div class="section-title">amamiyaw's shelves</div>
+            <div class="shelves-container">
+                <div class="shelf">
+                    <img src="assets/fav1.jpg" alt="Lost in the Never Woods">
+                    <h4>me in another universe</h4>
+                    <p>what i've been thinking at 3 a.m., and can't sleep so i would've turn into a wolf</p>
+                    <div class="shelf-stats">77 likes • 60 books</div>
+                </div>
+                <div class="shelf">
+                    <img src="assets/fav1.jpg" alt="Lost in the Never Woods">
+                    <h4>me in another universe</h4>
+                    <p>what i've been thinking at 3 a.m., and can't sleep so i would've turn into a wolf</p>
+                    <div class="shelf-stats">77 likes • 60 books</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            &copy; 2023 Bookstery. All Rights Reserved.
+        </div>
     </div>
-    <div class="stats">
-        <div class="stat-item">
-            <strong>550</strong> friends gw
-        </div>
-        <div class="stat-item stat-item-light">
-            <strong>40</strong> streaks akuuu
-        </div>
-        <div class="stat-item">
-            <strong>3</strong> badges
-        </div>
-        <div class="stat-item stat-item-light">
-            <strong>70</strong> books
-        </div>
-    </div>
-</section>
-
-<!-- Bookshelf Section -->
-<main class="bookshelf">
-    <div class="bookshelf-title">amamiyaw’s top read</div>
-    <div class="book-list">
-        <div class="book">
-            <img src="assets/fav1.jpg" alt="Book Cover">
-        </div>
-        <div class="book">
-            <img src="assets/fav23.jpg" alt="Book Cover">
-        </div>
-        <div class="book">
-            <img src="assets/fav3.jpg" alt="Book Cover">
-        </div>
-        <div class="book">
-            <img src="assets/fav4.jpg" alt="Book Cover">
-        </div>
-    </div>
-</main>
-
-  <script src="js/script.js"></script>
 </body>
 </html>
