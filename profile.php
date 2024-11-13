@@ -1,6 +1,23 @@
 <?php
-include 'config.php';
 session_start();
+include "config.php";
+
+if (isset($_SESSION['user_name'])) {
+    $user_name = $_SESSION['user_name'];
+
+    // Fetch the profile picture path from the database
+    $query = "SELECT image FROM user_form WHERE name = '$user_name'";
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $profile_image = $row['image'] ? 'uploaded_img/' . $row['image'] : 'default.jpg'; // Use a default if no image
+    } else {
+        echo "User not found.";
+    }
+} else {
+    echo "You are not logged in!";
+}
 ?>
 
 <!DOCTYPE html>
@@ -345,9 +362,8 @@ footer {
     </nav>
 </header>
 
-<!-- Profile Header -->
 <section class="profile-header">
-    <img src="assets/ava.jpg" alt="Profile Picture" class="profile-pic">
+    <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" width="150" height="150">
     <div class="user-info">
         <h1 class="username">amamiyaws</h1>
         <a href="update_profile.php">Edit profile</a>
