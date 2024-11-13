@@ -17,9 +17,9 @@ session_start();
     <header>
         <h2><a href="#" class="logo">logo</a></h2>
         <nav class="navigation">
-          <a href="home.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="#">Profile</a>
+          <a href="home.php">Home</a>
+          <a href="about.php">About</a>
+          <a href="profile.php">Profile</a>
         </nav>
     </header>
 
