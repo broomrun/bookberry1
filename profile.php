@@ -13,7 +13,8 @@ if (isset($_SESSION['user_name'])) {
 
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $profile_image = $row['image'] ? 'uploaded_img/' . $row['image'] : 'default.jpg'; // Use a default if no image
+        $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
+        $profile_image = $image_path . '?t=' . time(); // Add a unique parameter to force refresh
     } else {
         echo "User not found.";
     }
