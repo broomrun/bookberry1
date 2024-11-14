@@ -3,25 +3,50 @@ session_start();
 include "config.php";
 
 $profile_image = 'default.jpg';
+$streak_count = 0;
 
 if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
+    $current_date = date("Y-m-d");
 
-    // Fetch the profile picture path from the database
-    $query = "SELECT image FROM user_form WHERE name = '$user_name'";
-    $result = mysqli_query($conn, $query);
+    // Query untuk mengambil gambar profil
+    $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
+    $image_result = mysqli_query($conn, $image_query);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
+    if ($image_result && mysqli_num_rows($image_result) > 0) {
+        $row = mysqli_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
         $profile_image = $image_path . '?t=' . time(); // Add a unique parameter to force refresh
     } else {
         echo "User not found.";
     }
+
+    // Query untuk mengambil last_login dan streak_count
+    $streak_query = "SELECT last_login, streak_count FROM user_form WHERE name = '$user_name'";
+    $streak_result = mysqli_query($conn, $streak_query);
+    $user_data = mysqli_fetch_assoc($streak_result);
+
+    // Hitung streak berdasarkan perbedaan tanggal
+    if ($user_data) {
+        $last_login = $user_data['last_login'];
+        $streak_count = $user_data['streak_count'];
+
+        // Hitung apakah pengguna login berturut-turut
+        if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
+            $streak_count++; // Tambah streak jika login berturut-turut
+        } else {
+            $streak_count = 1; // Reset streak jika tidak berturut-turut
+        }
+
+        // Update last_login dan streak_count di database
+        $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
+        mysqli_query($conn, $update_query) or die('Query failed');
+    }
 } else {
     echo "You are not logged in!";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,8 +249,8 @@ if (isset($_SESSION['user_name'])) {
         <!-- Statistics -->
         <div class="stats">
             <div class="stat-item">
-                <h3>70</h3>
-                <p>day streaks</p>
+                <h3><?php echo htmlspecialchars($streak_count); ?></h3>
+                <p>streak</p>
             </div>
             <div class="stat-item">
                 <h3>300</h3>
