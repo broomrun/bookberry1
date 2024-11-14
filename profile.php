@@ -2,6 +2,8 @@
 session_start();
 include "config.php";
 
+$profile_image = 'default.jpg';
+
 if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
 

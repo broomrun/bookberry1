@@ -11,49 +11,39 @@ if (!isset($user_name)) {
 
 $message = [];
 
-// Initialize $user_data
-$user_data = null;
-
-// Fetch user data from the database
+// Fetch user data and profile image from the database
 $query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
-
 if (mysqli_num_rows($query) > 0) {
     $user_data = mysqli_fetch_assoc($query);
+    $profile_image = !empty($user_data['image']) ? 'uploaded_profile_images/' . $user_data['image'] : 'uploaded_profile_images/default_image.jpg';
 } else {
     $message[] = 'User data not found.';
 }
 
-// Check if form is submitted
 if (isset($_POST['update_profile'])) {
+    // Update name and email if needed
     $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
     $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
+    mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update failed');
+    
+    // Check if a new profile image is uploaded
+    if (isset($_FILES['update_image']) && $_FILES['update_image']['error'] == 0) {
+        $image_name = $_FILES['update_image']['name'];
+        $image_tmp_name = $_FILES['update_image']['tmp_name'];
+        $image_folder = 'uploaded_profile_images/' . $image_name;
 
-    // Update name and email
-    $update_query = mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update query failed');
-
-    // Update the session variable if name is successfully changed
-    if ($update_query) {
-        $_SESSION['user_name'] = $update_name;
-        $user_name = $update_name;  // Update local variable too
-        $message[] = "Profile updated successfully!";
-    }
-
-    // Debug output for session
-    if (!isset($_SESSION['user_name'])) {
-        echo "User name not set in session.";
-    } else {
-        echo "Current session user: " . htmlspecialchars($_SESSION['user_name']);
-    }
-
-    // Re-fetch updated user data for verification
-    $query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
-    if (mysqli_num_rows($query) == 0) {
-        echo 'User not found after update.';
-    } else {
-        $user_data = mysqli_fetch_assoc($query);
+        // Move uploaded image to the specified folder and update in database
+        if (move_uploaded_file($image_tmp_name, $image_folder)) {
+            mysqli_query($conn, "UPDATE user_form SET image = '$image_name' WHERE name = '$user_name'") or die('Image update failed');
+            $message[] = "Profile image updated successfully!";
+            $profile_image = $image_folder;  // Update variable to show new image instantly
+        } else {
+            $message[] = "Failed to upload image.";
+        }
     }
 }
 ?>
+       
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +97,6 @@ if (isset($_POST['update_profile'])) {
         function togglePasswordVisibility(id) {
             const passwordField = document.getElementById(id);
             const eyeIcon = document.getElementById(id + '-eye');
-
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
                 eyeIcon.classList.remove('fa-eye');
@@ -120,18 +109,9 @@ if (isset($_POST['update_profile'])) {
         }
     </script>
 </head>
-<body class="bg-white-100">
-    <header class="navbar flex justify-between items-center px-10">
-        <h2>
-            <a href="user_page.php" class="logo">
-                <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
-            </a>
-        </h2>
-        <nav class="navigation">
-            <a href="home.php">Home</a>
-            <a href="about.php">About</a>
-            <a href="profile.php">Profile</a>
-        </nav>
+<body>
+    <header class="navbar">
+        <!-- Navbar content -->
     </header>
 
     <div class="container mx-auto">
@@ -142,15 +122,12 @@ if (isset($_POST['update_profile'])) {
         <div class="bg-white p-8 shadow-md rounded-[20px]">
             <h2 class="text-2xl font-bold mb-4">Account Information</h2>
             <div class="text-center mb-6">
-                <div class="flex justify-center items-center">
-                    <img src="uploaded_img/<?php echo htmlspecialchars($user_data['image'] ?? 'default_image.jpg'); ?>" alt="Profile Image" class="profile-image mb-2">
-                </div>
+            <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Image">
                 <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
-                <p class="text-gray-600 custom-small-text"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
+                <p class="text-gray-600"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
             </div>
-
             <form method="POST" enctype="multipart/form-data" class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700" for="update_name">Name:</label>
                         <input type="text" id="update_name" name="update_name" class="w-full" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required>
@@ -181,11 +158,12 @@ if (isset($_POST['update_profile'])) {
                     <label for="update_image" class="block text-gray-700">Update Profile Picture:</label>
                     <input type="file" id="update_image" name="update_image" class="w-full">
                 </div>
-                
-                <button type="submit" name="update_profile" class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
+                <button type="submit" name="update_profile"class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
             </form>
         </div>
     </div>
 </body>
 </html>
+
+
 
