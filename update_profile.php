@@ -27,31 +27,32 @@ if (mysqli_num_rows($query) > 0) {
 if (isset($_POST['update_profile'])) {
     $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
     $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
+    
+    // Handle profile picture upload
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+        $image_name = $_FILES['profile_picture']['name'];
+        $image_tmp_name = $_FILES['profile_picture']['tmp_name'];
+        $image_folder = 'uploaded_img/' . basename($image_name); // Use basename for security
 
-    // Update name and email
-    $update_query = mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update query failed');
-
-    // Update the session variable if name is successfully changed
-    if ($update_query) {
-        $_SESSION['user_name'] = $update_name;
-        $user_name = $update_name;  // Update local variable too
+        // Move uploaded file to the destination folder
+        if (move_uploaded_file($image_tmp_name, $image_folder)) {
+            // Update user data with new image path
+            $update_query = mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email', image = '$image_name' WHERE name = '$user_name'") or die('Update query failed');
+            $message[] = "Profile updated successfully!";
+        } else {
+            $message[] = "Failed to upload image.";
+        }
+    } else {
+        // Update name and email only if no new image is uploaded
+        $update_query = mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update query failed');
         $message[] = "Profile updated successfully!";
     }
 
-    // Debug output for session
-    if (!isset($_SESSION['user_name'])) {
-        echo "User name not set in session.";
-    } else {
-        echo "Current session user: " . htmlspecialchars($_SESSION['user_name']);
-    }
-
-    // Re-fetch updated user data for verification
+    // Update session variable and user data after update
+    $_SESSION['user_name'] = $update_name;
+    $user_name = $update_name;  // Update local variable
     $query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
-    if (mysqli_num_rows($query) == 0) {
-        echo 'User not found after update.';
-    } else {
-        $user_data = mysqli_fetch_assoc($query);
-    }
+    $user_data = mysqli_fetch_assoc($query);
 }
 ?>
 
@@ -76,9 +77,9 @@ if (isset($_POST['update_profile'])) {
         .profile-image { width: 100px; height: 100px; border-radius: 50%; }
 
         /* warna inputan */
-            input[type="text"],
-            input[type="password"],
-            input[type="file"] {
+        input[type="text"],
+        input[type="password"],
+        input[type="file"] {
             color: black; 
             border: 1px solid #ccc; 
             padding: 10px; 
@@ -143,7 +144,7 @@ if (isset($_POST['update_profile'])) {
             <h2 class="text-2xl font-bold mb-4">Account Information</h2>
             <div class="text-center mb-6">
                 <div class="flex justify-center items-center">
-                    <img src="uploaded_img/<?php echo htmlspecialchars($user_data['image'] ?? 'default_image.jpg'); ?>" alt="Profile Image" class="profile-image mb-2">
+                    <img src="uploaded_img/<?php echo isset($user_data['image']) ? htmlspecialchars($user_data['image']) : 'default_image.jpg'; ?>" alt="Profile Image" class="profile-image mb-2">
                 </div>
                 <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
                 <p class="text-gray-600 custom-small-text"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
@@ -176,16 +177,15 @@ if (isset($_POST['update_profile'])) {
                     <input type="password" id="confirm_pass" name="confirm_pass" class="w-full" placeholder="Confirm new password">
                     <i class="fas fa-eye toggle-password" id="confirm_pass-eye" onclick="togglePasswordVisibility('confirm_pass')"></i>
                 </div>
-                
-                <div>
-                    <label for="update_image" class="block text-gray-700">Update Profile Picture:</label>
-                    <input type="file" id="update_image" name="update_image" class="w-full">
+
+                <div class="relative">
+                    <label for="profile_picture" class="block text-gray-700">Profile Picture:</label>
+                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="w-full">
                 </div>
-                
-                <button type="submit" name="update_profile" class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
+
+                <button type="submit" name="update_profile" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Update Profile</button>
             </form>
         </div>
     </div>
 </body>
 </html>
-

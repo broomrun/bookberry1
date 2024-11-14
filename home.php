@@ -209,5 +209,38 @@ if(isset($_POST['submit'])){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="js/script.js"></script>
 
+document.getElementById("search-button").addEventListener("click", function() {
+    var searchInput = document.getElementById("searchInput").value.toLowerCase();
+    var genreFilter = document.getElementById("genreFilter").value;
+    var bookItems = document.querySelectorAll(".book-item");
+
+    // Menyembunyikan container buku secara permanen ketika pencarian dilakukan
+    var bookListContainer = document.querySelector("#book-list");
+    bookListContainer.style.display = "none";  // Menyembunyikan container
+
+    // Simulasikan penundaan sebelum melakukan pencarian
+    setTimeout(function() {
+        let found = false;  // Variabel untuk memeriksa apakah ada buku yang sesuai
+        bookItems.forEach(function(item) {
+            var bookTitle = item.querySelector(".card-title").textContent.toLowerCase();
+            var bookGenre = item.getAttribute("data-genre");
+
+            // Filter buku berdasarkan input pencarian dan genre
+            if ((bookTitle.includes(searchInput) || searchInput === "") && (genreFilter === "allgenre" || bookGenre === genreFilter)) {
+                item.style.display = "block";  // Menampilkan buku yang cocok
+                found = true;
+            } else {
+                item.style.display = "none";  // Menyembunyikan buku yang tidak cocok
+            }
+        });
+
+        // Jika tidak ada buku yang ditemukan, tampilkan pesan atau lakukan tindakan (opsional)
+        if (!found) {
+            alert("Tidak ada buku yang ditemukan sesuai dengan kriteria pencarian.");
+        }
+
+    }, 500);  // Simulasikan penundaan pencarian
+});
+
 </body>
 </html>
