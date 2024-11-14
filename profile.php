@@ -209,7 +209,7 @@ if (isset($_SESSION['user_name'])) {
             <div class="profile-info">
                 <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" width="150" height="150">
                 <div>
-                    <div class="profile-name">amamiyaws</div>
+                    <div class="profile-name"><?php echo $_SESSION['user_name']; ?></div>
                     <button class="edit-profile-btn"><a href="update_profile.php">edit profile</a></button>
                 </div>
             </div>
@@ -242,7 +242,7 @@ if (isset($_SESSION['user_name'])) {
 
         <!-- Top Reads -->
         <div class="top-read">
-            <div class="section-title">amamiyaw's top read</div>
+            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s top read</div>
             <div class="bookshelf">
                 <div class="book-item">
                     <img src="assets/fav1.jpg" alt="Book Cover">
@@ -265,7 +265,7 @@ if (isset($_SESSION['user_name'])) {
 
         <!-- Shelves -->
         <div class="shelves">
-            <div class="section-title">amamiyaw's shelves</div>
+            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s shelves</div>
             <div class="shelves-container">
                 <div class="shelf">
                     <img src="assets/fav1.jpg" alt="Lost in the Never Woods">
