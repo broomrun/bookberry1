@@ -9,38 +9,42 @@ if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
     $current_date = date("Y-m-d");
 
-    // Query untuk mengambil gambar profil
+    // Query to get profile image
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
 
     if ($image_result && mysqli_num_rows($image_result) > 0) {
         $row = mysqli_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
-        $profile_image = $image_path . '?t=' . time(); // Add a unique parameter to force refresh
+        $profile_image = $image_path . '?t=' . time(); // Add unique parameter to force refresh
     } else {
-        echo "User not found.";
+        echo "User not found or query failed: " . mysqli_error($conn);
     }
 
-    // Query untuk mengambil last_login dan streak_count
+    // Query to get last_login and streak_count
     $streak_query = "SELECT last_login, streak_count FROM user_form WHERE name = '$user_name'";
     $streak_result = mysqli_query($conn, $streak_query);
-    $user_data = mysqli_fetch_assoc($streak_result);
 
-    // Hitung streak berdasarkan perbedaan tanggal
-    if ($user_data) {
+    if ($streak_result && mysqli_num_rows($streak_result) > 0) {
+        $user_data = mysqli_fetch_assoc($streak_result);
+
         $last_login = $user_data['last_login'];
         $streak_count = $user_data['streak_count'];
 
-        // Hitung apakah pengguna login berturut-turut
+        // Check if the user logged in consecutively
         if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
-            $streak_count++; // Tambah streak jika login berturut-turut
+            $streak_count++; // Increase streak if consecutive login
         } else {
-            $streak_count = 1; // Reset streak jika tidak berturut-turut
+            $streak_count = 1; // Reset streak if not consecutive
         }
 
-        // Update last_login dan streak_count di database
+        // Update last_login and streak_count in database
         $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
-        mysqli_query($conn, $update_query) or die('Query failed');
+        if (!mysqli_query($conn, $update_query)) {
+            die('Update query failed: ' . mysqli_error($conn));
+        }
+    } else {
+        echo "Streak query failed or user data not found: " . mysqli_error($conn);
     }
 } else {
     echo "You are not logged in!";
@@ -53,182 +57,22 @@ if (isset($_SESSION['user_name'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile UI</title>
-    <style>
-        /* General Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-        .container {
-            width: 900px;
-            padding: 30px;
-            border-radius: 10px;
-        }
-
-        /* Header Section */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        .profile-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .profile-info img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid #ddd;
-        }
-        .profile-name {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .edit-profile-btn {
-            font-size: 12px;
-            color: #555;
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        
-        /* Badge Container */
-        .badge-container {
-            display: flex;
-            align-items: center;
-            background-color: #f7f5f2;
-            padding: 20px; /* Increased padding */
-            border-radius: 15px; /* Slightly rounded corners */
-            gap: 15px; /* Added spacing between badges */
-        }
-        .badge-container img {
-            width: 70px; /* Increased image size */
-            height: 70px; /* Increased image size */
-        }
-
-
-        /* Statistics Section */
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Two items per row */
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .stat-item {
-            background-color: #E1D7B7;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .stat-item h3 {
-            font-size: 24px;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .stat-item p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Top Reads Section */
-        .top-read {
-            margin-top: 20px;
-        }
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .bookshelf {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .book-item {
-            text-align: center;
-            background-color: #f8f9fb;
-            padding: 10px;
-            border-radius: 10px;
-            width: 120px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .book-item img {
-            width: 100%;
-            border-radius: 5px;
-        }
-        .book-item p {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #333;
-            text-align: center;
-        }
-
-        /* Shelves Section */
-        .shelves {
-            margin-top: 30px;
-        }
-        .shelves-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .shelf {
-            flex: 1;
-            background-color: #1f3359;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: left;
-            position: relative;
-        }
-        .shelf img {
-            width: 70px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .shelf h4 {
-            margin: 0;
-            font-size: 16px;
-            color: #ddd;
-        }
-        .shelf p {
-            margin: 5px 0;
-            font-size: 12px;
-            color: #bbb;
-        }
-        .shelf-stats {
-            font-size: 12px;
-            color: #aaa;
-            margin-top: 10px;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-            margin-top: 40px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
+    <link href="style/styles.css" rel="stylesheet">
 </head>
+<style>
+    body {
+        justify-content: center;
+    }
+    .container {
+        width: 900px;
+        padding: 30px;
+        border-radius: 10px;
+}
+</style>
 <body>
+    <?php include "layout/header.html"?>
     <div class="container">
         <!-- Header -->
         <div class="profile-header">
@@ -307,11 +151,48 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
         </div>
+        <a href="logout.php">Log out</a>
+    </div>
+        
+    <footer class="footer">
+    <div class="footer-content">
+    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
+        <p>halo </p>
 
-        <!-- Footer -->
-        <div class="footer">
-            &copy; 2023 Bookstery. All Rights Reserved.
+        <div class="icons">
+            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+            <a href="#"><i class='bx bxl-youtube'></i></a>
         </div>
     </div>
+
+    <div class="footer-content">
+        <h4>Reading Lists</h4>
+        <li><a href="#">Genres</a></li>
+        <li><a href="#">Book Categories</a></li>
+        <li><a href="#">Top Reviews</a></li>
+        <li><a href="#">Top Authors</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>About Us</h4>
+        <li><a href="#">How we work</a></li>
+        <li><a href="#">Book of the Month</a></li>
+        <li><a href="#">Privacy & Security</a></li>
+        <li><a href="#">Recommend Reads</a></li>
+    </div>
+
+    <div class="footer-content">
+        <h4>Reading Challenges</h4>
+        <li><a href="#">Join Us</a></li>
+        <li><a href="#">Subscription</a></li>
+        <li><a href="#">Borrow Books</a></li>
+    </div>
+</footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
+
 </body>
 </html>

@@ -54,16 +54,77 @@ if (isset($_POST['update_profile'])) {
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link href="style/styles.css" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif;  background-color: #1e2a5e}
-        .alert { margin: 10px 0; padding: 10px; background-color: #e0f7fa; color: #00695c; border-radius: 50px; }
-        .navbar { background-color: #1e2a5e; width: 100%; height: 70px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 1000; }
-        header .logo { color: #FFFFFF; font-size: 30px; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin: 0 auto; }
-        .navigation a { color: #FFFFFF; text-decoration: none; font-weight: 500; padding: 2px 15px; margin-right: 20px; }
-        .navigation a:hover { background: #FFFFFF; color: #1e2a5e; border-radius: 50px; }
-        .container { margin-top: 100px; }
-        .profile-image { width: 100px; height: 100px; border-radius: 50%; }
+        body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1e2a5e;
+    margin: 0;
+    padding-top: 90px;
+}
+
+header {
+    position: fixed; /* Mengubah posisi menjadi tetap */
+    top: 0; /* Menetapkan posisi di bagian atas */
+    width: 100%; /* Memastikan lebar penuh */
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e2a5e; /* Pastikan warna latar belakang untuk kontras */
+    z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
+}
+
+header .logo {
+    color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin: 0 auto;
+}
+
+.logo-image {
+    max-width: 170px; /* Maksimal lebar gambar */
+    height: auto; /* Menjaga proporsi gambar */
+    display: block; /* Memastikan gambar tampil sebagai block-level element */
+}
+ 
+
+.navigation {
+    display: flex;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    transition: 0.3s background;
+    margin-right: 30px;
+}
+
+
+.logo img {
+    max-height: 50px; /* Adjust as needed for logo size */
+    width: auto;
+    vertical-align: left; /* Aligns the image with the navigation */
+    align-items: left;
+    margin-right: auto;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation a:hover {
+    background: #fff;
+    color: #1e2a5e;
+}
+
 
         /* warna inputan */
             input[type="text"],
@@ -110,9 +171,18 @@ if (isset($_POST['update_profile'])) {
     </script>
 </head>
 <body>
-    <header class="navbar">
-        <!-- Navbar content -->
-    </header>
+<header>
+        <h2>
+        <a href="#" class="logo">
+        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
+    </a>
+</h2>
+                <nav class="navigation">
+                 <a href="home.php">Home</a>
+                <a href="about.php">About</a>
+                <a href="update_profile.php">Profile</a>
+                </nav>
+        </header>
 
     <div class="container mx-auto">
         <?php foreach ($message as $msg): ?>
@@ -122,7 +192,9 @@ if (isset($_POST['update_profile'])) {
         <div class="bg-white p-8 shadow-md rounded-[20px]">
             <h2 class="text-2xl font-bold mb-4">Account Information</h2>
             <div class="text-center mb-6">
-            <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Image">
+            <div class="flex justify-center items-center">
+                <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Image" class="rounded-full w-32 h-32 object-cover">
+            </div>
                 <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
                 <p class="text-gray-600"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
             </div>
