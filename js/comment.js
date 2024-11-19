@@ -14,17 +14,18 @@ function addComment() {
 
   commentContainer.innerHTML = `
       <div class="comment__card">
-          <h3 class="comment__title">New Comment</h3>
-          <p>${commentText}</p>
-          <div class="comment__card-footer">
-              <div>Likes 0</div>
-              <div>Disliked 0</div>
-              <div class="show-replies" onclick="toggleReplyForm('new-comment')">Reply</div>
-          </div>
-      </div>
-      <div class="reply-form" id="reply-form-new-comment">
-          <textarea placeholder="Write your reply..."></textarea>
-          <button onclick="addReply('new-comment')">Post Reply</button>
+          <div class="comment__profile">
+              <img src="assets/2.jpeg" alt="Profile Picture">
+            </div>
+            <div class="comment__content">
+            <h3 class="comment__title">Sunwoo</h3>
+            <p>${commentText}</p>
+            <div class="comment__card-footer">
+                <div>Likes 123</div>
+                <div>Disliked 23</div>
+                <div class="show-replies" onclick="toggleReplyForm('new-comment}')">Reply 2</div>
+            </div>
+        </div>
       </div>
   `;
 
@@ -35,7 +36,7 @@ function addComment() {
 // Fungsi untuk menambahkan balasan
 function addReply(commentId) {
   const replyForm = document.getElementById(`reply-form-${commentId}`);
-  const replyText = replyForm.querySelector("textarea").value;
+  const replyText = replyForm.querySelector("new-comment").value;
   if (replyText.trim() === "") return;
 
   const replyContainer = document.createElement("div");
@@ -43,16 +44,26 @@ function addReply(commentId) {
 
   replyContainer.innerHTML = `
       <div class="comment__card">
-          <h3 class="comment__title">Reply</h3>
-          <p>${replyText}</p>
-          <div class="comment__card-footer">
-              <div>Likes 0</div>
-              <div>Disliked 0</div>
-              <div class="show-replies" onclick="toggleReplyForm('reply-${commentId}')">Reply</div>
-          </div>
+          <div class="comment__profile">
+              <img src="assets/2.jpeg" alt="Profile Picture">
+            </div>
+            <div class="comment__content">
+            <h3 class="comment__title">Sunwoo</h3>
+            <p>${replyText}</p>
+            <div class="comment__card-footer">
+                <div>Likes 123</div>
+                <div>Disliked 23</div>
+                <div class="show-replies" onclick="toggleReplyForm('reply-${commentId}')">Reply 2</div>
+            </div>
+        </div>
       </div>
   `;
 
-  replyForm.before(replyContainer); // Insert reply above the form
-  replyForm.querySelector("textarea").value = ""; // Reset reply input
+  // Menambahkan balasan ke dalam komentar yang relevan
+  const comment = document.getElementById(`comment-${commentId}`);
+  comment.appendChild(replyContainer);
+
+  // Mengosongkan input balasan dan menyembunyikan form
+  replyForm.querySelector("new-comment").value = ""; // Reset reply input
+  replyForm.style.display = "none"; // Menyembunyikan form setelah balasan ditambahkan
 }
