@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styled Login Modal with Bootstrap</title>
+  <title>Login</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     /* Custom Modal Styling */
     .modal-content {
@@ -66,9 +68,9 @@
               <label for="password" class="form-label">Password</label>
               <div class="input-group">
                 <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-                <span class="input-group-text" onclick="togglePasswordVisibility()">
-                  <i class="bi bi-eye"></i> <!-- Bootstrap Icons Eye Icon -->
-                </span>
+                <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                  <i class="bi bi-eye"></i> <!-- Initial Icon: Open Eye -->
+                </button>
               </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
@@ -81,26 +83,28 @@
     </div>
   </div>
 
-  <!-- Bootstrap Bundle with Popper.js and Bootstrap Icons -->
+  <!-- Bootstrap Bundle with Popper.js -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 
-  <!-- Optional JavaScript for Form Handling and Password Visibility Toggle -->
+  <!-- JavaScript for Password Visibility Toggle -->
   <script>
-    function togglePasswordVisibility() {
-      const passwordInput = document.getElementById('password');
-      const eyeIcon = document.querySelector('.input-group-text i');
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        eyeIcon.classList.remove('bi-eye');
-        eyeIcon.classList.add('bi-eye-slash');
-      } else {
-        passwordInput.type = 'password';
-        eyeIcon.classList.remove('bi-eye-slash');
-        eyeIcon.classList.add('bi-eye');
-      }
-    }
+    // Select the toggle button and password input
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
 
+    // Add event listener for toggle button
+    togglePassword.addEventListener('click', function () {
+      // Check the current type of the password field
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+
+      // Toggle the icon
+      this.innerHTML = type === 'password'
+        ? '<i class="bi bi-eye"></i>' // Open eye when password is hidden
+        : '<i class="bi bi-eye-slash"></i>'; // Closed eye when password is visible
+    });
+
+    // Prevent default form submission for testing
     document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
       alert('Logged in!');
