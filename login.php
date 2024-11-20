@@ -75,10 +75,14 @@ if (isset($_POST['submit'])) {
     .btn-primary:hover {
       background-color: #141a5a;
     }
+    .form-label {
+      font-weight: 500;
+    }
     .form-text a {
       color: #1a1f71;
       text-decoration: underline;
     }
+    
   </style>
 </head>
 <body>
@@ -87,9 +91,8 @@ if (isset($_POST['submit'])) {
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">Login</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header">
+            <h5 class="modal-title mx-auto" id="loginModalLabel">Login</h5>
         </div>
         <div class="modal-body">
           <form id="loginForm" method="POST">

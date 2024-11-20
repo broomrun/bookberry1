@@ -52,6 +52,11 @@ if (isset($_POST['submit'])) {
     .modal-header {
       border-bottom: none;
     }
+
+    .modal-header h5 {
+      font-weight: bold;
+      color: #1a1f71; /* Dark Blue Color */
+    }
     .form-control {
       border-radius: 8px;
     }
@@ -75,6 +80,10 @@ if (isset($_POST['submit'])) {
     .link-primary:hover {
       text-decoration: underline;
     }
+    .form-text a {
+      color: #1a1f71;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -84,8 +93,8 @@ if (isset($_POST['submit'])) {
   <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title mx-auto" id="signupModalLabel">Sign Up</h5>
+      <div class="modal-header">
+            <h5 class="modal-title mx-auto" id="signupModalLabel">Sign Up</h5>
         </div>
         <div class="modal-body">
           <form method="POST" action="" onsubmit="return validateForm()">
@@ -119,7 +128,7 @@ if (isset($_POST['submit'])) {
               <button type="submit" name="submit" class="btn btn-primary">Sign Up</button>
             </div>
           </form>
-          <div class="text-center mt-3">
+          <div class="form-text text-center mt-3">
             <p class="mb-0">Already have an account? <a href="login.php" class="link-primary">Login now</a></p>
           </div>
         </div>
