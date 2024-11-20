@@ -31,11 +31,20 @@ if (isset($_SESSION['user_name'])) {
         $last_login = $user_data['last_login'];
         $streak_count = $user_data['streak_count'];
 
-        // Check if the user logged in consecutively
-        if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
-            $streak_count++; // Increase streak if consecutive login
+        // Check if the user logged in today or missed a day
+        $last_login_date = date('Y-m-d', strtotime($last_login));
+        if ($last_login_date == $current_date) {
+            // If the user logged in today, just continue
+            $streak_count = $streak_count; // No change
         } else {
-            $streak_count = 1; // Reset streak if not consecutive
+            // If they didn't log in today, reset streak or increase streak
+            if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
+                // If last login was yesterday, continue streak
+                $streak_count++;
+            } else {
+                // If skipped a day, reset streak
+                $streak_count = 1; // Start new streak
+            }
         }
 
         // Update last_login and streak_count in database
@@ -50,6 +59,7 @@ if (isset($_SESSION['user_name'])) {
     echo "You are not logged in!";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

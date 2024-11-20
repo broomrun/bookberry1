@@ -21,13 +21,10 @@ if (isset($_POST['submit'])) {
         // Verifikasi apakah password cocok
         if (password_verify($pass, $row['password'])) {
             
-            if ($row['user_type'] == 'admin') {
-                $_SESSION['admin_name'] = $row['name'];
-                header('location:admin_page.php');
-            } elseif ($row['user_type'] == 'user') {
-                $_SESSION['user_name'] = $row['name'];
-                header('location:home.php');
-            }
+            // Saring data user, tidak perlu cek user_type
+            $_SESSION['user_name'] = $row['name'];
+            header('location:home.php'); // Redirect ke halaman home setelah login berhasil
+            exit; // Pastikan proses berhenti setelah redirect
 
         } else {
             $error = 'Incorrect password!';
@@ -42,106 +39,110 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-
-    <!-- Updated Font Awesome link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .login-container {
-            padding-top: 10px;
-            padding-bottom: 5px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #1E2A5E;
-        }
-        .login-form {
-            width: 100%;
-            max-width: 400px;
-            padding: 2rem;
-            background-color: #f8f9fa;
-            color: #1E2A5E;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-        .login-form h2 {
-            margin-bottom: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-        }
-        .custom-button {
-            background-color: #1E2A5E;
-            color: #E1D7B7;
-        }
-        .custom-button:hover {
-            background-color: #28356c;
-            color: #f0ede1;
-        }
-        .password-container {
-            position: relative;
-        }
-        #togglePassword {
-            position: absolute;
-            top: 70%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #1E2A5E;
-            font-size: 0.75rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Custom Modal Styling */
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+    }
+    .modal-header {
+      border-bottom: none;
+      text-align: center;
+    }
+    .modal-header h5 {
+      font-weight: bold;
+      color: #1a1f71; /* Dark Blue Color */
+    }
+    .modal-body {
+      padding: 2rem;
+    }
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #1a1f71;
+    }
+    .btn-primary {
+      background-color: #1a1f71;
+      border: none;
+      border-radius: 5px;
+    }
+    .btn-primary:hover {
+      background-color: #141a5a;
+    }
+    .form-text a {
+      color: #1a1f71;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="login-form">
-            <h2>Login</h2>
-
-            <?php
-            // Menampilkan pesan kesalahan di atas form jika ada
-            if (isset($error)) {
-                echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
-            }
-            ?>
-
-            <form method="POST" action="">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required>
-                </div>
-                <div class="mb-3 password-container">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                    <span id="togglePassword"><i class="fas fa-eye"></i></span>
-                </div>
-                
-                <button type="submit" class="btn custom-button w-100" name="submit">Login</button>
-                <p>Don't have an account? <a href="daftar.php">Sign up now</a></p>
-            </form>
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form id="loginForm" method="POST">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                  <i class="bi bi-eye"></i> <!-- Initial Icon: Open Eye -->
+                </button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" name="submit">Login</button>
+            <div class="form-text text-center mt-3">
+              Don't have an account? <a href="#">Sign up now</a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById("togglePassword").addEventListener("click", function() {
-            var passwordField = document.getElementById("password");
-            var icon = this.querySelector("i");
-            
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            } else {
-                passwordField.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        });
-    </script>
+  <!-- Bootstrap Bundle with Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript for Password Visibility Toggle -->
+  <script>
+    // Show the modal as soon as the page loads
+    window.onload = function() {
+      var myModal = new bootstrap.Modal(document.getElementById('loginModal'));
+      myModal.show();
+    };
+
+    // Select the toggle button and password input
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    // Add event listener for toggle button
+    togglePassword.addEventListener('click', function () {
+      // Check the current type of the password field
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+
+      // Toggle the icon
+      this.innerHTML = type === 'password'
+        ? '<i class="bi bi-eye-slash"></i>' // Open eye when password is hidden
+        : '<i class="bi bi-eye"></i>'; // Closed eye when password is visible
+    });
+  </script>
+
 </body>
 </html>
