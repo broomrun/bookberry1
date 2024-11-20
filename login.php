@@ -108,7 +108,7 @@ if (isset($_POST['submit'])) {
             </div>
             <button type="submit" class="btn btn-primary w-100" name="submit">Login</button>
             <div class="form-text text-center mt-3">
-              Don't have an account? <a href="#">Sign up now</a>
+              Don't have an account? <a href="daftar.php">Sign up now</a>
             </div>
           </form>
         </div>
