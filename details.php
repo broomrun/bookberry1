@@ -18,7 +18,7 @@ session_start();
 
     <div class="book-info">
     <div class="rating-container">
-        <img src="assets/11.jpeg" alt="Di Tanah Lada" class="book-cover">
+        <img src="assets/11.jpeg" alt="Di Tanah Ladaw" class="book-cover">
         <div class="rating" id="comment-rating-1">
                 <span onclick="rateComment(1, '1')">⭐</span>
                 <span onclick="rateComment(2, '1')">⭐</span>
