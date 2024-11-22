@@ -67,3 +67,17 @@ function addReply(commentId) {
   replyForm.querySelector("new-comment").value = ""; // Reset reply input
   replyForm.style.display = "none"; // Menyembunyikan form setelah balasan ditambahkan
 }
+
+let commentRatings = {};
+
+function rateComment(rating, commentId) {
+    if (!commentRatings[commentId]) {
+        commentRatings[commentId] = { total: 0, count: 0 };
+    }
+
+    commentRatings[commentId].total += rating;
+    commentRatings[commentId].count += 1;
+
+    const averageRating = (commentRatings[commentId].total / commentRatings[commentId].count).toFixed(1);
+    document.getElementById(`comment-average-rating-${commentId}`).innerText = `Rating: ${averageRating}`;
+}
