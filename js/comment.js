@@ -1,6 +1,6 @@
 // Menampilkan dan menyembunyikan form balasan
 function toggleReplyForm(commentId) {
-  const replyForm = document.getElementById(`reply-form-${commentId}`);
+  const replyForm = document.getElementById(reply-form-${commentId});
   replyForm.style.display = replyForm.style.display === "none" || replyForm.style.display === "" ? "block" : "none";
 }
 
@@ -35,7 +35,7 @@ function addComment() {
 
 // Fungsi untuk menambahkan balasan
 function addReply(commentId) {
-  const replyForm = document.getElementById(`reply-form-${commentId}`);
+  const replyForm = document.getElementById(reply-form-${commentId});
   const replyText = replyForm.querySelector("new-comment").value;
   if (replyText.trim() === "") return;
 
@@ -60,10 +60,24 @@ function addReply(commentId) {
   `;
 
   // Menambahkan balasan ke dalam komentar yang relevan
-  const comment = document.getElementById(`comment-${commentId}`);
+  const comment = document.getElementById(comment-${commentId});
   comment.appendChild(replyContainer);
 
   // Mengosongkan input balasan dan menyembunyikan form
   replyForm.querySelector("new-comment").value = ""; // Reset reply input
   replyForm.style.display = "none"; // Menyembunyikan form setelah balasan ditambahkan
+}
+
+let commentRatings = {};
+
+function rateComment(rating, commentId) {
+    if (!commentRatings[commentId]) {
+        commentRatings[commentId] = { total: 0, count: 0 };
+    }
+
+    commentRatings[commentId].total += rating;
+    commentRatings[commentId].count += 1;
+
+    const averageRating = (commentRatings[commentId].total / commentRatings[commentId].count).toFixed(1);
+    document.getElementById(comment-average-rating-${commentId}).innerText = Rating: ${averageRating};
 }
