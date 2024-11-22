@@ -71,7 +71,7 @@ function searchBooks(genre = null) {
         error: function() {
             $('#book-list').html(`<div class="col"><h1 class="text-center">Error retrieving data. Please try again later.</h1></div>`);
         }
-    });
+    }); 
 }
 
 // Event listener for the genre filter

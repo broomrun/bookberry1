@@ -59,6 +59,7 @@ session_start();
         </div>
     </div>
 
-    <script src="js/comment.js"></script>    
+    <script src="js/comment.js"></script>  
+    <script src="js/script.js"></script>  
 </body>
 </html>
