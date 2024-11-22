@@ -14,14 +14,7 @@ $query = isset($_GET['query']) ? mysqli_real_escape_string($conn, $_GET['query']
 </head>
 <body>
 
-<header>
-    <h2><a href="user_page.php" class="logo">BookBerry</a></h2>
-    <nav class="navigation">
-        <a href="home.php">Home</a>
-        <a href="about.php">About</a>
-        <a href="profile.php">Profile</a>
-    </nav>
-</header>
+<?php include "layout/header.html"?>
 
 <div class="container mt-4">
     <h1 class="text-center">Search Results for "<?php echo htmlspecialchars($query); ?>"</h1>

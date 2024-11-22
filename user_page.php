@@ -18,18 +18,8 @@ session_start();
 </head>
 <body>
     <section>
-        <header>
-        <h2>
-        <a href="login.php" class="logo">
-        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
-    </a>
-</h2>
-                <nav class="navigation">
-                 <a href="home.php">Home</a>
-                <a href="about.php">About</a>
-                <a href="update_profile.php">Profile</a>
-                </nav>
-        </header>
+        <?php include "layout/header.html"?>
+
         <div class="content">
             <div class="info">
             <h2>Hi, <br><span>BERRYs!</span></h2> 
@@ -153,43 +143,7 @@ session_start();
     </div>
 </div>
     
-<footer class="footer">
-    <div class="footer-content">
-    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
-        <p>halo </p>
-
-        <div class="icons">
-            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
-            <a href="#"><i class='bx bxl-twitter'></i></a>
-            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
-            <a href="#"><i class='bx bxl-youtube'></i></a>
-        </div>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Lists</h4>
-        <li><a href="#">Genres</a></li>
-        <li><a href="#">Book Categories</a></li>
-        <li><a href="#">Top Reviews</a></li>
-        <li><a href="#">Top Authors</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>About Us</h4>
-        <li><a href="#">How we work</a></li>
-        <li><a href="#">Book of the Month</a></li>
-        <li><a href="#">Privacy & Security</a></li>
-        <li><a href="#">Recommend Reads</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Challenges</h4>
-        <li><a href="#">Join Us</a></li>
-        <li><a href="#">Subscription</a></li>
-        <li><a href="#">Borrow Books</a></li>
-    </div>
-</footer>
-
+<?php include "layout/footer.html"?>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

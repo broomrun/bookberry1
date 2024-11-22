@@ -83,6 +83,7 @@ if (isset($_SESSION['user_name'])) {
 </style>
 <body>
     <?php include "layout/header.html"?>
+    
     <div class="container">
         <!-- Header -->
         <div class="profile-header">
@@ -164,42 +165,8 @@ if (isset($_SESSION['user_name'])) {
         <a href="logout.php">Log out</a>
     </div>
         
-    <footer class="footer">
-    <div class="footer-content">
-    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
-        <p>halo </p>
-
-        <div class="icons">
-            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
-            <a href="#"><i class='bx bxl-twitter'></i></a>
-            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
-            <a href="#"><i class='bx bxl-youtube'></i></a>
-        </div>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Lists</h4>
-        <li><a href="#">Genres</a></li>
-        <li><a href="#">Book Categories</a></li>
-        <li><a href="#">Top Reviews</a></li>
-        <li><a href="#">Top Authors</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>About Us</h4>
-        <li><a href="#">How we work</a></li>
-        <li><a href="#">Book of the Month</a></li>
-        <li><a href="#">Privacy & Security</a></li>
-        <li><a href="#">Recommend Reads</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Challenges</h4>
-        <li><a href="#">Join Us</a></li>
-        <li><a href="#">Subscription</a></li>
-        <li><a href="#">Borrow Books</a></li>
-    </div>
-</footer>
+    <?php include "layout/footer.html"?>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="js/script.js"></script>

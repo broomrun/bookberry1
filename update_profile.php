@@ -171,18 +171,7 @@ header .logo {
     </script>
 </head>
 <body>
-<header>
-        <h2>
-        <a href="#" class="logo">
-        <img src="assets/logowhite.png" alt="Logo" class="logo-image" />
-    </a>
-</h2>
-                <nav class="navigation">
-                 <a href="home.php">Home</a>
-                <a href="about.php">About</a>
-                <a href="update_profile.php">Profile</a>
-                </nav>
-        </header>
+    <?php include "layout/header.html"?>
 
     <div class="container mx-auto">
         <?php foreach ($message as $msg): ?>

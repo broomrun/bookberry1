@@ -140,20 +140,7 @@ if (isset($_SESSION['user_name'])) {
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="profile-header">
-            <div class="profile-info">
-                <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture">
-                <div>
-                    <div class="profile-name"><?php echo $_SESSION['user_name']; ?></div>
-                    <button class="edit-profile-btn"><a href="update_profile.php">edit profile</a></button>
-                </div>
-            </div>
-            <div class="badge-container">
-                <img src="assets/badge.jpg" alt="Badge 1">
-                <img src="assets/badge1.png" alt="Badge 2">
-                <img src="assets/badge2.jpg" alt="Badge 3">
-            </div>
-        </div>
+        <?php include "layout/header.html"?>
 
         <!-- Statistics -->
         <div class="stats">
@@ -187,9 +174,7 @@ if (isset($_SESSION['user_name'])) {
         </div>
 
         <!-- Footer -->
-        <div class="footer">
-            &copy; 2023 Bookstery. All Rights Reserved.
-        </div>
+        <?php include "layout/footer.html"?>
     </div>
 </body>
 </html>
