@@ -52,18 +52,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
 
-<header>
-<h2>
-    <a href="user_page.php" class="logo">
-        <img src="assets/logo.png" alt="Logo" class="logo-image" />
-    </a>
-</h2>
-    <nav class="navigation">
-        <a href="home.php">Home</a>
-        <a href="about.php">About</a>
-        <a href="profile.php">Profile</a>
-    </nav>
-</header>
+<?php include "layout/header.html"?>
 
 <div id="content" class="container">
     <h1 class="text-center">Hi, <?php echo $_SESSION['user_name']; ?>!</h1>
@@ -167,42 +156,7 @@ if(isset($_POST['submit'])){
   </div>
 </div>
       
-<footer class="footer">
-    <div class="footer-content">
-    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
-        <p>halo </p>
-
-        <div class="icons">
-            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
-            <a href="#"><i class='bx bxl-twitter'></i></a>
-            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
-            <a href="#"><i class='bx bxl-youtube'></i></a>
-        </div>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Lists</h4>
-        <li><a href="#">Genres</a></li>
-        <li><a href="#">Book Categories</a></li>
-        <li><a href="#">Top Reviews</a></li>
-        <li><a href="#">Top Authors</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>About Us</h4>
-        <li><a href="#">How we work</a></li>
-        <li><a href="#">Book of the Month</a></li>
-        <li><a href="#">Privacy & Security</a></li>
-        <li><a href="#">Recommend Reads</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Challenges</h4>
-        <li><a href="#">Join Us</a></li>
-        <li><a href="#">Subscription</a></li>
-        <li><a href="#">Borrow Books</a></li>
-    </div>
-</footer>
+<?php include "layout/footer.html"?>
 
 <!-- Optional JavaScript -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
