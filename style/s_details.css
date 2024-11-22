@@ -329,7 +329,7 @@ header .logo {
 
 .ratings {
     padding: 10px;
-    font-size: 35px; /* Ukuran bintang */
+    font-size: 37px; /* Ukuran bintang */
     color: #ffcc00;
     cursor: pointer;
     justify-content: center;
