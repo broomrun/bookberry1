@@ -17,26 +17,19 @@ if(isset($_POST['submit'])){
 
         $row = mysqli_fetch_array($result);
         
-        // Cek apakah password cocok
-        if($row['password'] == $pass){
-            
-            if($row['user_type'] == 'admin'){
-                $_SESSION['admin_name'] = $row['name'];
-                header('location:admin_page.php');
-            } elseif($row['user_type'] == 'user'){
-                $_SESSION['user_name'] = $row['name'];
-                header('location:user_page.php');
-            }
-
-        } else {
-            $error[] = 'Incorrect password!';
-        }
-
-    } else {
-        $error[] = 'Incorrect email or password!';
-    }
-
-};
+        // Verifikasi password dengan password_hash
+        if (password_verify($pass, $row['password'])) {
+          // Simpan session dan redirect ke halaman lain
+          $_SESSION['user_name'] = $row['user_name']; // Gunakan field yang sesuai
+          header('Location: home.php'); // Redirect ke halaman dashboard
+          exit;
+      } else {
+          $error[] = 'Incorrect password!';
+      }
+  } else {
+      $error[] = 'Email not found!';
+  }
+}
 ?>
 
 <!DOCTYPE html>
