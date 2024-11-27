@@ -39,12 +39,14 @@ function searchBooks(genre = null) {
                 let output = '';
                 $.each(books, function(index, book) {
                     let bookInfo = book.volumeInfo;
+                    let bookId = book.id;
                     let imageUrl = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'path/to/default-image.jpg';
                     let averageRating = bookInfo.averageRating ? bookInfo.averageRating : 'N/A';
                     output += `
                         <div class="col-md-3">
                             <div class="card mb-5">
                                 <a href="#" class="card-link see-detail" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                    data-book-id="${bookId}"  <!-- Pass the book ID -->
                                    data-title="${bookInfo.title}" 
                                    data-authors="${bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown'}" 
                                    data-date="${bookInfo.publishedDate ? bookInfo.publishedDate : 'N/A'}" 
@@ -108,15 +110,16 @@ $(document).ready(function() {
     });
 });
 
-// Click event for the "See Detail" button
 $(document).on('click', '.see-detail', function() {
     const title = $(this).data('title');
     const authors = $(this).data('authors');
     const date = $(this).data('date');
     const description = $(this).data('description');
     const image = $(this).data('image');
-    const rating = $(this).data('rating'); // Retrieve rating
+    const rating = $(this).data('rating');
+    const bookId = $(this).data('book-id'); // Retrieve the book ID
 
+    // Set the book details in the modal
     $('#exampleModalLabel').text(title);
     $('#book-detail').html(`
         <div class="text-center mb-3">
@@ -125,6 +128,10 @@ $(document).on('click', '.see-detail', function() {
         <p><strong>Authors:</strong> ${authors}</p>
         <p><strong>Published Date:</strong> ${date}</p>
         <p><strong>Description:</strong> ${description}</p>
-        <p><strong>Rating:</strong> ${rating}</p> <!-- Display rating -->
+        <p><strong>Rating:</strong> ${rating}</p>
     `);
+
+    // Store the book ID in a hidden input field (for comment submission)
+    $('#comment_form #book_id').val(bookId);
 });
+
