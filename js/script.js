@@ -8,45 +8,51 @@ window.addEventListener('scroll', function() {
 });
 
 function searchBooks(genre = null) {
-    // Get the search input and genre filter, if available
-    let query = $('#searchInput').val().trim(); // Trim whitespace from the search input
+    let query = $('#searchInput').val().trim();
+    console.log("Initial Query: ", query); // Debug input awal
+
+    if ($('#genreFilter').val() === 'allgenre') {
+        $('#genreFilter').val(''); // Hapus nilai default jika ada
+    }
+
     if (genre) {
         query = `subject:${genre}`;
     } else if ($('#genreFilter').val() && query) {
-        // Handle the genre filter only if it's selected along with a search term
         query += ` +subject:${$('#genreFilter').val()}`;
     } else if ($('#genreFilter').val()) {
-        // Use genre only if there is no search term
         query = `subject:${$('#genreFilter').val()}`;
+    } else {
+        query = query; // Biarkan apa adanya jika hanya judul
     }
 
     if (!query) {
-        alert("Please enter a search term or select a genre."); // Optional alert if no search term is present
+        alert("Please enter a search term or select a genre.");
         return;
     }
+
+    console.log("Final Query Sent to API: ", query); // Debug query akhir
 
     $.ajax({
         url: 'https://www.googleapis.com/books/v1/volumes',
         type: 'GET',
         dataType: 'json',
         data: {
-            'key': 'AIzaSyBqUPg1Itse_NYH1z7r8lA7-oA27aXBCW8',
+            'key': 'AIzaSyCgSMM_Z01E6VjNuD4MibkPgGGFDNsQnfA',
             q: query
         },
         success: function(result) {
+            console.log("API Response: ", result); // Debug hasil API
             if (result.totalItems > 0) {
                 let books = result.items;
                 let output = '';
                 $.each(books, function(index, book) {
                     let bookInfo = book.volumeInfo;
-                    let bookId = book.id;
                     let imageUrl = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : 'path/to/default-image.jpg';
                     let averageRating = bookInfo.averageRating ? bookInfo.averageRating : 'N/A';
                     output += `
                         <div class="col-md-3">
                             <div class="card mb-5">
                                 <a href="#" class="card-link see-detail" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                    data-book-id="${bookId}"  <!-- Pass the book ID -->
                                    data-title="${bookInfo.title}" 
                                    data-authors="${bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown'}" 
                                    data-date="${bookInfo.publishedDate ? bookInfo.publishedDate : 'N/A'}" 
@@ -64,24 +70,26 @@ function searchBooks(genre = null) {
                         </div>
                     `;
                 });
-                $('#searchInput').val(''); // Clear search input after search
-                $('#book-list').html(output); // Display search results
+                $('#searchInput').val('');
+                $('#book-list').html(output);
             } else {
                 $('#book-list').html(`<div class="col"><h1 class="text-center">No books found.</h1></div>`);
             }
         },
-        error: function() {
+        error: function(error) {
+            console.error("API Error: ", error); // Debug jika API gagal
             $('#book-list').html(`<div class="col"><h1 class="text-center">Error retrieving data. Please try again later.</h1></div>`);
         }
-    }); 
+    });
 }
 
-// Event listener for the genre filter
+
+// Event listener untuk genre filter
 $('#genreFilter').on('change', function() {
-    searchBooks(); // Trigger search when the genre changes
+    searchBooks(); // Trigger pencarian ketika genre berubah
 });
 
-// Event listeners for search button and Enter key
+// Event listeners untuk tombol pencarian dan tombol Enter
 $('#search-button').on('click', function() {
     searchBooks();
 });
@@ -93,6 +101,7 @@ $('#searchInput').on('keyup', function(event) {
 });
 
 $(document).ready(function() {
+    // Klik pada kategori tertentu
     $('#fantasy-tile').on('click', function() {
         searchBooks('Fantasy');
     });
@@ -110,16 +119,15 @@ $(document).ready(function() {
     });
 });
 
+// Klik pada tombol "See Detail"
 $(document).on('click', '.see-detail', function() {
     const title = $(this).data('title');
     const authors = $(this).data('authors');
     const date = $(this).data('date');
     const description = $(this).data('description');
     const image = $(this).data('image');
-    const rating = $(this).data('rating');
-    const bookId = $(this).data('book-id'); // Retrieve the book ID
+    const rating = $(this).data('rating'); // Ambil rating
 
-    // Set the book details in the modal
     $('#exampleModalLabel').text(title);
     $('#book-detail').html(`
         <div class="text-center mb-3">
@@ -128,10 +136,6 @@ $(document).on('click', '.see-detail', function() {
         <p><strong>Authors:</strong> ${authors}</p>
         <p><strong>Published Date:</strong> ${date}</p>
         <p><strong>Description:</strong> ${description}</p>
-        <p><strong>Rating:</strong> ${rating}</p>
+        <p><strong>Rating:</strong> ${rating}</p> <!-- Tampilkan rating -->
     `);
-
-    // Store the book ID in a hidden input field (for comment submission)
-    $('#comment_form #book_id').val(bookId);
 });
-
