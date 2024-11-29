@@ -61,7 +61,6 @@ if (isset($_SESSION['user_name'])) {
     // Query to get total comments (main comments) and replies
     $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
-
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
         $comment_data = mysqli_fetch_assoc($comment_result);
         $total_comments = $comment_data['total_comments'];
@@ -72,15 +71,13 @@ if (isset($_SESSION['user_name'])) {
     // Total reviews = jumlah komentar + jumlah replies
     $total_reviews = $total_comments; // Karena query di atas sudah mencakup semuanya
 }
- 
 
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,15 +90,17 @@ if (isset($_SESSION['user_name'])) {
     body {
         justify-content: center;
     }
+
     .container {
         width: 900px;
         padding: 30px;
         border-radius: 10px;
-}
+    }
 </style>
+
 <body>
-    <?php include "layout/header.html"?>
-    
+    <?php include "layout/header.html" ?>
+
     <div class="container">
         <!-- Header -->
         <div class="profile-header">
@@ -120,23 +119,27 @@ if (isset($_SESSION['user_name'])) {
         </div>
 
         <div class="stats">
-    <div class="stat-item">
-        <h3><?php echo htmlspecialchars($streak_count); ?></h3>
-        <p>streak</p>
-    </div>
-    <div class="stat-item">
-        <h3><?php echo htmlspecialchars($total_reviews); ?></h3> <!-- Gabungkan total komentar dan balasan -->
-        <p>reviews</p>
-    </div>
-    <div class="stat-item">
-        <h3>70</h3>
-        <p>badges</p>
-    </div>
-    <div class="stat-item">
-        <h3>40</h3>
-        <p>shelves</p>
-    </div>
-</div>
+            <div class="stat-item">
+                <h3><?php echo htmlspecialchars($streak_count); ?></h3>
+                <p>streak</p>
+            </div>
+            <div class="stat-item">
+                <h3><?php echo htmlspecialchars($total_comments); ?></h3> <!-- Display total comments -->
+                <p>reviews</p>
+            </div>
+            <div class="stat-item">
+                <h3>70</h3>
+                <p>badges</p>
+            </div>
+            <div class="stat-item">
+                <h3>40</h3>
+                <p>shelves</p>
+            </div>
+            <div class="stat-item">
+                <h3><?php echo htmlspecialchars($total_replies); ?></h3> <!-- Display total replies -->
+                <p>replies</p>
+            </div>
+        </div>
 
 
         <!-- Top Reads -->
@@ -182,12 +185,13 @@ if (isset($_SESSION['user_name'])) {
         </div>
         <a href="logout.php">Log out</a>
     </div>
-        
-    <?php include "layout/footer.html"?>
-    
+
+    <?php include "layout/footer.html" ?>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 
 </body>
+
 </html>
