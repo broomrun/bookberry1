@@ -2,29 +2,29 @@
 session_start();
 include "config.php";
 
+// Variabel default
 $profile_image = 'default.jpg';
 $streak_count = 0;
 $total_comments = 0;
-$total_replies = 0;
+$total_books_read = 0;
+$badges = []; // Array untuk menyimpan badges yang sudah diperoleh
 
 if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
     $current_date = date("Y-m-d");
 
-    // Query to get profile image
+    // **1. Query untuk mendapatkan gambar profil**
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
 
     if ($image_result && mysqli_num_rows($image_result) > 0) {
         $row = mysqli_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
-        $profile_image = $image_path . '?t=' . time(); // Add unique parameter to force refresh
-    } else {
-        echo "User not found or query failed: " . mysqli_error($conn);
+        $profile_image = $image_path . '?t=' . time(); // Tambahkan parameter unik untuk memaksa refresh
     }
 
-    // Query to get last_login and streak_count
-    $streak_query = "SELECT last_login, streak_count FROM user_form WHERE name = '$user_name'";
+    // **2. Query untuk mendapatkan last_login, streak_count, dan badges**
+    $streak_query = "SELECT last_login, streak_count, badges FROM user_form WHERE name = '$user_name'";
     $streak_result = mysqli_query($conn, $streak_query);
 
     if ($streak_result && mysqli_num_rows($streak_result) > 0) {
@@ -32,48 +32,68 @@ if (isset($_SESSION['user_name'])) {
 
         $last_login = $user_data['last_login'];
         $streak_count = $user_data['streak_count'];
+        $badges = $user_data['badges'] ? explode(',', $user_data['badges']) : []; // Ambil badges sebagai array
 
-        // Check if the user logged in today or missed a day
+        // Cek apakah pengguna login hari ini atau melewatkan hari
         $last_login_date = date('Y-m-d', strtotime($last_login));
-        if ($last_login_date == $current_date) {
-            // If the user logged in today, just continue
-            $streak_count = $streak_count; // No change
-        } else {
-            // If they didn't log in today, reset streak or increase streak
+        if ($last_login_date != $current_date) {
             if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
-                // If last login was yesterday, continue streak
-                $streak_count++;
+                $streak_count++; // Tambahkan streak
             } else {
-                // If skipped a day, reset streak
-                $streak_count = 1; // Start new streak
+                $streak_count = 1; // Reset streak
             }
-        }
 
-        // Update last_login and streak_count in database
-        $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
-        if (!mysqli_query($conn, $update_query)) {
-            die('Update query failed: ' . mysqli_error($conn));
+            // Update last_login dan streak_count
+            $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
+            mysqli_query($conn, $update_query);
         }
-    } else {
-        echo "Streak query failed or user data not found: " . mysqli_error($conn);
     }
 
-    // Query to get total comments (main comments) and replies
+    // **3. Query untuk mendapatkan total review**
     $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
         $comment_data = mysqli_fetch_assoc($comment_result);
-        $total_comments = $comment_data['total_comments'];
-    } else {
-        $total_comments = 0; // Default if no comments found
+        $total_comments = intval($comment_data['total_comments']);
     }
 
-    // Total reviews = jumlah komentar + jumlah replies
-    $total_reviews = $total_comments; // Karena query di atas sudah mencakup semuanya
+    // **4. Query untuk mendapatkan total buku yang dibaca**
+    $book_query = "SELECT COUNT(*) AS total_books FROM books_read WHERE username = '$user_name'";
+    $book_result = mysqli_query($conn, $book_query);
+    if ($book_result && mysqli_num_rows($book_result) > 0) {
+        $book_data = mysqli_fetch_assoc($book_result);
+        $total_books_read = intval($book_data['total_books']);
+    }
+
+    // **5. Logika pemberian badge**
+    $updated_badges = [];
+
+    // Badge 1: streak > 15
+    if ($streak_count >= 10) {
+        $updated_badges[] = 'badge01';
+    }
+
+    // Badge 2: lebih dari 5 buku dibaca
+    if ($total_books_read > 5) {
+        $updated_badges[] = 'badge2';
+    }
+
+    // Badge 3: 5 review
+    if ($total_comments >= 15) {
+        $updated_badges[] = 'badge3';
+    }
+
+    // **6. Simpan data badges kembali ke database**
+    $badges_string = implode(',', $updated_badges); // Gabungkan badge menjadi string
+    $update_badges_query = "UPDATE user_form SET badges = '$badges_string' WHERE name = '$user_name'";
+    if (!mysqli_query($conn, $update_badges_query)) {
+        die('Update badges query failed: ' . mysqli_error($conn));
+    }
+
+    // Perbarui variabel $badges
+    $badges = $updated_badges;
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -112,9 +132,9 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
             <div class="badge-container">
-                <img src="assets/badge01.png" alt="Badge 1" width="100" height="100">
-                <img src="assets/badge2.png" alt="Badge 2" width="100" height="100">
-                <img src="assets/badge3.png" alt="Badge 3" width="100" height="100">
+                <?php foreach ($badges as $badge) { ?>
+                    <img src="assets/<?php echo htmlspecialchars($badge); ?>.png" alt="<?php echo htmlspecialchars($badge); ?>" width="100" height="100">
+                <?php } ?>
             </div>
         </div>
 
@@ -128,7 +148,7 @@ if (isset($_SESSION['user_name'])) {
                 <p>reviews</p>
             </div>
             <div class="stat-item">
-                <h3>70</h3>
+            <h3><?php echo htmlspecialchars(count($badges)); ?></h3>
                 <p>badges</p>
             </div>
             <div class="stat-item">
