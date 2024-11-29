@@ -2,30 +2,29 @@
 session_start();
 include "config.php";
 
-$conn = mysqli_connect('localhost', 'root', '', 'bookberry');
-if ($conn === false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-
+// Variabel default
 $profile_image = 'default.jpg';
 $streak_count = 0;
+$total_comments = 0;
+$total_books_read = 0;
+$badges = []; // Array untuk menyimpan badges yang sudah diperoleh
 
 if (isset($_SESSION['user_name'])) {
-    $user_name = mysqli_real_escape_string($conn, $_SESSION['user_name']);
+    $user_name = $_SESSION['user_name'];
     $current_date = date("Y-m-d");
 
-    // Query to get profile image
+    // *1. Query untuk mendapatkan gambar profil*
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
 
     if ($image_result && mysqli_num_rows($image_result) > 0) {
         $row = mysqli_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
-        $profile_image = $image_path . '?t=' . time(); // Force refresh
+        $profile_image = $image_path . '?t=' . time(); // Tambahkan parameter unik untuk memaksa refresh
     }
 
-    // Query to get last_login and streak_count
-    $streak_query = "SELECT last_login, streak_count FROM user_form WHERE name = '$user_name'";
+    // *2. Query untuk mendapatkan last_login, streak_count, dan badges*
+    $streak_query = "SELECT last_login, streak_count, badges FROM user_form WHERE name = '$user_name'";
     $streak_result = mysqli_query($conn, $streak_query);
 
     if ($streak_result && mysqli_num_rows($streak_result) > 0) {
@@ -33,102 +32,96 @@ if (isset($_SESSION['user_name'])) {
 
         $last_login = $user_data['last_login'];
         $streak_count = $user_data['streak_count'];
+        $badges = $user_data['badges'] ? explode(',', $user_data['badges']) : []; // Ambil badges
 
+        // Cek apakah pengguna login hari ini atau melewatkan hari
         $last_login_date = date('Y-m-d', strtotime($last_login));
-        if ($last_login_date == $current_date) {
-            // Continue streak
-        } else if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
-            $streak_count++;
-        } else {
-            $streak_count = 1;
+        if ($last_login_date != $current_date) {
+            if (date('Y-m-d', strtotime($last_login . ' +1 day')) == $current_date) {
+                $streak_count++; // Tambahkan streak
+            } else {
+                $streak_count = 1; // Reset streak
+            }
+
+            // Update last_login dan streak_count
+            $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
+            mysqli_query($conn, $update_query);
         }
-
-        // Update streak
-        $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
-        mysqli_query($conn, $update_query);
     }
-}
 
-// Log book clicks
-if (isset($_GET['book_id'])) {
-    $book_id = mysqli_real_escape_string($conn, $_GET['book_id']);
-    $user_name = mysqli_real_escape_string($conn, $_SESSION['user_name']);
-
-    // Check if activity already logged
-    $check_query = "SELECT * FROM book_activity WHERE user_name = '$user_name' AND book_id = '$book_id' AND activity_type = 'click'";
-    $result = mysqli_query($conn, $check_query);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        // Update activity count
-        $update_query = "UPDATE book_activity SET activity_count = activity_count + 1 WHERE user_name = '$user_name' AND book_id = '$book_id' AND activity_type = 'click'";
-        mysqli_query($conn, $update_query);
-    } else {
-        // Insert new record
-        $insert_query = "INSERT INTO book_activity (user_name, book_id, activity_type, activity_count) VALUES ('$user_name', '$book_id', 'click', 1)";
-        mysqli_query($conn, $insert_query);
+    // *3. Query untuk mendapatkan total review*
+    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
+    $comment_result = mysqli_query($conn, $comment_query);
+    if ($comment_result && mysqli_num_rows($comment_result) > 0) {
+        $comment_data = mysqli_fetch_assoc($comment_result);
+        $total_comments = intval($comment_data['total_comments']);
     }
-}
 
-// Fetch top clicked books
-$query_click = "
-SELECT b.book_id, b.title, b.cover_image, SUM(ba.activity_count) AS total_activity
-FROM books b
-JOIN book_activity ba ON b.book_id = ba.book_id
-WHERE ba.activity_type = 'click'
-GROUP BY b.book_id
-ORDER BY total_activity DESC
-LIMIT 5;
-";
-$result_click = mysqli_query($conn, $query_click);
-$top_reads = [];
-if ($result_click && mysqli_num_rows($result_click) > 0) {
-    while ($row = mysqli_fetch_assoc($result_click)) {
-        $top_reads[] = $row;
+    // *4. Query untuk mendapatkan total buku yang dibaca*
+    $book_query = "SELECT COUNT(*) AS total_books FROM books_read WHERE username = '$user_name'";
+    $book_result = mysqli_query($conn, $book_query);
+    if ($book_result && mysqli_num_rows($book_result) > 0) {
+        $book_data = mysqli_fetch_assoc($book_result);
+        $total_books_read = intval($book_data['total_books']);
     }
-}
 
-// Fetch top searched books
-$query_search = "
-SELECT b.book_id, b.title, b.cover_image, SUM(ba.activity_count) AS total_activity
-FROM books b
-JOIN book_activity ba ON b.book_id = ba.book_id
-WHERE ba.activity_type = 'search'
-GROUP BY b.book_id
-ORDER BY total_activity DESC
-LIMIT 5;
-";
-$result_search = mysqli_query($conn, $query_search);
-$top_search = [];
-if ($result_search && mysqli_num_rows($result_search) > 0) {
-    while ($row = mysqli_fetch_assoc($result_search)) {
-        $top_search[] = $row;
+    // *5. Logika pemberian badge*
+    $updated_badges = [];
+
+    // Badge 1: streak > 15
+    if ($streak_count >= 15) {
+        $updated_badges[] = 'badge1';
     }
+
+    // Badge 2: lebih dari 5 buku dibaca
+    if ($total_books_read > 5) {
+        $updated_badges[] = 'badge2';
+    }
+
+    // Badge 3: 5 review
+    if ($total_comments >= 5) {
+        $updated_badges[] = 'badge3';
+    }
+
+    // *6. Simpan data badges kembali ke database*
+    $badges_string = implode(',', $updated_badges);
+    $update_badges_query = "UPDATE user_form SET badges = '$badges_string' WHERE name = '$user_name'";
+    if (!mysqli_query($conn, $update_badges_query)) {
+        die('Update badges query failed: ' . mysqli_error($conn));
+    }
+
+    // Perbarui variabel $badges
+    $badges = $updated_badges;
 }
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile UI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
     <link href="style/styles.css" rel="stylesheet">
 </head>
 <style>
     body {
         justify-content: center;
     }
+
     .container {
         width: 900px;
         padding: 30px;
         border-radius: 10px;
     }
 </style>
+
 <body>
     <?php include "layout/header.html" ?>
+
     <div class="container">
         <!-- Header -->
         <div class="profile-header">
@@ -140,68 +133,66 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
                 </div>
             </div>
             <div class="badge-container">
-                <img src="assets/badge.jpg" alt="Badge 1">
-                <img src="assets/badge1.png" alt="Badge 2">
-                <img src="assets/badge2.jpg" alt="Badge 3">
+                <!-- Menampilkan badge yang telah didapatkan -->
+                <?php if (in_array('badge1', $badges)) { ?>
+                    <img src="assets/badge01.png" alt="Badge 1" width="100" height="100">
+                <?php } ?>
+                <?php if (in_array('badge2', $badges)) { ?>
+                    <img src="assets/badge2.png" alt="Badge 2" width="100" height="100">
+                <?php } ?>
+                <?php if (in_array('badge3', $badges)) { ?>
+                    <img src="assets/badge3.png" alt="Badge 3" width="100" height="100">
+                <?php } ?>
             </div>
         </div>
 
-        <!-- Statistics -->
         <div class="stats">
             <div class="stat-item">
                 <h3><?php echo htmlspecialchars($streak_count); ?></h3>
                 <p>streak</p>
             </div>
             <div class="stat-item">
-                <h3>300</h3>
+                <h3><?php echo htmlspecialchars($total_comments); ?></h3> <!-- Display total comments -->
                 <p>reviews</p>
             </div>
             <div class="stat-item">
-                <h3>70</h3>
+            <h3><?php echo count($badges); ?></h3>
                 <p>badges</p>
             </div>
             <div class="stat-item">
                 <h3>40</h3>
                 <p>shelves</p>
             </div>
+
         </div>
 
-<!-- Top Reads (Clicked and Searched) -->
-<div class="top-read">
-    <div class="section-title"><?php echo htmlspecialchars($_SESSION['user_name']); ?>'s Top Read</div>
-    <div class="bookshelf">
-        <!-- Top Clicked Books -->
-        <div class="section-subtitle">Top Clicked Books</div>
-        <?php if (!empty($top_reads)): ?>
-            <?php foreach ($top_reads as $top_read): ?>
-                <div class="book">
-                    <img src="<?php echo htmlspecialchars($top_read['cover_image']); ?>" alt="Cover Image" width="100" height="150">
-                    <p class="book-title"><?php echo htmlspecialchars($top_read['title']); ?></p>
+
+        <!-- Top Reads -->
+        <div class="top-read">
+            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s top read</div>
+            <div class="bookshelf">
+                <div class="book-item">
+                    <img src="assets/fav1.jpg" alt="Book Cover">
+                    <p>Di Tanah Lada</p>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No clicked books available</p>
-        <?php endif; ?>
-
-        <!-- Top Searched Books -->
-        <div class="section-subtitle">Top Searched Books</div>
-        <?php if (!empty($top_search)): ?>
-            <?php foreach ($top_search as $top_search_item): ?>
-                <div class="book">
-                    <img src="<?php echo htmlspecialchars($top_search_item['cover_image']); ?>" alt="Cover Image" width="100" height="150">
-                    <p class="book-title"><?php echo htmlspecialchars($top_search_item['title']); ?></p>
+                <div class="book-item">
+                    <img src="assets/fav23.jpg" alt="Book Cover">
+                    <p>The Riddle of the Sea</p>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No searched books available</p>
-        <?php endif; ?>
-    </div>
-</div>
+                <div class="book-item">
+                    <img src="assets/fav3.jpg" alt="Book Cover">
+                    <p>The Princess in Black</p>
+                </div>
+                <div class="book-item">
+                    <img src="assets/fav4.jpg" alt="Book Cover">
+                    <p>Waves</p>
+                </div>
+            </div>
+        </div>
 
-
-                <!-- Shelves -->
-                <div class="shelves">
-            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Shelves</div>
+        <!-- Shelves -->
+        <div class="shelves">
+            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s shelves</div>
             <div class="shelves-container">
                 <div class="shelf">
                     <img src="assets/fav1.jpg" alt="Lost in the Never Woods">
@@ -220,50 +211,12 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
         <a href="logout.php">Log out</a>
     </div>
 
-        
-    <footer class="footer">
-    <div class="footer-content">
-    <h2><a href="#" class="logo" style="font-weight: bold; color: white;">bOOkberry</a></h2>
-        <p>halo </p>
-
-        <div class="icons">
-            <a href="#"><i class='bx bxl-facebook-circle'></i></a>
-            <a href="#"><i class='bx bxl-twitter'></i></a>
-            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
-            <a href="#"><i class='bx bxl-youtube'></i></a>
-        </div>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Lists</h4>
-        <li><a href="#">Genres</a></li>
-        <li><a href="#">Book Categories</a></li>
-        <li><a href="#">Top Reviews</a></li>
-        <li><a href="#">Top Authors</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>About Us</h4>
-        <li><a href="#">How we work</a></li>
-        <li><a href="#">Book of the Month</a></li>
-        <li><a href="#">Privacy & Security</a></li>
-        <li><a href="#">Recommend Reads</a></li>
-    </div>
-
-    <div class="footer-content">
-        <h4>Reading Challenges</h4>
-        <li><a href="#">Join Us</a></li>
-        <li><a href="#">Subscription</a></li>
-        <li><a href="#">Borrow Books</a></li>
-    </div>
-</footer>
+    <?php include "layout/footer.html" ?>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

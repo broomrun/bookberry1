@@ -18,45 +18,45 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bookberry`
+-- Database: bookberry
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Table structure for table comments
 --
 
-CREATE TABLE `comments` (
-  `id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
-  `comment_body` text NOT NULL,
-  `parent_comment_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE comments (
+  id int(11) NOT NULL,
+  book_id int(11) NOT NULL,
+  user_name varchar(255) NOT NULL,
+  comment_body text NOT NULL,
+  parent_comment_id int(11) DEFAULT NULL,
+  created_at timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_form`
+-- Table structure for table user_form
 --
 
-CREATE TABLE `user_form` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `Image` varchar(100) NOT NULL DEFAULT 'default.jpg',
-  `last_login` date DEFAULT NULL,
-  `streak_count` int(11) DEFAULT 0
+CREATE TABLE user_form (
+  id int(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  Image varchar(100) NOT NULL DEFAULT 'default.jpg',
+  last_login date DEFAULT NULL,
+  streak_count int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user_form`
+-- Dumping data for table user_form
 --
 
-INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `Image`, `last_login`, `streak_count`) VALUES
+INSERT INTO user_form (id, name, email, password, Image, last_login, streak_count) VALUES
 (1, 'icha', 'chairunnisaq11@gmail.com', '663971bcf86c6dc79d7ca6afc63392c3', '', NULL, 0),
 (2, 'icha', 'rima11@gmail.com', '3526b962b520a2f893fd093ca673b030', '', NULL, 0),
 (3, 'salwa', 'salwa11@gmail.com', '31a55dbf049616691309fb7ada746a01', '', NULL, 0),
@@ -77,32 +77,32 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `Image`, `last_login
 --
 
 --
--- Indexes for table `comments`
+-- Indexes for table comments
 --
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE comments
+  ADD PRIMARY KEY (id);
 
 --
--- Indexes for table `user_form`
+-- Indexes for table user_form
 --
-ALTER TABLE `user_form`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE user_form
+  ADD PRIMARY KEY (id);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT for table comments
 --
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE comments
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `user_form`
+-- AUTO_INCREMENT for table user_form
 --
-ALTER TABLE `user_form`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+ALTER TABLE user_form
+  MODIFY id int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
