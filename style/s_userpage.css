@@ -114,40 +114,26 @@ header .logo {
   background: #384daa;
 }
 
-.media-icons {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin: auto;
-}
-
-.media-icons a {
-  color: #ffffff;
-  font-size: 25px;
-  transition: 0.3s transform;
-  margin-right: 30px;
-}
-
-.media-icons a:last-child {
-  margin-right: 0;
-}
-
-.media-icons a:hover {
-  transform: scale(1.5);
-}
-
-label {
-  display: none;
-}
-
-#check {
-  z-index: 3;
-  display: none;
-}
-
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(100%);
+}
+
+.carousel {
+  width: 100%;
+  max-width: 100%; /* Ensure it uses available space */
+  height: auto;
+}
+
+.carousel-inner {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto; /* Maintain image aspect ratio */
+  object-fit: cover; /* Ensure images fit well */
 }
 
 .book-card {
@@ -161,10 +147,6 @@ label {
 .book-card .author-name {
   color: #666;
 }
-.book-card .rating {
-  color: #ffa500;
-}
-
 .book-title {
   color: #1a2a5e;
 }
@@ -174,26 +156,24 @@ label {
   height: 220px;
   border-radius: 5px;
   object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .img-container {
-  width: 120px;
+  width: 100%;
+  max-width: 120px; 
   height: auto;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .img-container:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.img-carousel {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
 }
 
 h1 {
@@ -223,12 +203,19 @@ h1 {
 .image {
   flex: 1;
   text-align: center;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
+/* Image Styling */
 .image img {
   max-width: 100%;
-  height: auto;
+  height: auto; 
   border-radius: 10px;
+  object-fit: cover; 
 }
 
 .left {
@@ -250,7 +237,6 @@ h1 {
   font-size: 1.1rem;
   font-weight: lighter;
 }
-
 footer {
   display: flex;
   justify-content: space-around;
@@ -311,26 +297,6 @@ footer {
   transform: translateY(-5px);
 }
 
-#check:checked ~ header .navigation {
-  z-index: 2;
-  position: fixed;
-  background: #010721b0;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#check:checked ~ header .navigation a {
-  font-weight: 700;
-  margin-right: 0;
-  margin-bottom: 50px;
-  letter-spacing: 2px;
-}
 .bawah {
   background-image: url("../assets/footer.png");
   background-size: cover;
@@ -372,10 +338,41 @@ footer {
   .content p {
     font-size: 14px;
   }
+  .carousel-item img {
+    width: 100%;
+    height: 100%; /* Full width and height on small screens */
+    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+    font-size: 20px; /* Adjust control button size */
+    padding: 8px;
+  }
+  .book-card img {
+    width: 100px; /* Adjust width for small screens like phones */
+    height: 150px; /* Adjust height accordingly */
+  }
+  .left,
+  .right {
+    flex-direction: column; /* Stack vertically for small screens */
+    align-items: center;    /* Center align the content */
+    text-align: center;     /* Center align the text */
+  }
+
+  .image img {
+    max-width: 90%; /* Make the image even smaller for smaller screens */
+    margin-bottom: 20px; /* Add margin for spacing */
+  }
+  .left h1, .right h1, .left p, .right p {
+    font-size: 20px; /* Adjust the font size as needed */
+  }
+  .left h2, .right h2, .book-title, .author-name{
+    font-size: 13px; /* Adjust the font size as needed */
+  }
 }
 
 /* Media Queries */
-@media (max-width: 960px) {
+@media (max-width: 768px) {
   header {
     justify-content: center;
   }
@@ -398,5 +395,37 @@ footer {
 
   label:hover {
     color: #fff;
+  }
+  .carousel-item img {
+    width: 100%;
+    height: auto; /* Adjust the height on smaller screens */
+    object-fit: contain; /* Ensure images are not cropped */
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+    font-size: 25px; /* Adjust the control button size */
+    padding: 10px;
+  }
+
+  .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+  }
+  .book-card img {
+    width: 110px; /* Adjust width for medium screens like tablets */
+    height: 150px; /* Adjust height to keep the aspect ratio */
+  }
+  .left,
+  .right {
+    flex-direction: column; /* Stack images and text vertically */
+    align-items: center;    /* Center align the content */
+  }
+
+  .image img {
+    max-width: 80%; /* Scale down the image size */
+    margin-bottom: 15px; /* Add margin for spacing */
+  }
+  .left h1, .right h1, .left p, .right p {
+    font-size: 18px; /* Adjust the font size as needed */
   }
 }

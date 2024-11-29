@@ -176,16 +176,17 @@ header .logo {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .profile-header {
     width: 100%;
+    flex-direction: column;
   }
   .books-container {
     gap: 10px;
   }
   .stat-item,
   .stat-item-light {
-    width: 100px;
-    height: 60px;
+    width: 10px;
+    height: 6px;
   }
 }
