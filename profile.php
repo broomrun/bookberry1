@@ -9,6 +9,8 @@ if ($conn === false) {
 
 $profile_image = 'default.jpg';
 $streak_count = 0;
+$total_comments = 0;
+$total_replies = 0;
 
 if (isset($_SESSION['user_name'])) {
     $user_name = mysqli_real_escape_string($conn, $_SESSION['user_name']);
@@ -104,11 +106,13 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
         $top_search[] = $row;
     }
 }
+
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,12 +125,15 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
     body {
         justify-content: center;
     }
+
     .container {
         width: 900px;
         padding: 30px;
         border-radius: 10px;
     }
+    }
 </style>
+
 <body>
     <?php include "layout/header.html" ?>
     <div class="container">
@@ -140,20 +147,19 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
                 </div>
             </div>
             <div class="badge-container">
-                <img src="assets/badge.jpg" alt="Badge 1">
-                <img src="assets/badge1.png" alt="Badge 2">
-                <img src="assets/badge2.jpg" alt="Badge 3">
+                <img src="assets/badge01.png" alt="Badge 1" width="100" height="100">
+                <img src="assets/badge2.png" alt="Badge 2" width="100" height="100">
+                <img src="assets/badge3.png" alt="Badge 3" width="100" height="100">
             </div>
         </div>
 
-        <!-- Statistics -->
         <div class="stats">
             <div class="stat-item">
                 <h3><?php echo htmlspecialchars($streak_count); ?></h3>
                 <p>streak</p>
             </div>
             <div class="stat-item">
-                <h3>300</h3>
+                <h3><?php echo htmlspecialchars($total_comments); ?></h3> <!-- Display total comments -->
                 <p>reviews</p>
             </div>
             <div class="stat-item">
@@ -164,6 +170,7 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
                 <h3>40</h3>
                 <p>shelves</p>
             </div>
+
         </div>
 
 <!-- Top Reads (Clicked and Searched) -->
@@ -266,4 +273,5 @@ if ($result_search && mysqli_num_rows($result_search) > 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

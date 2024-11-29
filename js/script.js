@@ -119,14 +119,13 @@ $(document).ready(function() {
     });
 });
 
-// Klik pada tombol "See Detail"
-$(document).on('click', '.see-detail', function() {
+$(document).on('click', '.see-detail', function () {
     const title = $(this).data('title');
     const authors = $(this).data('authors');
     const date = $(this).data('date');
     const description = $(this).data('description');
     const image = $(this).data('image');
-    const rating = $(this).data('rating'); // Ambil rating
+    const rating = $(this).data('rating');
 
     $('#exampleModalLabel').text(title);
     $('#book-detail').html(`
@@ -136,6 +135,157 @@ $(document).on('click', '.see-detail', function() {
         <p><strong>Authors:</strong> ${authors}</p>
         <p><strong>Published Date:</strong> ${date}</p>
         <p><strong>Description:</strong> ${description}</p>
-        <p><strong>Rating:</strong> ${rating}</p> <!-- Tampilkan rating -->
+        <p><strong>Rating:</strong> ${rating}</p>
     `);
+
+    // Clear previous comments
+    $('#commentSection').html('');
+    fetchComments(title); // Load comments
 });
+
+$('#submitComment').on('click', function () {
+    const comment = $('#commentInput').val().trim();
+    const title = $('#exampleModalLabel').text();
+
+    if (comment) {
+        $.post('comments.inc.php', { title: title, comment: comment }, function (response) {
+            console.log('Response:', response); // Debug response
+            if (response.success) {
+                alert('Comment submitted successfully!');
+                $('#commentInput').val(''); // Kosongkan input
+                fetchComments(title);
+            } else {
+                alert('Error: ' + (response.error || 'Failed to submit comment.'));
+            }
+        }, 'json').fail(function (xhr, status, error) {
+            console.error('AJAX Error:', status, error); // Debug AJAX error
+            console.log('Response Text:', xhr.responseText); // Debug response mentah
+        });
+    } else {
+        alert("Comment cannot be empty.");
+    }
+});
+
+function fetchComments(title) {
+    $.get('comments.inc.php', { title: title }, function (response) {
+        console.log('Comments fetched:', response); // Debug data komentar
+        if (Array.isArray(response)) {
+            let output = '';
+            response.forEach(comment => {
+                output += renderComment(comment);
+            });
+            $('#commentSection').html(output);
+        } else if (response.error) {
+            alert('Error fetching comments: ' + response.error);
+        }
+    }, 'json').fail(function (xhr, status, error) {
+        console.error('AJAX Error:', status, error);
+    });
+}
+
+// Render komentar dan reply
+function renderComment(comment) {
+    let replies = '';
+    if (comment.replies && comment.replies.length > 0) {
+        comment.replies.forEach(reply => {
+            replies += renderComment(reply);
+        });
+    }
+
+    return `
+        <div class="comment" data-id="${comment.id}">
+            <div class="comment-header">
+                <img src="${comment.profile_image}" alt="Profile Image" class="profile-image" width="40" height="40">
+                <strong>${comment.username}</strong>
+                <small>${new Date(comment.created_at).toLocaleString()}</small> <!-- Waktu komentar -->
+            </div>
+            <p>${comment.text}</p>
+            <br>
+            <button class="btn btn-link like-btn" data-id="${comment.id}">👍 ${comment.likes}</button>
+            <button class="btn btn-link dislike-btn" data-id="${comment.id}">👎 ${comment.dislikes}</button>
+            <button class="btn btn-link reply-btn">Reply</button>
+            <div class="replies ms-3">
+                ${replies}
+            </div>
+        </div>
+    `;
+}
+
+
+
+
+// Saat membuka modal, muat komentar
+$(document).on('click', '.see-detail', function () {
+    const title = $(this).data('title');
+    $('#exampleModalLabel').text(title);
+    fetchComments(title); // Muat komentar untuk buku yang sesuai
+
+});
+$(document).on('click', '.reply-btn', function () {
+    const commentId = $(this).closest('.comment').data('id');
+    const replyInput = `
+        <div class="reply-input mt-2">
+            <textarea class="form-control reply-text" placeholder="Write your reply..."></textarea>
+            <button class="btn btn-primary mt-1 submit-reply" data-parent-id="${commentId}">Submit</button>
+        </div>
+    `;
+    $(this).after(replyInput);
+    $(this).hide(); // Sembunyikan tombol Reply setelah diklik
+});
+
+$(document).on('click', '.submit-reply', function () {
+    const parentId = $(this).data('parent-id');
+    const replyText = $(this).prev('.reply-text').val().trim();
+    const title = $('#exampleModalLabel').text();
+
+    if (replyText) {
+        $.post('comments.inc.php', { title: title, comment: replyText, parent_id: parentId }, function (response) {
+            console.log('Reply Response:', response);
+            if (response.success) {
+                fetchComments(title); // Muat ulang komentar
+            } else {
+                alert('Error: ' + (response.error || 'Failed to submit reply.'));
+            }
+        }, 'json').fail(function (xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+        });
+    } else {
+        alert("Reply cannot be empty.");
+    }
+});
+$(document).on('click', '.like-btn', function () {
+    const commentId = $(this).data('id');
+    updateLikeDislike(commentId, 'like');
+});
+
+$(document).on('click', '.dislike-btn', function () {
+    const commentId = $(this).data('id');
+    updateLikeDislike(commentId, 'dislike');
+});
+
+function updateLikeDislike(commentId, action) {
+    const title = $('#exampleModalLabel').text(); // Ambil judul buku
+
+    $.post('comments.inc.php', { 
+        title: title, 
+        commentId: commentId, 
+        action: action 
+    }, function (response) {
+        console.log('Like/Dislike Response:', response);
+        if (response.success) {
+            fetchComments(title); // Muat ulang komentar
+        } else {
+            alert('Error: ' + (response.error || 'Failed to update like/dislike.'));
+        }
+    }, 'json').fail(function (xhr, status, error) {
+        console.error('AJAX Error:', status, error);
+    });
+}
+
+
+
+
+
+
+
+

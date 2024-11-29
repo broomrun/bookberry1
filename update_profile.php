@@ -25,7 +25,7 @@ if (isset($_POST['update_profile'])) {
     $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
     $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
     mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update failed');
-    
+
     // Check if a new profile image is uploaded
     if (isset($_FILES['update_image']) && $_FILES['update_image']['error'] == 0) {
         $image_name = $_FILES['update_image']['name'];
@@ -43,10 +43,11 @@ if (isset($_POST['update_profile'])) {
     }
 }
 ?>
-       
+
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,94 +57,105 @@ if (isset($_POST['update_profile'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #1e2a5e;
-    margin: 0;
-    padding-top: 90px;
-}
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e2a5e;
+            margin: 0;
+            padding-top: 90px;
+        }
 
-header {
-    position: fixed; /* Mengubah posisi menjadi tetap */
-    top: 0; /* Menetapkan posisi di bagian atas */
-    width: 100%; /* Memastikan lebar penuh */
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #1e2a5e; /* Pastikan warna latar belakang untuk kontras */
-    z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
-}
+        header {
+            position: fixed;
+            /* Mengubah posisi menjadi tetap */
+            top: 0;
+            /* Menetapkan posisi di bagian atas */
+            width: 100%;
+            /* Memastikan lebar penuh */
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e2a5e;
+            /* Pastikan warna latar belakang untuk kontras */
+            z-index: 1000;
+            /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
+        }
 
-header .logo {
-    color: #fff;
-    font-size: 30px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin: 0 auto;
-}
+        header .logo {
+            color: #fff;
+            font-size: 30px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0 auto;
+        }
 
-.logo-image {
-    max-width: 170px; /* Maksimal lebar gambar */
-    height: auto; /* Menjaga proporsi gambar */
-    display: block; /* Memastikan gambar tampil sebagai block-level element */
-}
- 
-
-.navigation {
-    display: flex;
-}
-
-.navigation a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 2px 15px;
-    border-radius: 20px;
-    transition: 0.3s background;
-    margin-right: 30px;
-}
+        .logo-image {
+            max-width: 170px;
+            /* Maksimal lebar gambar */
+            height: auto;
+            /* Menjaga proporsi gambar */
+            display: block;
+            /* Memastikan gambar tampil sebagai block-level element */
+        }
 
 
-.logo img {
-    max-height: 50px; /* Adjust as needed for logo size */
-    width: auto;
-    vertical-align: left; /* Aligns the image with the navigation */
-    align-items: left;
-    margin-right: auto;
-}
+        .navigation {
+            display: flex;
+        }
 
-.navigation {
-    display: flex;
-    justify-content: space-between;
-}
+        .navigation a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 2px 15px;
+            border-radius: 20px;
+            transition: 0.3s background;
+            margin-right: 30px;
+        }
 
-.navigation a:hover {
-    background: #fff;
-    color: #1e2a5e;
-}
+
+        .logo img {
+            max-height: 50px;
+            /* Adjust as needed for logo size */
+            width: auto;
+            vertical-align: left;
+            /* Aligns the image with the navigation */
+            align-items: left;
+            margin-right: auto;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation a:hover {
+            background: #fff;
+            color: #1e2a5e;
+        }
 
 
         /* warna inputan */
-            input[type="text"],
-            input[type="password"],
-            input[type="file"] {
-            color: black; 
-            border: 1px solid #ccc; 
-            padding: 10px; 
-            border-radius: 50px; 
-            transition: border-color 0.3s; 
+        input[type="text"],
+        input[type="password"],
+        input[type="file"] {
+            color: black;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 50px;
+            transition: border-color 0.3s;
         }
 
         /* Ubah border color */
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="file"]:focus {
-            border-color: #1e2a5e; 
-            outline: none; 
+            border-color: #1e2a5e;
+            outline: none;
         }
+
         .toggle-password {
             position: absolute;
             top: 70%;
@@ -170,8 +182,9 @@ header .logo {
         }
     </script>
 </head>
+
 <body>
-    <?php include "layout/header.html"?>
+    <?php include "layout/header.html" ?>
 
     <div class="container mx-auto">
         <?php foreach ($message as $msg): ?>
@@ -181,14 +194,14 @@ header .logo {
         <div class="bg-white p-8 shadow-md rounded-[20px]">
             <h2 class="text-2xl font-bold mb-4">Account Information</h2>
             <div class="text-center mb-6">
-            <div class="flex justify-center items-center">
-                <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Image" class="rounded-full w-32 h-32 object-cover">
-            </div>
+                <div class="flex justify-center items-center">
+                    <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Image" class="rounded-full w-32 h-32 object-cover">
+                </div>
                 <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($user_data['name'] ?? 'No Name'); ?></h3>
                 <p class="text-gray-600"><?php echo htmlspecialchars($user_data['email'] ?? 'No Email'); ?></p>
             </div>
             <form method="POST" enctype="multipart/form-data" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700" for="update_name">Name:</label>
                         <input type="text" id="update_name" name="update_name" class="w-full" value="<?php echo htmlspecialchars($user_data['name'] ?? ''); ?>" required>
@@ -198,7 +211,7 @@ header .logo {
                         <input type="text" id="update_email" name="update_email" class="w-full" value="<?php echo htmlspecialchars($user_data['email'] ?? ''); ?>" required>
                     </div>
                 </div>
-                
+
                 <div class="relative">
                     <label class="block text-gray-700" for="old_pass">Old Password:</label>
                     <input type="password" id="old_pass" name="old_pass" class="w-full" placeholder="Enter your old password">
@@ -214,17 +227,15 @@ header .logo {
                     <input type="password" id="confirm_pass" name="confirm_pass" class="w-full" placeholder="Confirm new password">
                     <i class="fas fa-eye toggle-password" id="confirm_pass-eye" onclick="togglePasswordVisibility('confirm_pass')"></i>
                 </div>
-                
+
                 <div>
                     <label for="update_image" class="block text-gray-700">Update Profile Picture:</label>
                     <input type="file" id="update_image" name="update_image" class="w-full">
                 </div>
-                <button type="submit" name="update_profile"class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
+                <button type="submit" name="update_profile" class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
             </form>
         </div>
     </div>
 </body>
+
 </html>
-
-
-
