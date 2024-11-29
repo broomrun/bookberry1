@@ -1,871 +1,869 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: rgb(255, 255, 255);
-    margin: 0;
-    padding-top: 90px;
+  font-family: "Poppins", sans-serif;
+  background-color: rgb(255, 255, 255);
+  margin: 0;
+  padding-top: 90px;
 }
 
 header {
-    position: fixed; /* Mengubah posisi menjadi tetap */
-    top: 0; /* Menetapkan posisi di bagian atas */
-    width: 100%; /* Memastikan lebar penuh */
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff; /* Pastikan warna latar belakang untuk kontras */
-    z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
+  position: fixed; /* Mengubah posisi menjadi tetap */
+  top: 0; /* Menetapkan posisi di bagian atas */
+  width: 100%; /* Memastikan lebar penuh */
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* Pastikan warna latar belakang untuk kontras */
+  z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
 }
 
 header .logo {
-    color: #1a2a5e;
-    font-size: 30px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin: 0 auto;
+  color: #1a2a5e;
+  font-size: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0 auto;
 }
 
 .logo-image {
-    max-width: 170px; /* Maksimal lebar gambar */
-    height: auto; /* Menjaga proporsi gambar */
-    display: block; /* Memastikan gambar tampil sebagai block-level element */
+  max-width: 170px; /* Maksimal lebar gambar */
+  height: auto; /* Menjaga proporsi gambar */
+  display: block; /* Memastikan gambar tampil sebagai block-level element */
 }
 
 .book-info {
-    background-color: #ffffff;
-    border-radius: 15px;
-    width: 1000px;
-    padding: 25px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between; /* Menyusun gambar, detail buku, dan link baca secara horizontal */
-    gap: 25px;
-    margin: 30px auto;
-    transition: transform 0.3s ease-in-out;
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 1000px;
+  padding: 25px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between; /* Menyusun gambar, detail buku, dan link baca secara horizontal */
+  gap: 25px;
+  margin: 30px auto;
+  transition: transform 0.3s ease-in-out;
 }
 
 .book-details {
-    flex: 1;
-    padding-right: 20px; /* Tambahkan sedikit ruang antara detail buku dan link */
+  flex: 1;
+  padding-right: 20px; /* Tambahkan sedikit ruang antara detail buku dan link */
 }
 
-
 .read-link {
-    background-color: #1e2a5e;
-    color: #ffffff;
-    padding: 10px 15px;
-    border-radius: 8px;
-    text-decoration: none;
-    align-self: center;
-    transition: background-color 0.3s ease;
+  background-color: #1e2a5e;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  align-self: center;
+  transition: background-color 0.3s ease;
 }
 
 .read-link:hover {
-    background-color: #4a5bb6;
+  background-color: #4a5bb6;
 }
 
 .book-cover {
-    width: 130px;
-    height: 190px; /* Tetapkan tinggi gambar */
-    object-fit: cover; /* Menjaga aspek rasio dengan crop gambar bila perlu */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tambah shadow untuk kesan modern */
+  width: 130px;
+  height: 190px; /* Tetapkan tinggi gambar */
+  object-fit: cover; /* Menjaga aspek rasio dengan crop gambar bila perlu */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tambah shadow untuk kesan modern */
 }
 
 .title {
-    font-size: 24px;
-    color: #333;
-    margin: 0;
+  font-size: 24px;
+  color: #333;
+  margin: 0;
 }
 .author {
-    font-size: 14px;
-    color: #777;
+  font-size: 14px;
+  color: #777;
 }
 .description {
-    font-size: 14px;
-    color: #555;
-    margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+  margin-top: 15px;
 }
 
 .navigation {
-    display: flex;
+  display: flex;
 }
 
 .navigation a {
-    color: #1a2a5e;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 2px 15px;
-    border-radius: 20px;
-    transition: 0.3s background;
-    margin-right: 30px;
+  color: #1a2a5e;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 2px 15px;
+  border-radius: 20px;
+  transition: 0.3s background;
+  margin-right: 30px;
 }
 
-
 .logo img {
-    max-height: 50px; /* Adjust as needed for logo size */
-    width: auto;
-    vertical-align: left; /* Aligns the image with the navigation */
-    align-items: left;
-    margin-right: auto;
+  max-height: 50px; /* Adjust as needed for logo size */
+  width: auto;
+  vertical-align: left; /* Aligns the image with the navigation */
+  align-items: left;
+  margin-right: auto;
 }
 
 .navigation {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navigation a:hover {
-    background: #1a2a5e;
-    color: #FFFFFF;
+  background: #1a2a5e;
+  color: #ffffff;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-    color: #1e2a5e;
-    font-family: 'Poppins', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #1e2a5e;
+  font-family: "Poppins", sans-serif;
 }
 
 .text-desc {
-    text-align: center;
-    color: #1e2a5e;
-    font-size: larger;
+  text-align: center;
+  color: #1e2a5e;
+  font-size: larger;
 }
 
 .text-top {
-    margin-left: 100px;
-    display: inline-block;
-    border-bottom: 2px solid #1e2a5e;
-    padding-bottom: 5px;
-    padding-right: 10px;
-    font-size: large;
+  margin-left: 100px;
+  display: inline-block;
+  border-bottom: 2px solid #1e2a5e;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  font-size: large;
 }
 
 .container-field {
-    height: 100vh; 
-    background-color: #1e2a5e;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: left;
-    color: #ffffff;
-    position: relative;
+  height: 100vh;
+  background-color: #1e2a5e;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  color: #ffffff;
+  position: relative;
 }
 
 .text-center {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #1a2a5e;
-    margin-top: 50px;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1a2a5e;
+  margin-top: 50px;
 }
 
 .button {
-    background-color: #ffffff;
-    color: #1e2a5e;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 50px;
-    border: 1px solid transparent;
-    font-size: 1rem;
-    margin-right: 500px;
+  background-color: #ffffff;
+  color: #1e2a5e;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  margin-right: 500px;
 }
 
 .button:hover {
-    color: #FFFFFF;
-    background-color: transparent;
-    border-color: #ffffff;
+  color: #ffffff;
+  background-color: transparent;
+  border-color: #ffffff;
 }
 .navbar {
-    background-color: #1e2a5e; 
-    width: 100%; 
-    height: 70px;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
+  background-color: #1e2a5e;
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .navbar-shadow {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
-    transition: box-shadow 0.3s ease; /* Transisi halus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+  transition: box-shadow 0.3s ease; /* Transisi halus */
 }
 
-
 .nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .nav-links li {
-    margin-right: 25px;
+  margin-right: 25px;
 }
 
 .nav-links a {
-    position: relative;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 15px;
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
 }
 
 .nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -2px;
-    width: 0;
-    height: 2px;
-    background: #ffffff;
-    transition: width 0.3s ease, left 0.3s ease;
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
 .nav-links a:hover::after {
-    width: 100%;
-    left: 0;
+  width: 100%;
+  left: 0;
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
-    filter: invert(100%);
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
 }
 
 .search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 800px;
-    margin: 25px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  margin: 25px auto;
 }
 
 .dropdown select {
-    -webkit-appearance: none; /* Untuk browser berbasis WebKit (Chrome, Safari) */
-    -moz-appearance: none;    /* Untuk Firefox */
-    appearance: none;         /* Default */
-    background: none;        /* Menghapus background */
-    border: none;            /* Menghapus border jika perlu */
-    padding: 10px;           /* Sesuaikan padding */
-    width: auto;             /* Sesuaikan lebar sesuai kebutuhan */
-    outline: none;           /* Menghapus outline */
+  -webkit-appearance: none; /* Untuk browser berbasis WebKit (Chrome, Safari) */
+  -moz-appearance: none; /* Untuk Firefox */
+  appearance: none; /* Default */
+  background: none; /* Menghapus background */
+  border: none; /* Menghapus border jika perlu */
+  padding: 10px; /* Sesuaikan padding */
+  width: auto; /* Sesuaikan lebar sesuai kebutuhan */
+  outline: none; /* Menghapus outline */
 }
 
 .book-card {
-    text-align: center;
-    justify-content: center;
-    margin: 0 15px;
-  }
-  .book-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  .book-card .book-title {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  .book-card .author-name {
-    color: #666;
-    font-size:small;
-  }
-  .book-card .rating {
-    color: #ffa500;
-  }
+  text-align: center;
+  justify-content: center;
+  margin: 0 15px;
+}
+.book-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.book-card .book-title {
+  font-weight: bold;
+  margin-top: 10px;
+}
+.book-card .author-name {
+  color: #666;
+  font-size: small;
+}
+.book-card .rating {
+  color: #ffa500;
+}
 
-  .book-title{
-    color: #1a2a5e;
-    font-size: medium;
-  }
+.book-title {
+  color: #1a2a5e;
+  font-size: medium;
+}
 
-
-  /* Card Styles */
-  .card {
-    overflow: hidden;
-    transition: transform 0.2s;
-    border: none; /* Remove any default border */
-    box-shadow: none; /* Remove box-shadow if it's applied */
-    justify-content: center;
-    display: flex;
-    flex-direction: column; /* Ensure content is stacked vertically */
-    align-items: center; /* Center the content horizontally */
+/* Card Styles */
+.card {
+  overflow: hidden;
+  transition: transform 0.2s;
+  border: none; /* Remove any default border */
+  box-shadow: none; /* Remove box-shadow if it's applied */
+  justify-content: center;
+  display: flex;
+  flex-direction: column; /* Ensure content is stacked vertically */
+  align-items: center; /* Center the content horizontally */
 }
 
 .card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Optional: If there is padding or margin you want to adjust */
 .card.mb-3 {
-    margin: 0; /* Adjust margin if necessary */
-    border-radius: 0; /* Optional: Remove rounded corners */
+  margin: 0; /* Adjust margin if necessary */
+  border-radius: 0; /* Optional: Remove rounded corners */
 }
 
-
 .card-img-top {
-    width: 150px; /* Lebar khusus */
-    height: 220px; /* Tinggi khusus */
-    border-radius: 5px;
-    object-fit: cover; /* Menjaga agar gambar tidak terdistorsi */
-    margin-top: 25px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  width: 150px; /* Lebar khusus */
+  height: 220px; /* Tinggi khusus */
+  border-radius: 5px;
+  object-fit: cover; /* Menjaga agar gambar tidak terdistorsi */
+  margin-top: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card-body {
-    text-align: center;
-    justify-content: center;
+  text-align: center;
+  justify-content: center;
 }
 
 .card-text {
-    color: #ffa500;
-    font-weight: bold;
+  color: #ffa500;
+  font-weight: bold;
 }
 
 /* Modal Styles */
 .modal-content {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .modal-header {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .modal-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .modal-footer {
-    justify-content: center;
+  justify-content: center;
 }
 
 .search {
-    width: 300px; /* Adjust width as necessary */
-    border-radius: 5px;
+  width: 300px; /* Adjust width as necessary */
+  border-radius: 5px;
 }
 
 .search-button {
-    margin-left: 10px;
-} 
+  margin-left: 10px;
+}
 
 /* Jika Anda menggunakan Bootstrap, Anda mungkin perlu menambahkan ini juga */
 .form-select {
-    border: 1px solid #ccc; /* Ubah warna border jika diperlukan */
+  border: 1px solid #ccc; /* Ubah warna border jika diperlukan */
 }
 
 .search {
-    flex: 1;
-    padding: 10px;
-    border: 2px solid #1e2a5e;
-    border-radius: 50px;
-    font-size: 16px;
-    margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #1e2a5e;
+  border-radius: 50px;
+  font-size: 16px;
+  margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
 }
 
 .dropdown {
-    display: flex;
-    align-items: center;
-    margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
 }
 
 .dropdown select {
-    padding: 10px;
-    border: 2px solid #1e2a5e;
-    border-radius: 50px;
-    margin-right: 10px;
+  padding: 10px;
+  border: 2px solid #1e2a5e;
+  border-radius: 50px;
+  margin-right: 10px;
 }
 
 .search-button {
-    background-color: #1e2a5e;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background 0.3s;
-    height: 48px; /* Menyesuaikan tinggi tombol */
+  background-color: #1e2a5e;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s;
+  height: 48px; /* Menyesuaikan tinggi tombol */
 }
 
 .search-button:hover {
-    background-color: #fff;
-    color: #1e2a5e;
-    border: 2px solid #1e2a5e;
+  background-color: #fff;
+  color: #1e2a5e;
+  border: 2px solid #1e2a5e;
 }
 
 .img-container {
-    width: 120px; /* Sesuaikan ukuran lebar buku */
-    height: auto; /* Tinggi mengikuti proporsi dari lebar */
-    margin: 10px; /* Spasi antar buku */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan pada buku */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi */
+  width: 120px; /* Sesuaikan ukuran lebar buku */
+  height: auto; /* Tinggi mengikuti proporsi dari lebar */
+  margin: 10px; /* Spasi antar buku */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan pada buku */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi */
 }
 
 .img-container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .img-carousel {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* Style for the title */
 .title {
-    font-size: 2.5em;
-    color: #1e2a5e;
-    margin: 20px 0;
+  font-size: 2.5em;
+  color: #1e2a5e;
+  margin: 20px 0;
 }
 
 /* Common styles for all tiles */
 .tile {
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: left;
-    font-size: 1em;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  font-size: 1em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .tile:hover {
-    transform: scale(1.05); /* Sedikit membesarkan ukuran tile */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan saat di-hover */
+  transform: scale(1.05); /* Sedikit membesarkan ukuran tile */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan saat di-hover */
 }
 
 /* Background color for each tile */
 .green {
-    background-color: #004d00;
+  background-color: #004d00;
 }
 
 .red {
-    background-color: #b30000;
+  background-color: #b30000;
 }
 
 .brown {
-    background-color: #b5651d;
+  background-color: #b5651d;
 }
 
 .yellow {
-    background-color: #89094E;
+  background-color: #89094e;
 }
 
 .orange {
-    background-color: #ff8c00;
+  background-color: #ff8c00;
 }
 
 footer {
-    display: flex;
-    justify-content: space-around; /* Memberi jarak antar kolom */
-    align-items: flex-start;
-    width: 100%;
-    padding: 80px 10%; /* Mengurangi padding agar lebih lebar */
-    background-color: #1e2a5e;
-    flex-wrap: wrap;
-    margin-top: 100px;
-    z-index: 10;
+  display: flex;
+  justify-content: space-around; /* Memberi jarak antar kolom */
+  align-items: flex-start;
+  width: 100%;
+  padding: 80px 10%; /* Mengurangi padding agar lebih lebar */
+  background-color: #1e2a5e;
+  flex-wrap: wrap;
+  margin-top: 100px;
+  z-index: 10;
 }
 
 .footer-content {
-    flex: 1 1 220px; /* Menambah minimal lebar kolom */
-    margin: 0 1rem;
-    max-width: 300px; /* Menghindari kolom terlalu lebar */
+  flex: 1 1 220px; /* Menambah minimal lebar kolom */
+  margin: 0 1rem;
+  max-width: 300px; /* Menghindari kolom terlalu lebar */
 }
 
-
 .footer-content h4 {
-    color: #fff;
-    margin-bottom: 1.5rem;
-    font-size: 20px;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 20px;
 }
 
 .footer-content li {
-    margin-bottom: 16px;
-    list-style: none;
+  margin-bottom: 16px;
+  list-style: none;
 }
 
 .footer-content li a {
-    display: block;
-    color: #d6d6d6;
-    font-size: 15px;
-    font-weight: 400;
-    transition: all 0.4s ease;
+  display: block;
+  color: #d6d6d6;
+  font-size: 15px;
+  font-weight: 400;
+  transition: all 0.4s ease;
 }
 
 .footer-content li a:hover {
-    transform: translateY(-3px) translateX(-5px);
-    color: #fff;
+  transform: translateY(-3px) translateX(-5px);
+  color: #fff;
 }
 
 .footer-content p {
-    color: #d6d6d6;
-    font-size: 16px;
-    line-height: 30px;
-    margin: 20px 0;
+  color: #d6d6d6;
+  font-size: 16px;
+  line-height: 30px;
+  margin: 20px 0;
 }
 
 .icons a {
-    display: inline-block;
-    font-size: 22px;
-    color: #d6d6d6;
-    transition: all 0.4s ease;
-    margin-right: 15px;
+  display: inline-block;
+  font-size: 22px;
+  color: #d6d6d6;
+  transition: all 0.4s ease;
+  margin-right: 15px;
 }
 
 .icons a:hover {
-    color: #fff;
-    transform: translateY(-5px);
+  color: #fff;
+  transform: translateY(-5px);
 }
 
 .custom-small-text {
-    font-size: 1rem; /* Sesuaikan ukuran sesuai kebutuhan */
+  font-size: 1rem; /* Sesuaikan ukuran sesuai kebutuhan */
 }
 
 .opening {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Menjaga jarak antara teks dan gambar */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Menjaga jarak antara teks dan gambar */
 }
 
 .text {
-    flex: 1; /* Mengambil ruang yang tersedia untuk teks */
-    padding: 20px; /* Tambahkan padding untuk mempercantik tampilan */
+  flex: 1; /* Mengambil ruang yang tersedia untuk teks */
+  padding: 20px; /* Tambahkan padding untuk mempercantik tampilan */
 }
 
 .image {
-    flex: 1; /* Mengambil ruang yang tersedia untuk gambar */
-    text-align: center; /* Menempatkan gambar di tengah */
+  flex: 1; /* Mengambil ruang yang tersedia untuk gambar */
+  text-align: center; /* Menempatkan gambar di tengah */
 }
 
 .image img {
-    max-width: 100%; /* Memastikan gambar responsif */
-    height: auto;
-    border-radius: 10px; /* Opsi untuk tampilan gambar yang lebih halus */
+  max-width: 100%; /* Memastikan gambar responsif */
+  height: auto;
+  border-radius: 10px; /* Opsi untuk tampilan gambar yang lebih halus */
 }
 
 .left {
-    flex-direction: row; /* Gambar di kanan */
+  flex-direction: row; /* Gambar di kanan */
 }
 
 .right {
-    flex-direction: row-reverse; /* Gambar di kiri */
+  flex-direction: row-reverse; /* Gambar di kiri */
 }
 
-.opening h1{
-    color: #1e2a5e;
-    font-size: 3rem;
-    font-weight: bold;
+.opening h1 {
+  color: #1e2a5e;
+  font-size: 3rem;
+  font-weight: bold;
 }
 
 .info-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #1e2a5e; /* Ganti warna sesuai keinginan */
-    color: white;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: bold;
-    text-align: center;
-    align-items: center;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #1e2a5e; /* Ganti warna sesuai keinginan */
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
 }
 
 .info-btn:hover {
-    background-color: #FFF; /* Warna saat tombol di-hover */
-    color: #1e2a5e;
-    border: 3px solid #1e2a5e;
+  background-color: #fff; /* Warna saat tombol di-hover */
+  color: #1e2a5e;
+  border: 3px solid #1e2a5e;
 }
 
 .story-description {
-    font-size: 17px; /* Adjust the size as needed */
-    line-height: 1.5; /* Optional: adjust line height for better readability */
-    display: flex;
+  font-size: 17px; /* Adjust the size as needed */
+  line-height: 1.5; /* Optional: adjust line height for better readability */
+  display: flex;
 }
 
 .services .boxes {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: space-between; 
-    gap: 20px; 
-    margin: 0 auto; 
-    max-width: 1200px; 
-    padding: 20px; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
 }
 
 /* Individual service box */
 .services .box {
-    flex: 1 1 calc(33% - 20px); 
-    margin: 20px 0; 
-    text-align: center; 
-    border-radius: 12px; 
-    padding: 30px 10px; 
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    background: #fff; 
-    transition: all 0.4s ease; 
-    cursor: default; 
-    color: #1a2a5e;
+  flex: 1 1 calc(33% - 20px);
+  margin: 20px 0;
+  text-align: center;
+  border-radius: 12px;
+  padding: 30px 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  transition: all 0.4s ease;
+  cursor: default;
+  color: #1a2a5e;
 }
 
 /* Hover effect for boxes */
 .services .box:hover {
-    background: #1e2a5e; 
-    color: #fff; 
+  background: #1e2a5e;
+  color: #fff;
 }
 
 /* Icon style */
 .services .box .icon {
-    height: 50px; 
-    width: 50px; 
-    background: #1e2a5e; 
-    border-radius: 50%; 
-    text-align: center; 
-    line-height: 50px; 
-    font-size: 18px;
-    color: #fff; 
-    margin: 0 auto 10px auto; 
-    transition: all 0.4s ease; 
+  height: 50px;
+  width: 50px;
+  background: #1e2a5e;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 18px;
+  color: #fff;
+  margin: 0 auto 10px auto;
+  transition: all 0.4s ease;
 }
 
 .team-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px; /* Space between team members */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between team members */
 }
 
 .team-member {
-    background-color: #f9f9f9; /* Background color for team member card */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding around the content */
-    text-align: center; /* Center text alignment */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
-    width: 250px; /* Set the width of the member card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #f9f9f9; /* Background color for team member card */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding around the content */
+  text-align: center; /* Center text alignment */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+  width: 250px; /* Set the width of the member card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .team-member:hover {
-    transform: scale(1.05); /* Slightly enlarge on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
 }
 
 .team-image {
-    width: 100%; /* Ensure image fills the width of the card */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Rounded corners for the image */
+  width: 100%; /* Ensure image fills the width of the card */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners for the image */
 }
 
 .member-name {
-    margin: 10px 0 5px;
-    font-size: 18px; /* Ukuran font nama */
-    color: #4b2e10;
+  margin: 10px 0 5px;
+  font-size: 18px; /* Ukuran font nama */
+  color: #4b2e10;
 }
 
 .member-role {
-    margin: 5px 0;
-    font-size: 14px; /* Ukuran font peran */
-    color: gray; /* Warna teks peran */
+  margin: 5px 0;
+  font-size: 14px; /* Ukuran font peran */
+  color: gray; /* Warna teks peran */
 }
 
 /* Header Section */
 .profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 .profile-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 .profile-info img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
 }
 .profile-name {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 .edit-profile-btn {
-    font-size: 12px;
-    color: #555;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    text-decoration: underline;
+  font-size: 12px;
+  color: #555;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /* Badge Container */
 .badge-container {
-    display: flex;
-    align-items: center;
-    background-color: #f7f5f2;
-    padding: 20px; /* Increased padding */
-    border-radius: 15px; /* Slightly rounded corners */
-    gap: 15px; /* Added spacing between badges */
+  display: flex;
+  align-items: center;
+  background-color: #f7f5f2;
+  padding: 20px; /* Increased padding */
+  border-radius: 15px; /* Slightly rounded corners */
+  gap: 15px; /* Added spacing between badges */
 }
 .badge-container img {
-    width: 70px; /* Increased image size */
-    height: 70px; /* Increased image size */
+  width: 70px; /* Increased image size */
+  height: 70px; /* Increased image size */
 }
-
 
 /* Statistics Section */
 .stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two items per row */
-    gap: 20px;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two items per row */
+  gap: 20px;
+  margin-top: 20px;
 }
 .stat-item {
-    background-color: #E1D7B7;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+  background-color: #e1d7b7;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 .stat-item h3 {
-    font-size: 24px;
-    margin-bottom: 5px;
-    color: #333;
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #333;
 }
 .stat-item p {
-    font-size: 14px;
-    color: #666;
+  font-size: 14px;
+  color: #666;
 }
 
 /* Top Reads Section */
 .top-read {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 .section-title {
-    font-size: 20px;
-    font-weight: bold;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
 }
 .bookshelf {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
 }
 .book-item {
-    text-align: center;
-    background-color: #f8f9fb;
-    padding: 10px;
-    border-radius: 10px;
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  background-color: #f8f9fb;
+  padding: 10px;
+  border-radius: 10px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .book-item img {
-    width: 100%;
-    border-radius: 5px;
+  width: 100%;
+  border-radius: 5px;
 }
 .book-item p {
-    margin-top: 5px;
-    font-size: 12px;
-    color: #333;
-    text-align: center;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #333;
+  text-align: center;
 }
 
 /* Shelves Section */
 .shelves {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 .shelves-container {
-    display: flex;
-    gap: 20px;
-    margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
 }
 .shelf {
-    flex: 1;
-    background-color: #1f3359;
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: left;
-    position: relative;
+  flex: 1;
+  background-color: #1f3359;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: left;
+  position: relative;
 }
 .shelf img {
-    width: 70px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  width: 70px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 .shelf h4 {
-    margin: 0;
-    font-size: 16px;
-    color: #ddd;
+  margin: 0;
+  font-size: 16px;
+  color: #ddd;
 }
 .shelf p {
-    margin: 5px 0;
-    font-size: 12px;
-    color: #bbb;
+  margin: 5px 0;
+  font-size: 12px;
+  color: #bbb;
 }
 .shelf-stats {
-    font-size: 12px;
-    color: #aaa;
-    margin-top: 10px;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-    }
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .container-field h1 {
-        font-size: 4 rem;
-    }
+  .container-field h1 {
+    font-size: 4 rem;
+  }
 
-    .button {
-        margin-right: 0;
-    }
+  .button {
+    margin-right: 0;
+  }
 
-    .text-top {
-        margin-left: 0;
-        text-align: center;
-    }
+  .text-top {
+    margin-left: 0;
+    text-align: center;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-    header {
-        padding: 20px 5%;
-    }
+  header {
+    padding: 20px 5%;
+  }
 
-    .text-center {
-        font-size: 2rem;
-    }
+  .text-center {
+    font-size: 2rem;
+  }
 
-    .button {
-        font-size: 0.8rem;
-    }
+  .button {
+    font-size: 0.8rem;
+  }
 
-    p {
-        font-size: 0.8rem;
-    }
+  p {
+    font-size: 0.8rem;
+  }
 
-    .search {
-        width: 90%;
-    }
+  .search {
+    width: 90%;
+  }
 
-    .img-container {
-        margin-left: 0;
-    }
+  .img-container {
+    margin-left: 0;
+  }
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
-
-
