@@ -59,24 +59,17 @@ if (isset($_SESSION['user_name'])) {
     }
 
     // Query to get total comments (main comments) and replies
-    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name' AND parent_id IS NULL";
-    $reply_query = "SELECT COUNT(*) AS total_replies FROM comments WHERE username = '$user_name' AND parent_id IS NOT NULL";
-
-    // Get total comments
+    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
         $comment_data = mysqli_fetch_assoc($comment_result);
         $total_comments = $comment_data['total_comments'];
+    } else {
+        $total_comments = 0; // Default if no comments found
     }
 
-    // Get total replies
-    $reply_result = mysqli_query($conn, $reply_query);
-    if ($reply_result && mysqli_num_rows($reply_result) > 0) {
-        $reply_data = mysqli_fetch_assoc($reply_result);
-        $total_replies = $reply_data['total_replies'];
-    }
-} else {
-    echo "You are not logged in!";
+    // Total reviews = jumlah komentar + jumlah replies
+    $total_reviews = $total_comments; // Karena query di atas sudah mencakup semuanya
 }
 
 ?>
@@ -119,9 +112,9 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
             <div class="badge-container">
-                <img src="assets/badge.jpg" alt="Badge 1">
-                <img src="assets/badge1.png" alt="Badge 2">
-                <img src="assets/badge2.jpg" alt="Badge 3">
+                <img src="assets/badge01.png" alt="Badge 1" width="100" height="100">
+                <img src="assets/badge2.png" alt="Badge 2" width="100" height="100">
+                <img src="assets/badge3.png" alt="Badge 3" width="100" height="100">
             </div>
         </div>
 
