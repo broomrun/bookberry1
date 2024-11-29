@@ -13,11 +13,7 @@ if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
     $current_date = date("Y-m-d");
 
-<<<<<<< HEAD
     // **1. Query untuk mendapatkan gambar profil**
-=======
-    // *1. Query untuk mendapatkan gambar profil*
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
 
@@ -27,11 +23,7 @@ if (isset($_SESSION['user_name'])) {
         $profile_image = $image_path . '?t=' . time(); // Tambahkan parameter unik untuk memaksa refresh
     }
 
-<<<<<<< HEAD
     // **2. Query untuk mendapatkan last_login, streak_count, dan badges**
-=======
-    // *2. Query untuk mendapatkan last_login, streak_count, dan badges*
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
     $streak_query = "SELECT last_login, streak_count, badges FROM user_form WHERE name = '$user_name'";
     $streak_result = mysqli_query($conn, $streak_query);
 
@@ -40,11 +32,7 @@ if (isset($_SESSION['user_name'])) {
 
         $last_login = $user_data['last_login'];
         $streak_count = $user_data['streak_count'];
-<<<<<<< HEAD
         $badges = $user_data['badges'] ? explode(',', $user_data['badges']) : []; // Ambil badges sebagai array
-=======
-        $badges = $user_data['badges'] ? explode(',', $user_data['badges']) : []; // Ambil badges
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
 
         // Cek apakah pengguna login hari ini atau melewatkan hari
         $last_login_date = date('Y-m-d', strtotime($last_login));
@@ -61,11 +49,7 @@ if (isset($_SESSION['user_name'])) {
         }
     }
 
-<<<<<<< HEAD
     // **3. Query untuk mendapatkan total review**
-=======
-    // *3. Query untuk mendapatkan total review*
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
     $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
@@ -73,11 +57,7 @@ if (isset($_SESSION['user_name'])) {
         $total_comments = intval($comment_data['total_comments']);
     }
 
-<<<<<<< HEAD
     // **4. Query untuk mendapatkan total buku yang dibaca**
-=======
-    // *4. Query untuk mendapatkan total buku yang dibaca*
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
     $book_query = "SELECT COUNT(*) AS total_books FROM books_read WHERE username = '$user_name'";
     $book_result = mysqli_query($conn, $book_query);
     if ($book_result && mysqli_num_rows($book_result) > 0) {
@@ -85,21 +65,12 @@ if (isset($_SESSION['user_name'])) {
         $total_books_read = intval($book_data['total_books']);
     }
 
-<<<<<<< HEAD
     // **5. Logika pemberian badge**
     $updated_badges = [];
 
     // Badge 1: streak > 15
     if ($streak_count >= 10) {
         $updated_badges[] = 'badge01';
-=======
-    // *5. Logika pemberian badge*
-    $updated_badges = [];
-
-    // Badge 1: streak > 15
-    if ($streak_count >= 15) {
-        $updated_badges[] = 'badge1';
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
     }
 
     // Badge 2: lebih dari 5 buku dibaca
@@ -108,21 +79,12 @@ if (isset($_SESSION['user_name'])) {
     }
 
     // Badge 3: 5 review
-<<<<<<< HEAD
     if ($total_comments >= 15) {
         $updated_badges[] = 'badge3';
     }
 
     // **6. Simpan data badges kembali ke database**
     $badges_string = implode(',', $updated_badges); // Gabungkan badge menjadi string
-=======
-    if ($total_comments >= 5) {
-        $updated_badges[] = 'badge3';
-    }
-
-    // *6. Simpan data badges kembali ke database*
-    $badges_string = implode(',', $updated_badges);
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
     $update_badges_query = "UPDATE user_form SET badges = '$badges_string' WHERE name = '$user_name'";
     if (!mysqli_query($conn, $update_badges_query)) {
         die('Update badges query failed: ' . mysqli_error($conn));
@@ -170,20 +132,8 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
             <div class="badge-container">
-<<<<<<< HEAD
                 <?php foreach ($badges as $badge) { ?>
                     <img src="assets/<?php echo htmlspecialchars($badge); ?>.png" alt="<?php echo htmlspecialchars($badge); ?>" width="100" height="100">
-=======
-                <!-- Menampilkan badge yang telah didapatkan -->
-                <?php if (in_array('badge1', $badges)) { ?>
-                    <img src="assets/badge01.png" alt="Badge 1" width="100" height="100">
-                <?php } ?>
-                <?php if (in_array('badge2', $badges)) { ?>
-                    <img src="assets/badge2.png" alt="Badge 2" width="100" height="100">
-                <?php } ?>
-                <?php if (in_array('badge3', $badges)) { ?>
-                    <img src="assets/badge3.png" alt="Badge 3" width="100" height="100">
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
                 <?php } ?>
             </div>
         </div>
@@ -198,11 +148,7 @@ if (isset($_SESSION['user_name'])) {
                 <p>reviews</p>
             </div>
             <div class="stat-item">
-<<<<<<< HEAD
             <h3><?php echo htmlspecialchars(count($badges)); ?></h3>
-=======
-            <h3><?php echo count($badges); ?></h3>
->>>>>>> f4ee40d895a7804df24cb1ad20d69edeb1726411
                 <p>badges</p>
             </div>
             <div class="stat-item">
