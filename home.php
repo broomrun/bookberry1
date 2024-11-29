@@ -1,42 +1,12 @@
 <?php
-
 include 'config.php';
 session_start();
 
-if(isset($_POST['submit'])){
-
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = md5($_POST['password']);
-    
-    // Cek email saja di database
-    $select = "SELECT * FROM user_form WHERE email = '$email'";
-    
-    $result = mysqli_query($conn, $select);
-
-    if(mysqli_num_rows($result) > 0){
-
-        $row = mysqli_fetch_array($result);
-        
-        // Cek apakah password cocok
-        if($row['password'] == $pass){
-            
-            if($row['user_type'] == 'admin'){
-                $_SESSION['admin_name'] = $row['name'];
-                header('location:admin_page.php');
-            } elseif($row['user_type'] == 'user'){
-                $_SESSION['user_name'] = $row['name'];
-                header('location:user_page.php');
-            }
-
-        } else {
-            $error[] = 'Incorrect password!';
-        }
-
-    } else {
-        $error[] = 'Incorrect email or password!';
-    }
-
-};
+// Periksa apakah pengguna telah login
+if (!isset($_SESSION['user_name'])) {
+    header('Location: login.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +19,7 @@ if(isset($_POST['submit'])){
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> <!-- Link Poppins -->
     <link href="style/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    
 </head>
 <body>
 
@@ -85,7 +56,9 @@ if(isset($_POST['submit'])){
 
     <hr>
 
-    <div class="row" id="book-list"></div> <!-- Only one book-list -->
+    <div class="row" id="book-list">
+      
+    </div> <!-- Only one book-list -->
     
 </div>
 
@@ -101,9 +74,12 @@ if(isset($_POST['submit'])){
                 <p id="book-detail">Book details will appear here...</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Add to Shelves</button>
-                <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php';">View Comments</button>
+                <textarea id="commentInput" class="form-control" placeholder="Write your comment here..."></textarea>
+                <button id="submitComment" class="btn btn-primary">Submit Comment</button>
             </div>
+            <div id="commentSection" class="mt-3">
+    <!-- Komentar akan muncul di sini -->
+</div>
         </div>
     </div>
 </div>
