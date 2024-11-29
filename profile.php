@@ -61,6 +61,7 @@ if (isset($_SESSION['user_name'])) {
     // Query to get total comments (main comments) and replies
     $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
+
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
         $comment_data = mysqli_fetch_assoc($comment_result);
         $total_comments = $comment_data['total_comments'];
@@ -71,8 +72,11 @@ if (isset($_SESSION['user_name'])) {
     // Total reviews = jumlah komentar + jumlah replies
     $total_reviews = $total_comments; // Karena query di atas sudah mencakup semuanya
 }
+ 
 
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -119,6 +123,7 @@ if (isset($_SESSION['user_name'])) {
         </div>
 
         <div class="stats">
+<<<<<<< HEAD
             <div class="stat-item">
                 <h3><?php echo htmlspecialchars($streak_count); ?></h3>
                 <p>streak</p>
@@ -140,6 +145,25 @@ if (isset($_SESSION['user_name'])) {
                 <p>replies</p>
             </div>
         </div>
+=======
+    <div class="stat-item">
+        <h3><?php echo htmlspecialchars($streak_count); ?></h3>
+        <p>streak</p>
+    </div>
+    <div class="stat-item">
+        <h3><?php echo htmlspecialchars($total_reviews); ?></h3> <!-- Gabungkan total komentar dan balasan -->
+        <p>reviews</p>
+    </div>
+    <div class="stat-item">
+        <h3>70</h3>
+        <p>badges</p>
+    </div>
+    <div class="stat-item">
+        <h3>40</h3>
+        <p>shelves</p>
+    </div>
+</div>
+>>>>>>> main
 
 
         <!-- Top Reads -->
