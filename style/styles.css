@@ -718,6 +718,14 @@ footer {
     height: 70px; /* Increased image size */
 }
 
+.badge img {
+    width: auto; /* Lebar mengikuti ukuran asli */
+    height: auto; /* Tinggi mengikuti ukuran asli */
+    max-width: 100%; /* Agar tidak melebihi kontainer */
+    object-fit: contain; /* Jaga agar tidak terpotong */
+}
+
+
 
 /* Statistics Section */
 .stats {
