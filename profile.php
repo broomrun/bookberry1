@@ -135,10 +135,7 @@ if (isset($_SESSION['user_name'])) {
                 <h3>40</h3>
                 <p>shelves</p>
             </div>
-            <div class="stat-item">
-                <h3><?php echo htmlspecialchars($total_replies); ?></h3> <!-- Display total replies -->
-                <p>replies</p>
-            </div>
+
         </div>
 
 
