@@ -71,8 +71,12 @@ if (isset($_SESSION['user_name'])) {
 
     // Total reviews = jumlah komentar + jumlah replies
     $total_reviews = $total_comments; // Karena query di atas sudah mencakup semuanya
-} // Close the `if (isset($_SESSION['user_name']))` block
+}
+ 
+
 ?>
+
+
 
 
 <!DOCTYPE html>
