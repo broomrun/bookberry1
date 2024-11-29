@@ -59,26 +59,19 @@ if (isset($_SESSION['user_name'])) {
     }
 
     // Query to get total comments (main comments) and replies
-    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name' AND parent_id IS NULL";
-    $reply_query = "SELECT COUNT(*) AS total_replies FROM comments WHERE username = '$user_name' AND parent_id IS NOT NULL";
-
-    // Get total comments
+    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
+
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
         $comment_data = mysqli_fetch_assoc($comment_result);
         $total_comments = $comment_data['total_comments'];
+    } else {
+        $total_comments = 0; // Default if no comments found
     }
 
-    // Get total replies
-    $reply_result = mysqli_query($conn, $reply_query);
-    if ($reply_result && mysqli_num_rows($reply_result) > 0) {
-        $reply_data = mysqli_fetch_assoc($reply_result);
-        $total_replies = $reply_data['total_replies'];
-    }
-} else {
-    echo "You are not logged in!";
-}
-
+    // Total reviews = jumlah komentar + jumlah replies
+    $total_reviews = $total_comments; // Karena query di atas sudah mencakup semuanya
+} // Close the `if (isset($_SESSION['user_name']))` block
 ?>
 
 
@@ -128,7 +121,7 @@ if (isset($_SESSION['user_name'])) {
         <p>streak</p>
     </div>
     <div class="stat-item">
-        <h3><?php echo htmlspecialchars($total_comments); ?></h3> <!-- Display total comments -->
+        <h3><?php echo htmlspecialchars($total_reviews); ?></h3> <!-- Gabungkan total komentar dan balasan -->
         <p>reviews</p>
     </div>
     <div class="stat-item">
@@ -138,10 +131,6 @@ if (isset($_SESSION['user_name'])) {
     <div class="stat-item">
         <h3>40</h3>
         <p>shelves</p>
-    </div>
-    <div class="stat-item">
-        <h3><?php echo htmlspecialchars($total_replies); ?></h3> <!-- Display total replies -->
-        <p>replies</p>
     </div>
 </div>
 
