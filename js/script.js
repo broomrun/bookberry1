@@ -192,21 +192,29 @@ function renderComment(comment) {
     }
 
     return `
-        <div class="comment" data-id="${comment.id}">
-            <div class="comment-header">
-                <img src="${comment.profile_image}" alt="Profile Image" class="profile-image" width="40" height="40">
-                <strong>${comment.username}</strong>
-                <small>${new Date(comment.created_at).toLocaleString()}</small> <!-- Waktu komentar -->
-            </div>
-            <p>${comment.text}</p>
-            <br>
-            <button class="btn btn-link like-btn" data-id="${comment.id}">👍 ${comment.likes}</button>
-            <button class="btn btn-link dislike-btn" data-id="${comment.id}">👎 ${comment.dislikes}</button>
-            <button class="btn btn-link reply-btn">Reply</button>
-            <div class="replies ms-3">
-                ${replies}
-            </div>
+<div class="comment" data-id="${comment.id}">
+    <div class="comment-header d-flex align-items-center mb-2">
+        <img src="${comment.profile_image}" alt="Profile Image" class="profile-image rounded-circle me-2" width="40" height="40">
+        <div class="comment-info">
+            <strong class="comment-username">${comment.username}</strong>
+            <small class="text-muted">${new Date(comment.created_at).toLocaleString()}</small>
         </div>
+    </div>
+    <p class="comment-text mb-2">${comment.text}</p>
+    <div class="comment-actions d-flex align-items-center">
+        <button class="btn btn-sm btn-link like-btn me-2" data-id="${comment.id}">
+            👍 <span style="color: #1e2a5e";>${comment.likes}</span>
+        </button>
+        <button class="btn btn-sm btn-link dislike-btn me-2" data-id="${comment.id}">
+            👎 <span style="color: #1e2a5e";>${comment.dislikes}</span>
+        </button>
+        <button class="btn btn-sm btn-link reply-btn" style="color: #1e2a5e";>Reply</button>
+    </div>
+    <div class="replies ms-4 mt-3">
+        ${replies}
+    </div>
+</div>
+
     `;
 }
 
