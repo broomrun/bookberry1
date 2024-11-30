@@ -329,13 +329,17 @@ p {
 }
 
 /* Modal Styles */
+.modal-dialog {
+  max-width: 90%; /* Lebar modal menjadi 90% dari viewport */
+}
+
 .modal-content {
   border-radius: 10px;
+  width: 100%;
 }
 
 .modal-header {
-  background-color: #007bff;
-  color: white;
+  background-color: #1a2a5e;
 }
 
 .modal-body {
@@ -344,6 +348,10 @@ p {
 
 .modal-footer {
   justify-content: center;
+}
+
+.modal-title {
+  color: #fff;
 }
 
 .search {
@@ -358,6 +366,19 @@ p {
 /* Jika Anda menggunakan Bootstrap, Anda mungkin perlu menambahkan ini juga */
 .form-select {
   border: 1px solid #ccc; /* Ubah warna border jika diperlukan */
+}
+
+.form-control {
+  width: 100%; 
+  height: 80px;
+  padding: 12px; 
+  font-size: 1rem;
+  border: 1px solid #ccc; 
+  border-radius: 20px;
+  box-sizing: border-box; 
+  resize: none; 
+  outline: none; 
+  transition: border-color 0.3s ease; 
 }
 
 .search {
@@ -703,6 +724,14 @@ footer {
   background-color: transparent;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
 }
 
 /* Badge Container */

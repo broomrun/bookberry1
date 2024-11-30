@@ -151,7 +151,6 @@ $('#submitComment').on('click', function () {
         $.post('comments.inc.php', { title: title, comment: comment }, function (response) {
             console.log('Response:', response); // Debug response
             if (response.success) {
-                alert('Comment submitted successfully!');
                 $('#commentInput').val(''); // Kosongkan input
                 fetchComments(title);
             } else {
@@ -226,7 +225,7 @@ $(document).on('click', '.reply-btn', function () {
     const replyInput = `
         <div class="reply-input mt-2">
             <textarea class="form-control reply-text" placeholder="Write your reply..."></textarea>
-            <button class="btn btn-primary mt-1 submit-reply" data-parent-id="${commentId}">Submit</button>
+            <button class="info-btn mt-1 submit-reply" data-parent-id="${commentId}">Submit</button>
         </div>
     `;
     $(this).after(replyInput);

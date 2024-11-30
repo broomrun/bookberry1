@@ -77,7 +77,7 @@ if (!isset($_SESSION['user_name'])) {
         </div>
         <div class="modal-footer">
           <textarea id="commentInput" class="form-control" placeholder="Write your comment here..."></textarea>
-          <button id="submitComment" class="btn btn-primary">Submit Comment</button>
+          <button id="submitComment" class="info-btn">Submit Comment</button>
         </div>
         <div id="commentSection" class="mt-3">
           <!-- Komentar akan muncul di sini -->
