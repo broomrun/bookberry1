@@ -4,7 +4,7 @@ session_start();
 
 // Periksa apakah pengguna telah login
 if (!isset($_SESSION['user_name'])) {
-  header('Location: login.php');
+  header('Location: user_page.php');
   exit;
 }
 ?>

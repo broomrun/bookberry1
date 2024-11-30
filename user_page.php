@@ -1,6 +1,41 @@
 <?php
 include 'config.php';
 session_start();
+
+$emailValue = ''; // To store email input
+
+// Check if form is submitted
+if (isset($_POST['submit'])) {
+
+  $email = mysqli_real_escape_string($conn, $_POST['email']);
+  $pass = $_POST['password'];
+  $emailValue = $email; // Store email when form is submitted
+
+  // Check if email exists in database
+  $select = "SELECT * FROM user_form WHERE email = '$email'";
+  $result = mysqli_query($conn, $select);
+
+  if (mysqli_num_rows($result) > 0) {
+
+    $row = mysqli_fetch_array($result);
+
+    // Verify if the password matches
+    if (password_verify($pass, $row['password'])) {
+
+      // Set session variable for user name
+      $_SESSION['user_name'] = $row['name'];
+
+      // Redirect to home.php after successful login
+      header('Location: home.php');
+      exit; // Make sure the script stops after redirect
+
+    } else {
+      $error = 'Incorrect password!';
+    }
+  } else {
+    $error = 'Incorrect email or password!';
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,18 +67,20 @@ session_start();
     </section>
 
     <div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>Login</h2>
-        <form action="login.php" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Login">
-        </form>
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login</h2>
+            <form method="POST">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($emailValue); ?>" required><br>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+                
+                <input type="submit" name="submit" value="Login">
+            </form>
+        </div>
     </div>
-</div>
 
     <h1> Discover many books! </h1>
     <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
