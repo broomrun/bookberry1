@@ -208,8 +208,8 @@ function renderComment(comment) {
         <button class="btn btn-sm btn-link dislike-btn me-2" data-id="${comment.id}">
             👎 <span style="color: #1e2a5e";>${comment.dislikes}</span>
         </button>
-        <button class="btn btn-sm btn-link reply-btn" style="color: #1e2a5e";>Reply</button>
     </div>
+    <button class="btn btn-sm btn-link reply-btn" style="color: #1e2a5e";>Reply</button>
     <div class="replies ms-4 mt-3">
         ${replies}
     </div>
