@@ -26,10 +26,24 @@ session_start();
             <div class="info">
                 <h2>Hi, <br><span>BERRYs!</span></h2>
                 <p>Your one-stop platform for discovering and rating your favorite books<br><span>Dive into the world of literature and share your thoughts with others!</span></p>
-                <a href="login.php" class="info-btn">More Info</a>
+                <button id="openModal" class="info-btn">More Info</button>
             </div>
         </div>
     </section>
+
+    <div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Login</h2>
+        <form action="login.php" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
 
     <h1> Discover many books! </h1>
     <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -154,6 +168,29 @@ session_start();
     AOS.init({
         offset: 0
     });
+
+    // Get modal and button
+var modal = document.getElementById("loginModal");
+var btn = document.getElementById("openModal");
+var closeBtn = document.getElementsByClassName("close-btn")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 </script>
 
 </html>
