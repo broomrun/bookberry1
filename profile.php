@@ -6,7 +6,6 @@ include "config.php";
 $profile_image = 'default.jpg';
 $streak_count = 0;
 $total_comments = 0;
-$total_books_read = 0;
 $badges = []; // Array untuk menyimpan badges yang sudah diperoleh
 
 if (isset($_SESSION['user_name'])) {
@@ -57,28 +56,15 @@ if (isset($_SESSION['user_name'])) {
         $total_comments = intval($comment_data['total_comments']);
     }
 
-    // **4. Query untuk mendapatkan total buku yang dibaca**
-    $book_query = "SELECT COUNT(*) AS total_books FROM books_read WHERE username = '$user_name'";
-    $book_result = mysqli_query($conn, $book_query);
-    if ($book_result && mysqli_num_rows($book_result) > 0) {
-        $book_data = mysqli_fetch_assoc($book_result);
-        $total_books_read = intval($book_data['total_books']);
-    }
-
     // **5. Logika pemberian badge**
     $updated_badges = [];
 
-    // Badge 1: streak > 15
+    // Badge 1: streak > 10
     if ($streak_count >= 10) {
         $updated_badges[] = 'badge01';
     }
 
-    // Badge 2: lebih dari 5 buku dibaca
-    if ($total_books_read > 5) {
-        $updated_badges[] = 'badge2';
-    }
-
-    // Badge 3: 5 review
+    // Badge 3: 15 review
     if ($total_comments >= 15) {
         $updated_badges[] = 'badge3';
     }
@@ -132,8 +118,19 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
             <div class="badge-container">
-                <?php foreach ($badges as $badge) { ?>
-                    <img src="assets/<?php echo htmlspecialchars($badge); ?>.png" alt="<?php echo htmlspecialchars($badge); ?>" width="100" height="100">
+                <?php 
+                // Array with badge descriptions
+                $badge_descriptions = [
+                    'badge01' => 'Streak Champion: Keep up the reading streak for more rewards!',
+                    'badge3' => 'Super Reviewer: 15 reviews earned you this badge, nice work!'
+                ];
+
+                // Loop through badges and display them with description
+                foreach ($badges as $badge) { ?>
+                    <div class="badge-item">
+                        <img src="assets/<?php echo htmlspecialchars($badge); ?>.png" alt="<?php echo htmlspecialchars($badge); ?>" width="100" height="100">
+                        <p><?php echo $badge_descriptions[$badge] ?? ''; ?></p>
+                    </div>
                 <?php } ?>
             </div>
         </div>
@@ -148,16 +145,14 @@ if (isset($_SESSION['user_name'])) {
                 <p>reviews</p>
             </div>
             <div class="stat-item">
-            <h3><?php echo htmlspecialchars(count($badges)); ?></h3>
+                <h3><?php echo htmlspecialchars(count($badges)); ?></h3>
                 <p>badges</p>
             </div>
             <div class="stat-item">
                 <h3>40</h3>
                 <p>shelves</p>
             </div>
-
         </div>
-
 
         <!-- Top Reads -->
         <div class="top-read">
