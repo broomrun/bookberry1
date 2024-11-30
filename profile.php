@@ -116,6 +116,26 @@ if (isset($_SESSION['user_name'])) {
         padding: 30px;
         border-radius: 10px;
     }
+
+    .profile-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #1e2a5e;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: medium;
+        text-align: center;
+        align-items: center;
+        font-size: small;
+    }
+
+    .profile-btn:hover {
+        background-color: #fff; 
+        color: #1e2a5e;
+        border: 3px solid #1e2a5e;
+    }
+
 </style>
 
 <body>
@@ -128,7 +148,7 @@ if (isset($_SESSION['user_name'])) {
                 <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" width="150" height="150">
                 <div>
                     <div class="profile-name"><?php echo $_SESSION['user_name']; ?></div>
-                    <button class="edit-profile-btn"><a href="update_profile.php">edit profile</a></button>
+                    <a href="update_profile.php" class="profile-btn">edit profile</a>
                 </div>
             </div>
             <div class="badge-container">
@@ -200,7 +220,7 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
         </div>
-        <a href="logout.php">Log out</a>
+        <a href="logout.php" class="info-btn">Log out</a>
     </div>
 
     <?php include "layout/footer.html" ?>
