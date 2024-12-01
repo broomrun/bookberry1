@@ -290,44 +290,6 @@ function updateLikeDislike(commentId, action) {
 }
 
 
-// Track if the book is bookmarked
-let isBookmarked = false;
-
-// Handle bookmark button click
-document.getElementById("bookmark-button").addEventListener("click", function () {
-    // Toggle the bookmark state
-    isBookmarked = !isBookmarked;
-
-    // Change the button text and style based on bookmark state
-    if (isBookmarked) {
-        this.textContent = "Bookmarked"; // Change the button text
-        this.classList.remove("btn-warning");
-        this.classList.add("btn-danger");
-    } else {
-        this.textContent = "Bookmark"; // Change the button text
-        this.classList.remove("btn-danger");
-        this.classList.add("btn-warning");
-    }
-
-    // Send AJAX request to save the bookmark state in the session or database
-    $.ajax({
-        url: 'save_bookmark.php', // PHP file to save bookmark
-        type: 'POST',
-        data: {
-            book_title: document.getElementById("book-title").textContent, // Pass the book title
-            is_bookmarked: isBookmarked // Send bookmark state
-        },
-        success: function(response) {
-            console.log("Bookmark saved successfully:", response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Bookmark save failed:", error);
-        }
-    });
-});
-
-
-
 
 
 
