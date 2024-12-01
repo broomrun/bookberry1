@@ -125,7 +125,19 @@ function getBookImageFromAPI($book_title) {
 
     // Return a default image if the API fails or no image found
     return "assets/default-book-image.jpg";
+
+
     
+}
+// Query to count the books in the user's shelf
+$shelf_query = "SELECT COUNT(*) AS book_count FROM shelves WHERE username = '$user_name'";
+$shelf_result = mysqli_query($conn, $shelf_query);
+
+$book_count = 0; // Default book count
+
+if ($shelf_result && mysqli_num_rows($shelf_result) > 0) {
+    $row = mysqli_fetch_assoc($shelf_result);
+    $book_count = $row['book_count']; // Assign the count to $book_count
 }
 
 
@@ -511,7 +523,7 @@ body {
                 <p>Badges</p>
             </div>
             <div class="stat-item">
-            <?php echo $book_count; ?> 
+                <h3> <?php echo $book_count; ?>  </h3>
                 <p>Shelves</p>
             </div>
         </div>
@@ -561,7 +573,6 @@ body {
 
         if ($shelf_result && mysqli_num_rows($shelf_result) > 0) {
             $book_count = mysqli_num_rows($shelf_result); // Count the number of books
-            echo  $book_count; 
             while ($row = mysqli_fetch_assoc($shelf_result)) {
                 $book_title = htmlspecialchars($row['book_title']);
                 $description = htmlspecialchars($row['description']);
