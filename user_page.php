@@ -85,7 +85,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
 
 <body>
     <section>
-        <?php include "layout/header.html" ?>
+    <?php include "layout/header.html" ?>
 
         <div class="content">
             <div class="info">
@@ -96,19 +96,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
         </div>
     </section>
 <!-- Modal Login -->
-
 <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div class="modal-header">
-                <h5 class="modal-title mx-auto" id="loginModalLabel">Login</h5>
-            </div>
-            <form id="loginForm" method="POST">
-                <label for="loginEmail">Email:</label>
-                <input type="email" id="loginEmail" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required><br>
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title mx-auto" id="loginModalLabel">Login</h5>
+        </div>
+        <form id="loginForm" method="POST">
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required><br>
 
-                <label for="loginPassword">Password:</label>
+            <label for="loginPassword">Password:</label>
+            <div class="password-wrapper">
                 <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required><br>
+                <i class="bx bx-hide" id="toggleLoginPassword"></i>
+            </div>
 
             <input type="hidden" name="action" value="login">
             <input type="submit" name="login_submit" value="Login">
@@ -116,38 +118,45 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
             <div class="form-text text-center mt-3">
                 Don't have an account? <a href="javascript:void(0);" id="openSignupModal" class="link-primary" style="color: #1e2a5e;">Sign up now</a>
             </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div class="modal-header">
-                <h5 class="modal-title mx-auto">Sign up</h5>
-            </div>
-            <form id="signupForm" method="POST">
-                <label for="signupEmail">Email:</label>
-                <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required><br>
+<!-- Modal Sign-Up -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title mx-auto">Sign up</h5>
+        </div>
+        <form id="signupForm" method="POST">
+            <label for="signupEmail">Email:</label>
+            <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required><br>
 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
 
-                <label for="signupPassword">Password:</label>
+            <label for="signupPassword">Password:</label>
+            <div class="password-wrapper">
                 <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required><br>
-
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
-
-                <input type="hidden" name="action" value="signup">
-                <input type="submit" name="signup_submit" value="Sign Up">
-                <div class="error" id="signupError"></div>
-            </form>
-            <div class="form-text text-center mt-3">
-                <p class="mb-0">Already have an account? <a href="javascript:void(0);" id="openModal" class="link-primary" style="color: #1e2a5e;">Login now</a></p>
+                <i class="bx bx-hide" id="toggleSignupPassword"></i>
             </div>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <div class="password-wrapper">
+                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
+                <i class="bx bx-hide" id="toggleConfirmPassword"></i>
+            </div>
+
+            <input type="hidden" name="action" value="signup">
+            <input type="submit" name="signup_submit" value="Sign Up">
+            <div class="error" id="signupError"></div>
+        </form>
+        <div class="form-text text-center mt-3">
+            <p class="mb-0">Already have an account? <a href="javascript:void(0);" id="openModal" class="link-primary" style="color: #1e2a5e;">Login now</a></p>
         </div>
     </div>
+</div>
 
 
     <h1> Discover many books! </h1>
