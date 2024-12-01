@@ -21,7 +21,7 @@ if (isset($_SESSION['user_name'])) {
     // *1. Query untuk mendapatkan gambar profil*
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
-
+        /*i walk a frozen lake*/
     if ($image_result && mysqli_num_rows($image_result) > 0) {
         $row = mysqli_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
@@ -126,13 +126,25 @@ function getBookImageFromAPI($book_title) {
     // Return a default image if the API fails or no image found
     return "assets/default-book-image.jpg";
 
+    // Ambil username dari sesi
+    $user_name = $_SESSION['user_name'];
+
+    // Query untuk menghitung jumlah shelves yang ditambahkan oleh pengguna
+    $query_shelves_count = "SELECT COUNT(*) AS total_shelves FROM shelves WHERE username = '$user_name'";
+    $result_shelves_count = mysqli_query($conn, $query_shelves_count);
+
+    $total_shelves = 0; // Default nilai shelves jika query gagal
+    if ($result_shelves_count) {
+        $row_shelves_count = mysqli_fetch_assoc($result_shelves_count);
+        $total_shelves = $row_shelves_count['total_shelves'];
+    }
 }
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookBerry</title>
@@ -141,227 +153,178 @@ function getBookImageFromAPI($book_title) {
     <link href="style/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
-        /* Body styles */
-        body {
-            justify-content: center;
-        }
+body {
+    justify-content: center;
+}
 
-        /* Container styles */
-        .container {
-            width: 100%;
-            padding: 30px;
-            border-radius: 10px;
-        }
+/* Container styles */
+.container {
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+}
 
-        /* Profile button styles */
-        .profile-btn {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #1e2a5e;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: medium;
-            text-align: center;
-            align-items: center;
-            font-size: small;
-        }
+/* Profile button styles */
+.profile-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #1e2a5e;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: medium;
+    text-align: center;
+    font-size: small;
+}
 
-        .profile-btn:hover {
-            background-color: #fff;
-            color: #1e2a5e;
-            border: 3px solid #1e2a5e;
-        }
+.profile-btn:hover {
+    background-color: #fff;
+    color: #1e2a5e;
+    border: 3px solid #1e2a5e;
+}
 
-        /* Badge container styles */
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
-        }
+/* Badge container styles */
+.badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
 
-        /* Badge item styles */
-        .badge-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+/* Badge item styles */
+.badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
-        .badge-item img {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-        }
+.badge-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
 
-        .badge-item p {
-            margin-top: 8px;
-            font-size: 14px;
-            color: #333;
-        }
+.badge-item p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+}
 
-        /* Badge title and extra info */
-        .badge-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 2px;
-        }
+/* Badge title and extra info */
+.badge-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
 
-        .badge-extra {
-            font-size: 14px;
-            color: #555;
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
+.badge-extra {
+    font-size: 14px;
+    color: #555;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
-        /* Profile header styles */
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap; /* Ensure profile section adapts to smaller screens */
-            gap: 30px;
-            margin-bottom: 30px;
-        }
+/* Profile header styles */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+}
 
-        /* Profile info section */
-        .profile-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+/* Profile info section */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
-        .profile-info img {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-        }
+.profile-info img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
 
-        /* Stats section styles */
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            flex-wrap: wrap; /* Allow items to wrap on small screens */
-        }
+/* Stats container styles */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
 
-        .stat-item {
-            background-color: #f5f1d5;  /* Soft background color */
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            flex-basis: 22%; /* Two items per row on larger screens */
-            margin-bottom: 20px; /* Space between stats on smaller screens */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a slight shadow for card effect */
-        }
+/* Stat item styles */
+.stat-item {
+    background-color: #f5f1d5;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    flex-basis: 22%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        .stat-item h3 {
-            font-size: 32px;
-            font-weight: bold;
-        }
+.stat-item h3 {
+    font-size: 32px;
+    font-weight: bold;
+}
 
-        .stat-item p {
-            font-size: 16px;
-            color: #6e6e6e;
-            font-weight: normal;
-        }
+.stat-item p {
+    font-size: 16px;
+    color: #6e6e6e;
+    font-weight: normal;
+}
 
-        /* Responsive layout for small screens */
-        @media (max-width: 768px) {
-            .badge-container{
-                flex-direction: column;
-                align-items: center;
-            }
-            .stat-item {
-                flex-basis: 45%; /* Stack stats in two columns on medium screens */
-            }
-        }
+/* Section title styles */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
-        @media (max-width: 576px) {
-            .badge-container{
-                flex-direction: column;
-            }
-            .stat-item {
-                flex-basis: 100%; /* Stack stats in one column on small screens */
-            }
-        }
+/* Bookshelf and shelf container styles */
+.shelves-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        /* Section title styles */
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+/* Book item and shelf styles */
+.book-item,
+.shelf {
+    text-align: center;
+    flex-basis: 22%;
+}
 
-        /* Bookshelf and shelf container styles */
-        .bookshelf, .shelves-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+.book-item img,
+.shelf img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    object-fit: cover;
+}
 
-        /* Book item and shelf styles */
-        .book-item, .shelf {
-            text-align: center;
-            flex-basis: 22%;
-        }
+.shelf-stats {
+    font-size: 12px;
+    color: #ded3d3;
+}
 
-        .book-item img, .shelf img {
-            width: 100%;
-            max-width: 150px;
-            height: auto;
-            object-fit: cover;
-        }
+/* Media Queries for Smaller Screens */
 
-        .shelf-stats {
-            font-size: 12px;
-            color: #ded3d3;
-        }
+/* For medium screens (tablets) */
+@media (max-width: 1200px) {
+    .stat-item {
+        flex-basis: 45%;
+    }
+}
 
-        /* Media Queries for Smaller Screens */
-        @media (max-width: 768px) {
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .book-item, .shelf {
-                flex-basis: 45%;
-            }
-
-            .book-item img, .shelf img {
-                max-width: 100%;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .profile-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .badge-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .stat-item h3 {
-                font-size: 20px;
-            }
-
-            .book-item, .shelf {
-                flex-basis: 100%;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-        }
-
-        .add-shelf {
+/* Add Shelf Styles */
+.add-shelf {
     margin-bottom: 30px;
     background-color: #f5f5f5;
     padding: 20px;
@@ -375,34 +338,146 @@ function getBookImageFromAPI($book_title) {
     gap: 10px;
 }
 
-.add-shelf input, 
-.add-shelf textarea, 
-.add-shelf button {
+.add-shelf input,
+.add-shelf textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.add-shelf button {
-    background-color: #1e2a5e;
-    color: white;
-    cursor: pointer;
+/* Top Read Styles */
+.top-read {
+    padding: 20px;
+    margin-top: 30px;
 }
 
-.add-shelf button:hover {
-    background-color: #334b8e;
+.bookshelf {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.shelf img {
-    width: 100px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 10px;
+.bookshelf-item {
+    flex-basis: 22%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.bookshelf-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
 
-    </style>
-</head>
+/* Bookshelf responsiveness for smaller screens */
+/* For small screens (phones) */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+    }
+
+    .bookshelf {
+        justify-content: center;
+    }
+
+    .bookshelf-item {
+        flex-basis: 45%;
+    }
+    .badge-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-item {
+        flex-basis: 100%;
+    }
+
+    .stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section-title {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .profile-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+
+    .badge-item img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .stat-item h3 {
+        font-size: 20px;
+    }
+
+    .book-item,
+    .shelf {
+        flex-basis: 100%;
+    }
+}
+
+/* For extra small screens (phones) */
+@media (max-width: 400px) {
+    .section-title {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .bookshelf {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bookshelf-item {
+        flex-basis: 80%;
+        margin-bottom: 15px;
+    }
+
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .profile-info img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+    }
+
+    .stats {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stat-item {
+        flex-basis: 100%;
+        margin-bottom: 10px;
+        padding: 15px;
+    }
+
+    .stat-item h3 {
+        font-size: 24px;
+    }
+
+    .stat-item p {
+        font-size: 14px;
+    }
+}
+</style>
 
 <body>
     <?php include "layout/header.html" ?>
@@ -479,13 +554,13 @@ function getBookImageFromAPI($book_title) {
     </div>
 </div>
 
+<div class="section-title">Add a Book to Your Shelves</div>
 <div class="add-shelf">
-    <h3>Add a Book to Your Shelves</h3>
     <form action="add_shelf.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="book_title" placeholder="Book Title" required>
         <textarea name="description" placeholder="Short Description"></textarea>
         <input type="file" name="book_image" accept="image/*">
-        <button type="submit">Add to Shelves</button>
+        <button type="submit" class="info-btn">Add to Shelves</button>
     </form>
 </div>
 
@@ -518,10 +593,6 @@ function getBookImageFromAPI($book_title) {
         ?>
     </div>
 </div>
-
-
-
-
         <a href="user_page.php" class="info-btn">Log Out</a>
     </div>
 

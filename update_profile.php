@@ -65,7 +65,6 @@ if (isset($_POST['update_profile'])) {
 
         header {
             position: fixed;
-            /* Mengubah posisi menjadi tetap */
             top: 0;
             /* Menetapkan posisi di bagian atas */
             width: 100%;
@@ -121,7 +120,7 @@ if (isset($_POST['update_profile'])) {
             /* Adjust as needed for logo size */
             width: auto;
             vertical-align: left;
-            /* Aligns the image with the navigation */
+            /* Aligns the image with the navigation ya Allah */
             align-items: left;
             margin-right: auto;
         }
