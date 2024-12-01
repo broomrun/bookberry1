@@ -125,27 +125,25 @@ function getBookImageFromAPI($book_title) {
 
     // Return a default image if the API fails or no image found
     return "assets/default-book-image.jpg";
-}
 
-// Before your HTML, ensure that the query is executed correctly
-$bookmark_query = "SELECT book_title, book_image FROM bookmarks WHERE username = '$user_name'";
-$bookmark_result = mysqli_query($conn, $bookmark_query);
+    // Ambil username dari sesi
+    $user_name = $_SESSION['user_name'];
 
-if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
-    while ($row = mysqli_fetch_assoc($bookmark_result)) {
-        $book_title = htmlspecialchars($row['book_title']);
-        $book_image = htmlspecialchars($row['book_image']);
-        ?>
-        <div class="shelf">
-            <img src="<?php echo $book_image ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg'; ?>" alt="<?php echo $book_title; ?>">
-            <h4><?php echo $book_title; ?></h4>
-            <div class="shelf-stats">1 bookmark</div>
-        </div>
-        <?php
+    // Query untuk menghitung jumlah shelves yang ditambahkan oleh pengguna
+    $query_shelves_count = "SELECT COUNT(*) AS total_shelves FROM shelves WHERE username = '$user_name'";
+    $result_shelves_count = mysqli_query($conn, $query_shelves_count);
+
+    $total_shelves = 0; // Default nilai shelves jika query gagal
+    if ($result_shelves_count) {
+        $row_shelves_count = mysqli_fetch_assoc($result_shelves_count);
+        $total_shelves = $row_shelves_count['total_shelves'];
     }
-} else {
-    echo "<p>No saved bookmarks found.</p>";
+
+
+    
+
 }
+
 
 ?>
 
@@ -381,6 +379,46 @@ if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
             }
         }
 
+        .add-shelf {
+    margin-bottom: 30px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-shelf form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-shelf input, 
+.add-shelf textarea, 
+.add-shelf button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-shelf button {
+    background-color: #1e2a5e;
+    color: white;
+    cursor: pointer;
+}
+
+.add-shelf button:hover {
+    background-color: #334b8e;
+}
+
+.shelf img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+
     </style>
 </head>
 
@@ -428,7 +466,7 @@ if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
                 <p>Badges</p>
             </div>
             <div class="stat-item">
-                <h3>2</h3>
+                <h3><?php echo htmlspecialchars($total_shelves); ?>
                 <p>Shelves</p>
             </div>
         </div>
@@ -459,31 +497,45 @@ if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
     </div>
 </div>
 
+<div class="add-shelf">
+    <h3>Add a Book to Your Shelves</h3>
+    <form action="add_shelf.php" method="POST" enctype="multipart/form-data">
+        <input type="text" name="book_title" placeholder="Book Title" required>
+        <textarea name="description" placeholder="Short Description"></textarea>
+        <input type="file" name="book_image" accept="image/*">
+        <button type="submit">Add to Shelves</button>
+    </form>
+</div>
+
 <div class="shelves">
     <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Shelves</div>
     <div class="shelves-container">
         <?php
-        if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
-            while ($row = mysqli_fetch_assoc($bookmark_result)) {
+        $shelf_query = "SELECT * FROM shelves WHERE username = '$user_name' ORDER BY created_at DESC";
+        $shelf_result = mysqli_query($conn, $shelf_query);
+
+        if ($shelf_result && mysqli_num_rows($shelf_result) > 0) {
+            while ($row = mysqli_fetch_assoc($shelf_result)) {
                 $book_title = htmlspecialchars($row['book_title']);
-                $book_image = htmlspecialchars($row['book_image']); // Assuming the image column is correct
-                
-                // If the book image is empty or invalid, use a default image
-                $book_image = !empty($book_image) ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg';
+                $description = htmlspecialchars($row['description']);
+                $book_image = htmlspecialchars($row['book_image']);
+                $book_image_path = !empty($book_image) ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg';
                 ?>
                 <div class="shelf">
-                    <img src="<?php echo $book_image; ?>" alt="<?php echo $book_title; ?>">
+                    <img src="<?php echo $book_image_path; ?>" alt="<?php echo $book_title; ?>">
                     <h4><?php echo $book_title; ?></h4>
-                    <div class="shelf-stats">1 bookmark</div> <!-- You can change this number based on your logic -->
+                    <p><?php echo $description; ?></p>
                 </div>
                 <?php
             }
         } else {
-            echo "<p>No saved bookmarks found.</p>";
+            echo "<p>You haven't added any books yet.</p>";
         }
         ?>
     </div>
 </div>
+
+
 
         <a href="user_page.php" class="info-btn">Log Out</a>
     </div>
