@@ -75,7 +75,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Page</title>
+    <title>BookBerry</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link href="style/s_userpage.css" rel="stylesheet">
@@ -268,7 +268,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
 
     <div class="bawah">
         <div class="info" style="text-align: center; color: #1e2a5e; margin-top: -20px;">
-            <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to, <br><span>Start your book journey?</span></h2>
+            <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to <br><span>start your book journey?</span></h2>
             <a href="#" id="startJourneyBtn" class="info-btn">Start my journey!</a>
         </div>
     </div>
@@ -341,12 +341,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
             closeModal(signupModal);
         }
     };
-    document.addEventListener('DOMContentLoaded', function() {
-    // Otomatis buka login modal setelah sign up sukses
-    if (document.querySelector('.error').textContent === '') {
-        openLoginModal();
-    }
-});
+    
 // AJAX for Login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();

@@ -84,8 +84,71 @@ if (isset($_SESSION['user_name'])) {
 
     // Perbarui variabel $badges
     $badges = $updated_badges;
+
+    // Query to get the books with the most comments by the user
+$top_read_query = "
+SELECT book_title, COUNT(*) AS comment_count
+FROM comments
+WHERE username = '$user_name'
+GROUP BY book_title
+ORDER BY comment_count DESC
+LIMIT 4"; // Limit to 4 top books
+$top_read_result = mysqli_query($conn, $top_read_query);    
+
 }
+
+function getBookImageFromAPI($book_title) {
+    // Correct the API URL to include the search query parameter
+    $api_url = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($book_title);
+
+    // Initialize cURL session
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $api_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    // Check if the response is valid
+    if ($response) {
+        $data = json_decode($response, true);
+        
+        // Check if there are any results in the 'items' field
+        if (isset($data['items']) && count($data['items']) > 0) {
+            // Extract the image URL from the first book result
+            $book_image_url = $data['items'][0]['volumeInfo']['imageLinks']['thumbnail'] ?? '';
+            
+            if ($book_image_url) {
+                return $book_image_url;
+            }
+        }
+    }
+
+    // Return a default image if the API fails or no image found
+    return "assets/default-book-image.jpg";
+}
+
+// Before your HTML, ensure that the query is executed correctly
+$bookmark_query = "SELECT book_title, book_image FROM bookmarks WHERE username = '$user_name'";
+$bookmark_result = mysqli_query($conn, $bookmark_query);
+
+if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
+    while ($row = mysqli_fetch_assoc($bookmark_result)) {
+        $book_title = htmlspecialchars($row['book_title']);
+        $book_image = htmlspecialchars($row['book_image']);
+        ?>
+        <div class="shelf">
+            <img src="<?php echo $book_image ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg'; ?>" alt="<?php echo $book_title; ?>">
+            <h4><?php echo $book_title; ?></h4>
+            <div class="shelf-stats">1 bookmark</div>
+        </div>
+        <?php
+    }
+} else {
+    echo "<p>No saved bookmarks found.</p>";
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,6 +167,12 @@ if (isset($_SESSION['user_name'])) {
         }
 
         /* Container styles */
+        /* Body styles */
+body {
+    justify-content: center;
+}
+
+/* Container styles */
         .container {
             width: 100%;
             padding: 30px;
@@ -188,6 +257,7 @@ if (isset($_SESSION['user_name'])) {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .profile-info img {
@@ -202,6 +272,7 @@ if (isset($_SESSION['user_name'])) {
             justify-content: space-between;
             margin-top: 30px;
             flex-wrap: wrap; /* Allow items to wrap on small screens */
+            gap: 20px;
         }
 
         .stat-item {
@@ -209,8 +280,7 @@ if (isset($_SESSION['user_name'])) {
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            flex-basis: 22%; /* Two items per row on larger screens */
-            margin-bottom: 20px; /* Space between stats on smaller screens */
+            flex-basis: calc(25% - 10px); /* Four items per row on larger screens */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a slight shadow for card effect */
         }
 
@@ -225,31 +295,67 @@ if (isset($_SESSION['user_name'])) {
             font-weight: normal;
         }
 
-        /* Responsive layout for small screens */
-        @media (max-width: 768px) {
-            .badge-container{
-                flex-direction: column;
+        /* Responsive layout for medium screens */
+        @media only screen and (max-width: 768px) {
+            .profile-info {
+                flex-direction: column; /* Stack the profile info vertically */
+                align-items: center; /* Center-align the content */
+                text-align: center;
+            }
+
+            .stats {
+                flex-direction: column; /* Stack the stats vertically */
                 align-items: center;
             }
+
             .stat-item {
-                flex-basis: 45%; /* Stack stats in two columns on medium screens */
+                flex-basis: calc(50% - 10px); /* Two items per row on medium screens */
+            }
+
+            .stat-item h3 {
+                font-size: 28px; /* Adjust font size for smaller screens */
+            }
+
+            .badge-item img {
+                width: 80px; /* Adjust badge size */
+                height: 80px;
+            }
+
+            .profile-info img {
+                width: 120px; /* Adjust profile image size */
+                height: 120px;
             }
         }
 
-        @media (max-width: 576px) {
-            .badge-container{
+        /* Responsive layout for small screens */
+        @media only screen and (max-width: 480px) {
+            .profile-info {
                 flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
-            .stat-item {
-                flex-basis: 100%; /* Stack stats in one column on small screens */
-            }
-        }
 
-        /* Section title styles */
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            .profile-info img {
+                width: 100px; /* Smaller profile image */
+                height: 100px;
+            }
+
+            .stat-item {
+                flex-basis: 100%; /* Stack stats in one column */
+            }
+
+            .stat-item h3 {
+                font-size: 20px;
+            }
+
+            .badge-item img {
+                width: 60px; /* Smaller badges */
+                height: 60px;
+            }
+
+            .bookshelf .book-item, .shelves-container .shelf {
+                flex-basis: 100%; /* Stack books/shelves vertically */
+            }
         }
 
         /* Bookshelf and shelf container styles */
@@ -257,13 +363,12 @@ if (isset($_SESSION['user_name'])) {
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Allow wrapping */
         }
 
-        /* Book item and shelf styles */
         .book-item, .shelf {
             text-align: center;
-            flex-basis: 22%;
+            flex-basis: calc(25% - 10px); /* Four items per row on larger screens */
         }
 
         .book-item img, .shelf img {
@@ -278,45 +383,13 @@ if (isset($_SESSION['user_name'])) {
             color: #ded3d3;
         }
 
-        /* Media Queries for Smaller Screens */
-        @media (max-width: 768px) {
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .book-item, .shelf {
-                flex-basis: 45%;
-            }
-
-            .book-item img, .shelf img {
-                max-width: 100%;
-            }
+        /* Section title styles */
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 576px) {
-            .profile-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .badge-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .stat-item h3 {
-                font-size: 20px;
-            }
-
-            .book-item, .shelf {
-                flex-basis: 100%;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-        }
 
     </style>
 </head>
@@ -371,44 +444,56 @@ if (isset($_SESSION['user_name'])) {
         </div>
 
         <div class="top-read">
-            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Top Read</div>
-            <div class="bookshelf">
-                <div class="book-item">
-                    <img src="assets/fav1.jpg" alt="Book Cover">
-                    <p>Brick, Dust And Bones</p>
-                </div>
-                <div class="book-item">
-                    <img src="assets/fav23.jpg" alt="Book Cover">
-                    <p>Memo</p>
-                </div>
-                <div class="book-item">
-                    <img src="assets/fav3.jpg" alt="Book Cover">
-                    <p>Sons Of The Devil</p>
-                </div>
-                <div class="book-item">
-                    <img src="assets/fav4.jpg" alt="Book Cover">
-                    <p>We Could Be Heroes</p>
-                </div>
-            </div>
-        </div>
+    <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Top Read</div>
+    <div class="bookshelf">
+        <?php
+        if ($top_read_result && mysqli_num_rows($top_read_result) > 0) {
+            while ($row = mysqli_fetch_assoc($top_read_result)) {
+                $book_title = htmlspecialchars($row['book_title']);
+                $comment_count = $row['comment_count'];
 
-        <div class="shelves">
-            <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Shelves</div>
-            <div class="shelves-container">
-                <div class="shelf">
-                    <img src="assets/fav1.jpg" alt="Lost in the Never Woods">
-                    <h4>Me in Another Universe</h4>
-                    <p>What I've been thinking at 3 a.m., and can't sleep so I would've turned into a wolf</p>
-                    <div class="shelf-stats">77 likes • 60 books</div>
+                // Get the book image URL from the API
+                $book_image = getBookImageFromAPI($book_title); // Fetch image from API
+                ?>
+                <div class="book-item">
+                    <img src="<?php echo $book_image; ?>" alt="Book Cover">
+                    <p><?php echo $book_title; ?></p>
+                    <p>Comments: <?php echo $comment_count; ?></p>
                 </div>
+                <?php
+            }
+        } else {
+            echo "<p>No top read books found.</p>";
+        }
+        ?>
+    </div>
+</div>
+
+<div class="shelves">
+    <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Shelves</div>
+    <div class="shelves-container">
+        <?php
+        if ($bookmark_result && mysqli_num_rows($bookmark_result) > 0) {
+            while ($row = mysqli_fetch_assoc($bookmark_result)) {
+                $book_title = htmlspecialchars($row['book_title']);
+                $book_image = htmlspecialchars($row['book_image']); // Assuming the image column is correct
+                
+                // If the book image is empty or invalid, use a default image
+                $book_image = !empty($book_image) ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg';
+                ?>
                 <div class="shelf">
-                    <img src="assets/fav4.jpg" alt="Lost in the Never Woods">
-                    <h4>Books That Made Me Depressed</h4>
-                    <p>Me when December hits...</p>
-                    <div class="shelf-stats">124 likes • 15 books</div>
+                    <img src="<?php echo $book_image; ?>" alt="<?php echo $book_title; ?>">
+                    <h4><?php echo $book_title; ?></h4>
+                    <div class="shelf-stats">1 bookmark</div> <!-- You can change this number based on your logic -->
                 </div>
-            </div>
-        </div>
+                <?php
+            }
+        } else {
+            echo "<p>No saved bookmarks found.</p>";
+        }
+        ?>
+    </div>
+</div>
 
         <a href="user_page.php" class="info-btn">Log Out</a>
     </div>
