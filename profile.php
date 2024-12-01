@@ -97,6 +97,12 @@ if (isset($_SESSION['user_name'])) {
         }
 
         /* Container styles */
+        /* Body styles */
+body {
+    justify-content: center;
+}
+
+/* Container styles */
         .container {
             width: 100%;
             padding: 30px;
@@ -181,6 +187,7 @@ if (isset($_SESSION['user_name'])) {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .profile-info img {
@@ -195,6 +202,7 @@ if (isset($_SESSION['user_name'])) {
             justify-content: space-between;
             margin-top: 30px;
             flex-wrap: wrap; /* Allow items to wrap on small screens */
+            gap: 20px;
         }
 
         .stat-item {
@@ -202,8 +210,7 @@ if (isset($_SESSION['user_name'])) {
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            flex-basis: 22%; /* Two items per row on larger screens */
-            margin-bottom: 20px; /* Space between stats on smaller screens */
+            flex-basis: calc(25% - 10px); /* Four items per row on larger screens */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a slight shadow for card effect */
         }
 
@@ -218,31 +225,67 @@ if (isset($_SESSION['user_name'])) {
             font-weight: normal;
         }
 
-        /* Responsive layout for small screens */
-        @media (max-width: 768px) {
-            .badge-container{
-                flex-direction: column;
+        /* Responsive layout for medium screens */
+        @media only screen and (max-width: 768px) {
+            .profile-info {
+                flex-direction: column; /* Stack the profile info vertically */
+                align-items: center; /* Center-align the content */
+                text-align: center;
+            }
+
+            .stats {
+                flex-direction: column; /* Stack the stats vertically */
                 align-items: center;
             }
+
             .stat-item {
-                flex-basis: 45%; /* Stack stats in two columns on medium screens */
+                flex-basis: calc(50% - 10px); /* Two items per row on medium screens */
+            }
+
+            .stat-item h3 {
+                font-size: 28px; /* Adjust font size for smaller screens */
+            }
+
+            .badge-item img {
+                width: 80px; /* Adjust badge size */
+                height: 80px;
+            }
+
+            .profile-info img {
+                width: 120px; /* Adjust profile image size */
+                height: 120px;
             }
         }
 
-        @media (max-width: 576px) {
-            .badge-container{
+        /* Responsive layout for small screens */
+        @media only screen and (max-width: 480px) {
+            .profile-info {
                 flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
-            .stat-item {
-                flex-basis: 100%; /* Stack stats in one column on small screens */
-            }
-        }
 
-        /* Section title styles */
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            .profile-info img {
+                width: 100px; /* Smaller profile image */
+                height: 100px;
+            }
+
+            .stat-item {
+                flex-basis: 100%; /* Stack stats in one column */
+            }
+
+            .stat-item h3 {
+                font-size: 20px;
+            }
+
+            .badge-item img {
+                width: 60px; /* Smaller badges */
+                height: 60px;
+            }
+
+            .bookshelf .book-item, .shelves-container .shelf {
+                flex-basis: 100%; /* Stack books/shelves vertically */
+            }
         }
 
         /* Bookshelf and shelf container styles */
@@ -250,13 +293,12 @@ if (isset($_SESSION['user_name'])) {
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Allow wrapping */
         }
 
-        /* Book item and shelf styles */
         .book-item, .shelf {
             text-align: center;
-            flex-basis: 22%;
+            flex-basis: calc(25% - 10px); /* Four items per row on larger screens */
         }
 
         .book-item img, .shelf img {
@@ -271,45 +313,13 @@ if (isset($_SESSION['user_name'])) {
             color: #ded3d3;
         }
 
-        /* Media Queries for Smaller Screens */
-        @media (max-width: 768px) {
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .book-item, .shelf {
-                flex-basis: 45%;
-            }
-
-            .book-item img, .shelf img {
-                max-width: 100%;
-            }
+        /* Section title styles */
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 576px) {
-            .profile-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .badge-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .stat-item h3 {
-                font-size: 20px;
-            }
-
-            .book-item, .shelf {
-                flex-basis: 100%;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-        }
 
     </style>
 </head>
