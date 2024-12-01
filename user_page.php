@@ -108,7 +108,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
                 <input type="email" id="loginEmail" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required><br>
 
                 <label for="loginPassword">Password:</label>
+                <div class="password-wrapper">
                 <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required><br>
+                <i class="bx bx-hide" id="toggleLoginPassword"></i>
+                </div>
 
             <input type="hidden" name="action" value="login">
             <input type="submit" name="login_submit" value="Login">
@@ -134,10 +137,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
                 <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
 
                 <label for="signupPassword">Password:</label>
-                <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required><br>
+                <div class="password-wrapper">
+                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required><br>
+                <i class="bx bx-hide" id="toggleLoginPassword"></i>
+                </div>
 
                 <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
+                <div class="password-wrapper">
+                <input type="password" id="loginPassword" name="password" placeholder="Confirm your password" required><br>
+                <i class="bx bx-hide" id="toggleLoginPassword"></i>
+                </div>
 
                 <input type="hidden" name="action" value="signup">
                 <input type="submit" name="signup_submit" value="Sign Up">
