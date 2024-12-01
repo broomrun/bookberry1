@@ -268,7 +268,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
 
     <div class="bawah">
         <div class="info" style="text-align: center; color: #1e2a5e; margin-top: -20px;">
-            <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to, <br><span>Start your book journey?</span></h2>
+            <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to <br><span>start your book journey?</span></h2>
             <a href="#" id="startJourneyBtn" class="info-btn">Start my journey!</a>
         </div>
     </div>
@@ -341,12 +341,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
             closeModal(signupModal);
         }
     };
-    document.addEventListener('DOMContentLoaded', function() {
-    // Otomatis buka login modal setelah sign up sukses
-    if (document.querySelector('.error').textContent === '') {
-        openLoginModal();
-    }
-});
+    
 // AJAX for Login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
