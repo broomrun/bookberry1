@@ -15,6 +15,59 @@ include 'config.php';
     <link href="style/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+    }
+
+    .opening {
+        flex-direction: column; 
+    }
+
+    .image {
+        order: -1; 
+        margin-bottom: 20px; 
+    }
+
+    .text h1 {
+        font-size: 1.5em;
+    }
+
+    .text h2 {
+        font-size: 1em;
+    }
+
+    .info-btn {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .text h1 {
+        font-size: 3rem;
+    }
+
+    .text h2 {
+        font-size: 0.7em;
+        display: flex;
+    }
+
+    .info-btn {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+
+    .image {
+        margin-bottom: 15px;
+    }
+}
+    </style>
 </head>
 
 <body>
