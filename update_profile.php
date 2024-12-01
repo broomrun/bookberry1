@@ -5,7 +5,7 @@ session_start();
 $user_name = $_SESSION['user_name'];
 
 if (!isset($user_name)) {
-    header('location:login.php');
+    header('location:user_page.php');
     exit();
 }
 
@@ -20,6 +20,7 @@ if (mysqli_num_rows($query) > 0) {
     $message[] = 'User data not found.';
 }
 
+// Handle profile update
 if (isset($_POST['update_profile'])) {
     // Update name and email if needed
     $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
@@ -42,7 +43,22 @@ if (isset($_POST['update_profile'])) {
         }
     }
 }
+
+// Handle account deletion
+if (isset($_POST['delete_account'])) {
+    // Delete profile image if not default
+    if (!empty($user_data['image']) && $user_data['image'] !== 'default_image.jpg') {
+        unlink('uploaded_profile_images/' . $user_data['image']);
+    }
+
+    // Delete user data from database
+    mysqli_query($conn, "DELETE FROM user_form WHERE name = '$user_name'") or die('Delete failed');
+    session_destroy();
+    header('location:login.php');
+    exit();
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -236,6 +252,12 @@ if (isset($_POST['update_profile'])) {
             </form>
         </div>
     </div>
+    <form method="POST">
+    <button type="submit" name="delete_account" onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.')" class="w-full bg-red-600 text-white px-4 py-2 rounded-[50px] hover:bg-red-700 transition duration-200">
+        Delete Account
+    </button>
+</form>
+
 </body>
 
 </html>
