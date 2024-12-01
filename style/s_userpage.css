@@ -397,16 +397,11 @@ label {
   display: block;
 }
 
-form input[type="email"], 
-form input[type="password"], 
-form input[type="text"] {
+input[type="email"], input[type="text"], input[type="password"] {
+  border: 1px solid #1e2a5e;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-input[type="email"], input[type="text"], input[type="password"]:hover {
-  border: 1px solid #1e2a5e;
+  width: 100%;
 }
 
 input[type="submit"] {
@@ -416,6 +411,24 @@ input[type="submit"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 25px;
+}
+
+/* Styling container password-wrapper */
+.password-wrapper {
+  position: relative; 
+}
+
+/* Styling ikon untuk toggle password */
+.password-wrapper i {
+  position: absolute; 
+  top: 50%; 
+  right: 10px; 
+  transform: translateY(-50%); 
+  font-size: 20px; 
+  color: #888; 
+  cursor: pointer;
+  transition: color 0.3s ease; 
 }
 
 @media (max-width: 500px) {
