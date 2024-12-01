@@ -755,6 +755,33 @@ footer {
     object-fit: contain; /* Jaga agar tidak terpotong */
 }
 
+.badge-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.badge-item img {
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.badge-item img:hover {
+  transform: scale(1.1);
+}
+
+.modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+
+.modal-body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+
 
 
 /* Statistics Section */
