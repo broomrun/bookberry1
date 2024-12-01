@@ -2,41 +2,71 @@
 include 'config.php';
 session_start();
 
-$emailValue = ''; // To store email input
+$emailValue = ''; // Untuk menyimpan nilai email input
+$login_error = '';
+$signup_error = '';
 
-// Check if form is submitted
-if (isset($_POST['submit'])) {
-
+// Login Form
+if (isset($_POST['action']) && $_POST['action'] == 'login') {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = $_POST['password'];
-    $emailValue = $email; // Store email when form is submitted
+    $emailValue = $email; // Menyimpan email yang diinput
 
-    // Check if email exists in database
     $select = "SELECT * FROM user_form WHERE email = '$email'";
     $result = mysqli_query($conn, $select);
 
     if (mysqli_num_rows($result) > 0) {
-
         $row = mysqli_fetch_array($result);
-
-        // Verify if the password matches
         if (password_verify($pass, $row['password'])) {
-
-            // Set session variable for user name
             $_SESSION['user_name'] = $row['name'];
-
-            // Redirect to home.php after successful login
-            header('Location: home.php');
-            exit; // Make sure the script stops after redirect
-
+            echo "success";  // Berhasil login
+            exit;
         } else {
-            $error = 'Incorrect password!';
+            $login_error = 'Incorrect password!';
         }
     } else {
-        $error = 'Incorrect email or password!';
+        $login_error = 'Incorrect email or password!';
     }
+
+    echo $login_error;  // Mengirimkan pesan error login
+    exit;
+}
+
+// Sign Up Form
+if (isset($_POST['action']) && $_POST['action'] == 'signup') {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+
+    // Validasi password
+    if ($password !== $confirm_password) {
+        $signup_error = 'Passwords do not match.';
+    } else {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Cek jika email atau username sudah digunakan
+        $check_query = "SELECT * FROM user_form WHERE email = '$email' OR name = '$username'";
+        $check_result = mysqli_query($conn, $check_query);
+
+        if (mysqli_num_rows($check_result) > 0) {
+            $signup_error = 'Email or username already exists.';
+        } else {
+            $insert_query = "INSERT INTO user_form (email, name, password) VALUES ('$email', '$username', '$hashed_password')";
+            if (mysqli_query($conn, $insert_query)) {
+                echo "success";  // Berhasil signup
+                exit;
+            } else {
+                $signup_error = 'Failed to create account. Please try again.';
+            }
+        }
+    }
+
+    echo $signup_error;  // Mengirimkan pesan error signup
+    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,54 +95,68 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </section>
+<!-- Modal Login -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title mx-auto" id="loginModalLabel">Login</h5>
+        </div>
+        <form id="loginForm" method="POST">
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($emailValue); ?>" required><br>
 
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div class="modal-header">
-                <h5 class="modal-title mx-auto" id="loginModalLabel">Login</h5>
-            </div>
-            <form method="POST">
-                <label for="loginEmail">Email:</label>
-                <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required><br>
-
-                <label for="loginPassword">Password:</label>
+            <label for="loginPassword">Password:</label>
+            <div class="password-wrapper">
                 <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required><br>
-
-                <input type="submit" name="submit" value="Login">
-                <div class="form-text text-center mt-3">
-                    Don't have an account? <a href="javascript:void(0);" id="openSignupModal" class="link-primary" style="color: #1e2a5e;">Sign up now</a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div class="modal-header">
-                <h5 class="modal-title mx-auto">Sign up</h5>
+                <i class="bx bx-hide" id="toggleLoginPassword"></i>
             </div>
-            <form method="POST">
-                <label for="signupEmail">Email:</label>
-                <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required><br>
 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
-
-                <label for="signupPassword">Password:</label>
-                <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required><br>
-
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
-
-                <input type="submit" name="submit" value="Sign Up">
-            </form>
+            <input type="hidden" name="action" value="login">
+            <input type="submit" name="login_submit" value="Login">
+            <div class="error" id="loginError"></div>
             <div class="form-text text-center mt-3">
-                <p class="mb-0">Already have an account? <a href="javascript:void(0);" id="openModal" class="link-primary" style="color: #1e2a5e;">Login now</a></p>
+                Don't have an account? <a href="javascript:void(0);" id="openSignupModal" class="link-primary" style="color: #1e2a5e;">Sign up now</a>
             </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Sign-Up -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title mx-auto">Sign up</h5>
+        </div>
+        <form id="signupForm" method="POST">
+            <label for="signupEmail">Email:</label>
+            <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required><br>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
+
+            <label for="signupPassword">Password:</label>
+            <div class="password-wrapper">
+                <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required><br>
+                <i class="bx bx-hide" id="toggleSignupPassword"></i>
+            </div>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <div class="password-wrapper">
+                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
+                <i class="bx bx-hide" id="toggleConfirmPassword"></i>
+            </div>
+
+            <input type="hidden" name="action" value="signup">
+            <input type="submit" name="signup_submit" value="Sign Up">
+            <div class="error" id="signupError"></div>
+        </form>
+        <div class="form-text text-center mt-3">
+            <p class="mb-0">Already have an account? <a href="javascript:void(0);" id="openModal" class="link-primary" style="color: #1e2a5e;">Login now</a></p>
         </div>
     </div>
+</div>
 
 
     <h1> Discover many books! </h1>
@@ -122,7 +166,7 @@ if (isset($_POST['submit'])) {
             <div class="carousel-item active">
                 <div class="d-flex justify-content-center">
                     <div class="book-card">
-                        <a href="#">
+                        <a href="#"  onclick="openLoginModal()">
                             <img src="assets/10.jpeg" alt="Era Taylor Swift">
                         </a>
                         <div class="book-title">The God and the Gumiho</div>
@@ -225,7 +269,7 @@ if (isset($_POST['submit'])) {
     <div class="bawah">
         <div class="info" style="text-align: center; color: #1e2a5e; margin-top: -20px;">
             <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to, <br><span>Start your book journey?</span></h2>
-            <a href="#" class="info-btn">Start my journey!</a>
+            <a href="#" id="startJourneyBtn" class="info-btn">Start my journey!</a>
         </div>
     </div>
 
@@ -249,44 +293,149 @@ if (isset($_POST['submit'])) {
     var openSignupBtn = document.getElementById("openSignupModal");
     var signupCloseBtn = signupModal.getElementsByClassName("close-btn")[0];
 
-    // Open Login Modal
-    openLoginBtn.onclick = function() {
+    // Functions to Open Modals
+    function openLoginModal() {
         loginModal.style.display = "block";
-        signupModal.style.display = "none"; // Ensure Sign Up Modal is closed
+        signupModal.style.display = "none";
     }
 
-    // Open Sign Up Modal
-    openSignupBtn.onclick = function() {
+    function openSignupModal() {
         signupModal.style.display = "block";
-        loginModal.style.display = "none"; // Ensure Login Modal is closed
-    }
-
-    // Close Login Modal
-    loginCloseBtn.onclick = function() {
         loginModal.style.display = "none";
     }
 
-    // Close Sign Up Modal
-    signupCloseBtn.onclick = function() {
-        signupModal.style.display = "none";
+    // Functions to Close Modals
+    function closeModal(modal) {
+        modal.style.display = "none";
     }
+
+    var journeyModal = document.getElementById("loginModal"); 
+    var startJourneyBtn = document.getElementById("startJourneyBtn");
+
+    startJourneyBtn.onclick = function() {
+        journeyModal.style.display = "block";  
+    };
+
+    // Attach Event Listeners
+    openLoginBtn.onclick = openLoginModal;
+    openSignupBtn.onclick = openSignupModal;
+
+    loginCloseBtn.onclick = function() {
+        closeModal(loginModal);
+    };
+
+    signupCloseBtn.onclick = function() {
+        closeModal(signupModal);
+    };
 
     // Handle "Login now" link in Sign Up Modal
     var switchToLoginBtn = document.querySelector("#signupModal #openModal");
-    switchToLoginBtn.onclick = function() {
-        signupModal.style.display = "none";
-        loginModal.style.display = "block"; // Open Login Modal
-    }
+    switchToLoginBtn.onclick = openLoginModal;
 
     // Close Modals When Clicking Outside
     window.onclick = function(event) {
         if (event.target == loginModal) {
-            loginModal.style.display = "none";
+            closeModal(loginModal);
         }
         if (event.target == signupModal) {
-            signupModal.style.display = "none";
+            closeModal(signupModal);
         }
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+    // Otomatis buka login modal setelah sign up sukses
+    if (document.querySelector('.error').textContent === '') {
+        openLoginModal();
     }
+});
+// AJAX for Login
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '', true);
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            var response = xhr.responseText.trim();
+            if (response === "success") {
+                window.location.href = "home.php"; // Redirect on success
+            } else {
+                document.getElementById('loginError').textContent = response;
+            }
+        }
+    };
+    xhr.send(formData);
+});
+
+// AJAX for Sign-Up
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '', true);
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            var response = xhr.responseText.trim();
+            if (response === "success") {
+                document.getElementById('loginModal').style.display = "block"; // Open login modal
+                document.getElementById('signupModal').style.display = "none";
+            } else {
+                document.getElementById('signupError').textContent = response;
+            }
+        }
+    };
+    xhr.send(formData);
+});
+// Toggle visibility of login password
+document.getElementById('toggleLoginPassword').addEventListener('click', function() {
+    var passwordField = document.getElementById('loginPassword');
+    var icon = document.getElementById('toggleLoginPassword');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.classList.remove('bx-hide');
+        icon.classList.add('bx-show');
+    } else {
+        passwordField.type = 'password';
+        icon.classList.remove('bx-show');
+        icon.classList.add('bx-hide');
+    }
+});
+
+// Toggle visibility of signup password
+document.getElementById('toggleSignupPassword').addEventListener('click', function() {
+    var passwordField = document.getElementById('signupPassword');
+    var icon = document.getElementById('toggleSignupPassword');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.classList.remove('bx-hide');
+        icon.classList.add('bx-show');
+    } else {
+        passwordField.type = 'password';
+        icon.classList.remove('bx-show');
+        icon.classList.add('bx-hide');
+    }
+});
+
+// Toggle visibility of confirm password
+document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+    var passwordField = document.getElementById('confirmPassword');
+    var icon = document.getElementById('toggleConfirmPassword');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.classList.remove('bx-hide');
+        icon.classList.add('bx-show');
+    } else {
+        passwordField.type = 'password';
+        icon.classList.remove('bx-show');
+        icon.classList.add('bx-hide');
+    }
+});
+
 </script>
+
 
 </html>

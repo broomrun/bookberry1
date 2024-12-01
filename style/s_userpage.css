@@ -512,3 +512,36 @@ input[type="submit"] {
     font-size: 18px; /* Adjust the font size as needed */
   }
 }
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+form input[type="email"], 
+form input[type="password"], 
+form input[type="text"] {
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 15px; 
+    border-radius: 8px; 
+    border: 1px solid #ddd; 
+    font-size: 16px; 
+    box-sizing: border-box; 
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #888;
+}
+
