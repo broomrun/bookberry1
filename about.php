@@ -23,7 +23,7 @@ include 'config.php';
         <div class="opening left">
             <div class="text" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
                 <h1>Welcome to BookBerry!</h1>
-                <a href="login.php" class="info-btn" style="font-size: 1.2em; padding: 10px 20px;">Get to Know us!</a>
+                <a href="#awal" class="info-btn" style="font-size: 1.2em; padding: 10px 20px;">Get to Know us!</a>
             </div>
             <div class="image" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="100">
                 <img src="assets/abouts.png" alt="BookBerry Image">
@@ -31,7 +31,7 @@ include 'config.php';
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="awal">
         <div class="opening right">
             <div class="text">
                 <h1>Our Story Behind</h1>

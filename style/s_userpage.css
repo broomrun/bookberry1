@@ -328,9 +328,9 @@ footer {
   border: 3px solid #1e2a5e;
 }
 
-/* Modal Styles */
+/* Basic modal styling */
 .modal {
-  display: none; 
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -342,20 +342,36 @@ footer {
   background-color: rgba(0,0,0,0.4);
 }
 
+/* Modal content */
 .modal-content {
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 30px;
   border: 1px solid #888;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 500px;
+  border-radius: 20px;
 }
 
+.modal-header {
+  border-bottom: none;
+  text-align: center;
+}
+
+.modal-header h5 {
+  font-weight: bold;
+  color: #1e2a5e;
+  /* Dark Blue Color */
+}
+
+/* Close button */
 .close-btn {
   color: #aaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .close-btn:hover,
@@ -365,23 +381,35 @@ footer {
   cursor: pointer;
 }
 
-input[type="text"], input[type="password"] {
-  width: 100%;
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+input[type="email"], input[type="text"], input[type="password"] {
   padding: 10px;
-  margin: 10px 0;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+}
+
+input[type="email"], input[type="text"], input[type="password"]:hover {
+  border: 1px solid #1e2a5e;
 }
 
 input[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #1e2a5e;
   color: white;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
-
 
 @media (max-width: 500px) {
   .content .info h2 {
