@@ -121,7 +121,7 @@ header .logo {
 
 .carousel {
   width: 100%;
-  max-width: 100%; /* Ensure it uses available space */
+  max-width: 100%;
   height: auto;
 }
 
@@ -132,8 +132,8 @@ header .logo {
 
 .carousel-item img {
   width: 100%;
-  height: auto; /* Maintain image aspect ratio */
-  object-fit: cover; /* Ensure images fit well */
+  height: auto; 
+  object-fit: cover; 
 }
 
 .book-card {
@@ -210,7 +210,6 @@ h1 {
   box-sizing: border-box;
 }
 
-/* Image Styling */
 .image img {
   max-width: 100%;
   height: auto; 
@@ -341,7 +340,6 @@ footer {
   background-color: rgba(0, 0, 0, 0.4); 
 }
 
-/* Modal content styling */
 .modal-content {
   position: absolute; 
   top: 50%;
@@ -362,10 +360,8 @@ footer {
 .modal-header h5 {
   font-weight: bold;
   color: #1e2a5e;
-  /* Dark Blue Color */
 }
 
-/* Close button */
 .close-btn {
   color: #aaa;
   font-size: 28px;
@@ -382,7 +378,6 @@ footer {
   cursor: pointer;
 }
 
-/* Form styling */
 form {
   display: flex;
   flex-direction: column;
@@ -414,12 +409,10 @@ input[type="submit"] {
   margin-top: 25px;
 }
 
-/* Styling container password-wrapper */
 .password-wrapper {
   position: relative; 
 }
 
-/* Styling ikon untuk toggle password */
 .password-wrapper i {
   position: absolute; 
   top: 50%; 
@@ -443,42 +436,41 @@ input[type="submit"] {
   }
   .carousel-item img {
     width: 100%;
-    height: 100%; /* Full width and height on small screens */
-    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+    height: 100%; 
+    object-fit: cover; 
   }
 
   .carousel-control-prev, .carousel-control-next {
-    font-size: 20px; /* Adjust control button size */
+    font-size: 20px;
     padding: 8px;
   }
   .book-card img {
-    width: 100px; /* Adjust width for small screens like phones */
-    height: 150px; /* Adjust height accordingly */
+    width: 100px; 
+    height: 150px; 
   }
   .left,
   .right {
-    flex-direction: column; /* Stack vertically for small screens */
-    align-items: center;    /* Center align the content */
-    text-align: center;     /* Center align the text */
+    flex-direction: column; 
+    align-items: center;    
+    text-align: center; 
   }
 
   .image img {
-    max-width: 90%; /* Make the image even smaller for smaller screens */
-    margin-bottom: 20px; /* Add margin for spacing */
+    max-width: 90%; 
+    margin-bottom: 20px;
   }
   .left h1, .right h1, .left p, .right p {
-    font-size: 20px; /* Adjust the font size as needed */
+    font-size: 20px;
   }
   .left h2, .right h2, .book-title, .author-name{
-    font-size: 13px; /* Adjust the font size as needed */
+    font-size: 13px;
   }
   label {
-    font-size: 0.85em; /* Slightly smaller font size for mobile screens */
-    margin-bottom: 0.8em; /* Slightly larger margin for mobile */
+    font-size: 0.85em;
+    margin-bottom: 0.8em;
   }
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
   header {
     justify-content: center;
@@ -493,17 +485,17 @@ input[type="submit"] {
   }
 
   label {
-    font-size: 0.9em; /* Adjust font size for tablets or smaller screens */
-    margin-bottom: 0.6em; /* Adjust margin for better spacing */
+    font-size: 0.9em;
+    margin-bottom: 0.6em;
   }
   .carousel-item img {
     width: 100%;
-    height: auto; /* Adjust the height on smaller screens */
-    object-fit: contain; /* Ensure images are not cropped */
+    height: auto;
+    object-fit: contain; 
   }
 
   .carousel-control-prev, .carousel-control-next {
-    font-size: 25px; /* Adjust the control button size */
+    font-size: 25px; 
     padding: 10px;
   }
 
@@ -512,25 +504,25 @@ input[type="submit"] {
     height: 10px;
   }
   .book-card img {
-    width: 110px; /* Adjust width for medium screens like tablets */
-    height: 150px; /* Adjust height to keep the aspect ratio */
+    width: 110px; 
+    height: 150px;
   }
   .left,
   .right {
-    flex-direction: column; /* Stack images and text vertically */
-    align-items: center;    /* Center align the content */
+    flex-direction: column; 
+    align-items: center; 
   }
 
   .image img {
-    max-width: 80%; /* Scale down the image size */
-    margin-bottom: 15px; /* Add margin for spacing */
+    max-width: 80%;
+    margin-bottom: 15px; 
   }
   .left h1, .right h1, .left p, .right p {
-    font-size: 18px; /* Adjust the font size as needed */
+    font-size: 18px;
   }
   label {
-    font-size: 0.9em; /* Adjust font size for tablets or smaller screens */
-    margin-bottom: 0.6em; /* Adjust margin for better spacing */
+    font-size: 0.9em;
+    margin-bottom: 0.6em; 
   }
 }
 
