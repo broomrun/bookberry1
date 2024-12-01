@@ -74,7 +74,6 @@ if (!isset($_SESSION['user_name'])) {
         </div>
         <div class="modal-body">
           <p id="book-detail">Book details will appear here...</p>
-          <button id="bookmark-button" class="btn btn-warning">Bookmark</button>
         </div>
         <div class="modal-footer">
           <textarea id="commentInput" class="form-control" placeholder="Write your comment here..."></textarea>

@@ -126,25 +126,7 @@ function getBookImageFromAPI($book_title) {
     // Return a default image if the API fails or no image found
     return "assets/default-book-image.jpg";
 
-    // Ambil username dari sesi
-    $user_name = $_SESSION['user_name'];
-
-    // Query untuk menghitung jumlah shelves yang ditambahkan oleh pengguna
-    $query_shelves_count = "SELECT COUNT(*) AS total_shelves FROM shelves WHERE username = '$user_name'";
-    $result_shelves_count = mysqli_query($conn, $query_shelves_count);
-
-    $total_shelves = 0; // Default nilai shelves jika query gagal
-    if ($result_shelves_count) {
-        $row_shelves_count = mysqli_fetch_assoc($result_shelves_count);
-        $total_shelves = $row_shelves_count['total_shelves'];
-    }
-
-
-    
-
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -466,7 +448,7 @@ function getBookImageFromAPI($book_title) {
                 <p>Badges</p>
             </div>
             <div class="stat-item">
-                <h3><?php echo htmlspecialchars($total_shelves); ?>
+                <h3><?php echo htmlspecialchars($total_shelves); ?> </h3>
                 <p>Shelves</p>
             </div>
         </div>
@@ -515,6 +497,8 @@ function getBookImageFromAPI($book_title) {
         $shelf_result = mysqli_query($conn, $shelf_query);
 
         if ($shelf_result && mysqli_num_rows($shelf_result) > 0) {
+            $book_count = mysqli_num_rows($shelf_result); // Count the number of books
+            echo "<p>Total Books: $book_count</p>"; // Display the number of books
             while ($row = mysqli_fetch_assoc($shelf_result)) {
                 $book_title = htmlspecialchars($row['book_title']);
                 $description = htmlspecialchars($row['description']);
@@ -534,6 +518,7 @@ function getBookImageFromAPI($book_title) {
         ?>
     </div>
 </div>
+
 
 
 
