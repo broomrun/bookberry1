@@ -11,7 +11,6 @@ if (!isset($user_name)) {
 
 $message = [];
 
-// Fetch user data and profile image from the database
 $query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
 if (mysqli_num_rows($query) > 0) {
     $user_data = mysqli_fetch_assoc($query);
@@ -33,25 +32,21 @@ if (isset($_POST['update_profile'])) {
         $image_tmp_name = $_FILES['update_image']['tmp_name'];
         $image_folder = 'uploaded_profile_images/' . $image_name;
 
-        // Move uploaded image to the specified folder and update in database
         if (move_uploaded_file($image_tmp_name, $image_folder)) {
             mysqli_query($conn, "UPDATE user_form SET image = '$image_name' WHERE name = '$user_name'") or die('Image update failed');
             $message[] = "Profile image updated successfully!";
-            $profile_image = $image_folder;  // Update variable to show new image instantly
+            $profile_image = $image_folder;
         } else {
             $message[] = "Failed to upload image.";
         }
     }
 }
 
-// Handle account deletion
 if (isset($_POST['delete_account'])) {
-    // Delete profile image if not default
     if (!empty($user_data['image']) && $user_data['image'] !== 'default_image.jpg') {
         unlink('uploaded_profile_images/' . $user_data['image']);
     }
 
-    // Delete user data from database
     mysqli_query($conn, "DELETE FROM user_form WHERE name = '$user_name'") or die('Delete failed');
     session_destroy();
     header('location:login.php');
@@ -81,19 +76,14 @@ if (isset($_POST['delete_account'])) {
 
         header {
             position: fixed;
-            /* Mengubah posisi menjadi tetap */
             top: 0;
-            /* Menetapkan posisi di bagian atas */
             width: 100%;
-            /* Memastikan lebar penuh */
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #1e2a5e;
-            /* Pastikan warna latar belakang untuk kontras */
             z-index: 1000;
-            /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
         }
 
         header .logo {
@@ -108,11 +98,8 @@ if (isset($_POST['delete_account'])) {
 
         .logo-image {
             max-width: 170px;
-            /* Maksimal lebar gambar */
             height: auto;
-            /* Menjaga proporsi gambar */
             display: block;
-            /* Memastikan gambar tampil sebagai block-level element */
         }
 
 
@@ -134,10 +121,8 @@ if (isset($_POST['delete_account'])) {
 
         .logo img {
             max-height: 50px;
-            /* Adjust as needed for logo size */
             width: auto;
             vertical-align: left;
-            /* Aligns the image with the navigation */
             align-items: left;
             margin-right: auto;
         }
@@ -164,7 +149,6 @@ if (isset($_POST['delete_account'])) {
             transition: border-color 0.3s;
         }
 
-        /* Ubah border color */
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="file"]:focus {
