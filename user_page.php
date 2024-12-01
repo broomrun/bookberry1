@@ -85,7 +85,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
 
 <body>
     <section>
-        <?php include "layout/header.html" ?>
+    <?php include "layout/header.html" ?>
 
         <div class="content">
             <div class="info">

@@ -2,6 +2,12 @@
 session_start();
 include "config.php";
 
+// Periksa apakah pengguna telah login
+if (!isset($_SESSION['user_name'])) {
+    header('Location: user_page.php');
+    exit;
+  }
+
 // Variabel default
 $profile_image = 'default.jpg';
 $streak_count = 0;
@@ -60,7 +66,7 @@ if (isset($_SESSION['user_name'])) {
     $updated_badges = [];
 
     // Badge 1: streak > 10
-    if ($streak_count >= 5) {
+    if ($streak_count >= 10) {
         $updated_badges[] = 'badge01';
     }
 
