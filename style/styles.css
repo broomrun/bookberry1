@@ -738,19 +738,21 @@ footer {
 .badge-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #f7f5f2;
   padding: 20px; /* Increased padding */
   border-radius: 15px; /* Slightly rounded corners */
   gap: 15px; /* Added spacing between badges */
 }
+
 .badge-container img {
-  width: 70px; /* Increased image size */
-  height: 70px; /* Increased image size */
+  width: 100px; /* Increased image size */
+  height: 100px; /* Increased image size */
 }
 
 .badge img {
-    width: auto; /* Lebar mengikuti ukuran asli */
-    height: auto; /* Tinggi mengikuti ukuran asli */
+    width: 120px; /* Lebar mengikuti ukuran asli */
+    height: 120px; /* Tinggi mengikuti ukuran asli */
     max-width: 100%; /* Agar tidak melebihi kontainer */
     object-fit: contain; /* Jaga agar tidak terpotong */
 }
@@ -760,29 +762,6 @@ footer {
   gap: 20px;
   flex-wrap: wrap;
 }
-
-.badge-item img {
-  cursor: pointer;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.badge-item img:hover {
-  transform: scale(1.1);
-}
-
-.modal-title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-}
-
-.modal-body {
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-}
-
-
-
 
 /* Statistics Section */
 .stats {
