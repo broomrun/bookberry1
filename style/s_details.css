@@ -7,15 +7,15 @@ body {
 }
 
 header {
-  position: fixed; /* Mengubah posisi menjadi tetap */
-  top: 0; /* Menetapkan posisi di bagian atas */
-  width: 100%; /* Memastikan lebar penuh */
+  position: fixed; 
+  top: 0; 
+  width: 100%;
   padding: 15px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff; /* Pastikan warna latar belakang untuk kontras */
-  z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
+  background-color: #ffffff;
+  z-index: 1000;
 }
 
 header .logo {
@@ -29,10 +29,11 @@ header .logo {
 }
 
 .logo-image {
-  max-width: 170px; /* Maksimal lebar gambar */
-  height: auto; /* Menjaga proporsi gambar */
-  display: block; /* Memastikan gambar tampil sebagai block-level element */
+  max-width: 170px; 
+  height: auto;
+  display: block;
 }
+
 .book-info {
   background-color: #ffffff;
   border-radius: 15px;
@@ -40,32 +41,32 @@ header .logo {
   padding: 25px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between; /* Menyusun gambar, detail buku, dan link baca secara horizontal */
+  justify-content: space-between; 
   gap: 25px;
   margin: 30px auto;
   transition: transform 0.3s ease-in-out;
   flex-direction: row;
-  align-items: flex-start; /* Elemen tetap pada posisi vertikal normal */
+  align-items: flex-start;
 }
 
 .book-info .rating-container {
   display: flex;
-  flex-direction: column; /* Rating dan teks bertumpuk vertikal */
-  align-items: center; /* Rata tengah hanya untuk bagian rating */
-  margin-top: 10px; /* Jarak dari gambar */
+  flex-direction: column; 
+  align-items: center; 
+  margin-top: 10px; 
 }
 
 .book-details {
   flex: 1;
-  padding-right: 20px; /* Tambahkan sedikit ruang antara detail buku dan link */
+  padding-right: 20px; 
 }
 
 .book-cover {
   max-width: 100%;
-  height: 190px; /* Tetapkan tinggi gambar */
-  object-fit: cover; /* Menjaga aspek rasio dengan crop gambar bila perlu */
+  height: 190px; 
+  object-fit: cover; 
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tambah shadow untuk kesan modern */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
 .title {
@@ -209,88 +210,88 @@ header .logo {
 
 .reply-form button {
   margin-top: 15px;
-  width: 100%; /* Tombol memenuhi lebar kontainer */
-  padding: 12px; /* Ruang dalam tombol */
+  width: 100%; 
+  padding: 12px; 
   font-size: 1rem;
-  color: #fff; /* Warna teks putih */
-  background-color: #1e2a5e; /* Latar belakang biru */
-  border: none; /* Hilangkan border default */
-  border-radius: 50px; /* Membulatkan sudut tombol */
-  cursor: pointer; /* Pointer berubah menjadi tangan */
-  transition: background-color 0.3s ease; /* Animasi saat hover */
+  color: #fff;
+  background-color: #1e2a5e; 
+  border: none;
+  border-radius: 50px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 .reply-form button:hover {
-  background-color: #fff; /* Warna biru lebih gelap saat hover */
+  background-color: #fff;
   color: #1a2a5e;
   border: 1px solid #1e2a5e;
 }
 
 .reply-form button:active {
-  background-color: #004085; /* Warna biru lebih gelap saat tombol ditekan */
+  background-color: #004085; 
 }
 
 .comment-body {
-  max-width: 1000px; /* Lebar maksimal */
+  max-width: 1000px; 
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff; /* Latar belakang abu-abu terang */
-  border: 1px solid #ddd; /* Border abu-abu */
-  border-radius: 30px; /* Membulatkan sudut */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #new-comment {
-  width: 100%; /* Memastikan textarea memenuhi lebar kontainer */
-  height: 80px; /* Tinggi textarea */
-  padding: 12px; /* Ruang di dalam textarea */
+  width: 100%; 
+  height: 80px; 
+  padding: 12px; 
   font-size: 1rem;
-  border: 1px solid #ccc; /* Border abu-abu */
-  border-radius: 20px; /* Membulatkan sudut textarea */
-  box-sizing: border-box; /* Termasuk padding dalam ukuran */
-  resize: none; /* Nonaktifkan resize */
-  outline: none; /* Hilangkan outline default */
-  transition: border-color 0.3s ease; /* Animasi saat fokus */
+  border: 1px solid #ccc; 
+  border-radius: 20px; 
+  box-sizing: border-box; 
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease; 
 }
 
 #new-comment:focus {
-  border-color: #1e2a5e; /* Warna biru saat textarea difokuskan */
+  border-color: #1e2a5e;
 }
 
 .comment-body button {
   margin-top: 15px;
-  width: 100%; /* Tombol memenuhi lebar kontainer */
-  padding: 12px; /* Ruang dalam tombol */
+  width: 100%; 
+  padding: 12px; 
   font-size: 1rem;
-  color: #fff; /* Warna teks putih */
-  background-color: #1e2a5e; /* Latar belakang biru */
-  border: none; /* Hilangkan border default */
-  border-radius: 50px; /* Membulatkan sudut tombol */
-  cursor: pointer; /* Pointer berubah menjadi tangan */
-  transition: background-color 0.3s ease; /* Animasi saat hover */
+  color: #fff; 
+  background-color: #1e2a5e; 
+  border: none; 
+  border-radius: 50px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .comment-body button:hover {
-  background-color: #fff; /* Warna biru lebih gelap saat hover */
+  background-color: #fff; 
   color: #1a2a5e;
   border: 1px solid #1e2a5e;
 }
 
 .comment-body button:active {
-  background-color: #004085; /* Warna biru lebih gelap saat tombol ditekan */
+  background-color: #004085;
 }
 
 .add-album button {
   margin-top: 15px;
-  width: 100%; /* Tombol memenuhi lebar kontainer */
-  padding: 12px; /* Ruang dalam tombol */
+  width: 100%; 
+  padding: 12px; 
   font-size: 1rem;
-  color: #fff; /* Warna teks putih */
-  background-color: #1e2a5e; /* Latar belakang biru */
-  border: none; /* Hilangkan border default */
-  border-radius: 50px; /* Membulatkan sudut tombol */
-  cursor: pointer; /* Pointer berubah menjadi tangan */
-  transition: background-color 0.3s ease; /* Animasi saat hover */
+  color: #fff; 
+  background-color: #1e2a5e;
+  border: none;
+  border-radius: 50px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 .add-album button:hover {

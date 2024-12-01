@@ -18,7 +18,7 @@ if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
     $current_date = date("Y-m-d");
 
-    // **1. Query untuk mendapatkan gambar profil**
+    // *1. Query untuk mendapatkan gambar profil*
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
 
@@ -28,7 +28,7 @@ if (isset($_SESSION['user_name'])) {
         $profile_image = $image_path . '?t=' . time(); // Tambahkan parameter unik untuk memaksa refresh
     }
 
-    // **2. Query untuk mendapatkan last_login, streak_count, dan badges**
+    // *2. Query untuk mendapatkan last_login, streak_count, dan badges*
     $streak_query = "SELECT last_login, streak_count, badges FROM user_form WHERE name = '$user_name'";
     $streak_result = mysqli_query($conn, $streak_query);
 
@@ -54,7 +54,7 @@ if (isset($_SESSION['user_name'])) {
         }
     }
 
-    // **3. Query untuk mendapatkan total review**
+    // *3. Query untuk mendapatkan total review*
     $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
     $comment_result = mysqli_query($conn, $comment_query);
     if ($comment_result && mysqli_num_rows($comment_result) > 0) {
@@ -62,7 +62,7 @@ if (isset($_SESSION['user_name'])) {
         $total_comments = intval($comment_data['total_comments']);
     }
 
-    // **5. Logika pemberian badge**
+    // *5. Logika pemberian badge*
     $updated_badges = [];
 
     // Badge 1: streak > 10
@@ -75,7 +75,7 @@ if (isset($_SESSION['user_name'])) {
         $updated_badges[] = 'badge3';
     }
 
-    // **6. Simpan data badges kembali ke database**
+    // *6. Simpan data badges kembali ke database*
     $badges_string = implode(',', $updated_badges); // Gabungkan badge menjadi string
     $update_badges_query = "UPDATE user_form SET badges = '$badges_string' WHERE name = '$user_name'";
     if (!mysqli_query($conn, $update_badges_query)) {
