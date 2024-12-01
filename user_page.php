@@ -7,34 +7,34 @@ $emailValue = ''; // To store email input
 // Check if form is submitted
 if (isset($_POST['submit'])) {
 
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-  $pass = $_POST['password'];
-  $emailValue = $email; // Store email when form is submitted
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $pass = $_POST['password'];
+    $emailValue = $email; // Store email when form is submitted
 
-  // Check if email exists in database
-  $select = "SELECT * FROM user_form WHERE email = '$email'";
-  $result = mysqli_query($conn, $select);
+    // Check if email exists in database
+    $select = "SELECT * FROM user_form WHERE email = '$email'";
+    $result = mysqli_query($conn, $select);
 
-  if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
 
-    $row = mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result);
 
-    // Verify if the password matches
-    if (password_verify($pass, $row['password'])) {
+        // Verify if the password matches
+        if (password_verify($pass, $row['password'])) {
 
-      // Set session variable for user name
-      $_SESSION['user_name'] = $row['name'];
+            // Set session variable for user name
+            $_SESSION['user_name'] = $row['name'];
 
-      // Redirect to home.php after successful login
-      header('Location: home.php');
-      exit; // Make sure the script stops after redirect
+            // Redirect to home.php after successful login
+            header('Location: home.php');
+            exit; // Make sure the script stops after redirect
 
+        } else {
+            $error = 'Incorrect password!';
+        }
     } else {
-      $error = 'Incorrect password!';
+        $error = 'Incorrect email or password!';
     }
-  } else {
-    $error = 'Incorrect email or password!';
-  }
 }
 ?>
 
@@ -69,18 +69,51 @@ if (isset($_POST['submit'])) {
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2>Login</h2>
+            <div class="modal-header">
+                <h5 class="modal-title mx-auto" id="loginModalLabel">Login</h5>
+            </div>
             <form method="POST">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($emailValue); ?>" required><br>
-                
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required><br>
-                
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required><br>
+
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required><br>
+
                 <input type="submit" name="submit" value="Login">
+                <div class="form-text text-center mt-3">
+                    Don't have an account? <a href="javascript:void(0);" id="openSignupModal" class="link-primary" style="color: #1e2a5e;">Sign up now</a>
+                </div>
             </form>
         </div>
     </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h5 class="modal-title mx-auto">Sign up</h5>
+            </div>
+            <form method="POST">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required><br>
+
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required><br>
+
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required><br>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
+
+                <input type="submit" name="submit" value="Sign Up">
+            </form>
+            <div class="form-text text-center mt-3">
+                <p class="mb-0">Already have an account? <a href="javascript:void(0);" id="openModal" class="link-primary" style="color: #1e2a5e;">Login now</a></p>
+            </div>
+        </div>
+    </div>
+
 
     <h1> Discover many books! </h1>
     <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -89,7 +122,7 @@ if (isset($_POST['submit'])) {
             <div class="carousel-item active">
                 <div class="d-flex justify-content-center">
                     <div class="book-card">
-                        <a href="login.php">
+                        <a href="#">
                             <img src="assets/10.jpeg" alt="Era Taylor Swift">
                         </a>
                         <div class="book-title">The God and the Gumiho</div>
@@ -192,7 +225,7 @@ if (isset($_POST['submit'])) {
     <div class="bawah">
         <div class="info" style="text-align: center; color: #1e2a5e; margin-top: -20px;">
             <h2 style="font-size: 2.5em; line-height: 1.2em; font-weight:bold;">Are you ready to, <br><span>Start your book journey?</span></h2>
-            <a href="login.php" class="info-btn" style="font-size: 1.2em; padding: 10px 20px;">Start my journey!</a>
+            <a href="#" class="info-btn">Start my journey!</a>
         </div>
     </div>
 
@@ -206,28 +239,54 @@ if (isset($_POST['submit'])) {
         offset: 0
     });
 
-    // Get modal and button
-var modal = document.getElementById("loginModal");
-var btn = document.getElementById("openModal");
-var closeBtn = document.getElementsByClassName("close-btn")[0];
+    // Login Modal
+    var loginModal = document.getElementById("loginModal");
+    var openLoginBtn = document.getElementById("openModal");
+    var loginCloseBtn = loginModal.getElementsByClassName("close-btn")[0];
 
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+    // Sign Up Modal
+    var signupModal = document.getElementById("signupModal");
+    var openSignupBtn = document.getElementById("openSignupModal");
+    var signupCloseBtn = signupModal.getElementsByClassName("close-btn")[0];
 
-// When the user clicks on <span> (x), close the modal
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    // Open Login Modal
+    openLoginBtn.onclick = function() {
+        loginModal.style.display = "block";
+        signupModal.style.display = "none"; // Ensure Sign Up Modal is closed
     }
-}
 
+    // Open Sign Up Modal
+    openSignupBtn.onclick = function() {
+        signupModal.style.display = "block";
+        loginModal.style.display = "none"; // Ensure Login Modal is closed
+    }
+
+    // Close Login Modal
+    loginCloseBtn.onclick = function() {
+        loginModal.style.display = "none";
+    }
+
+    // Close Sign Up Modal
+    signupCloseBtn.onclick = function() {
+        signupModal.style.display = "none";
+    }
+
+    // Handle "Login now" link in Sign Up Modal
+    var switchToLoginBtn = document.querySelector("#signupModal #openModal");
+    switchToLoginBtn.onclick = function() {
+        signupModal.style.display = "none";
+        loginModal.style.display = "block"; // Open Login Modal
+    }
+
+    // Close Modals When Clicking Outside
+    window.onclick = function(event) {
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
+        }
+        if (event.target == signupModal) {
+            signupModal.style.display = "none";
+        }
+    }
 </script>
 
 </html>
