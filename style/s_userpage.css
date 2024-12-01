@@ -330,27 +330,28 @@ footer {
 
 /* Basic modal styling */
 .modal {
-  display: none;
+  display: none; 
   position: fixed;
-  z-index: 1;
+  z-index: 1; 
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 100%; 
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4); 
 }
 
-/* Modal content */
+/* Modal content styling */
 .modal-content {
-  background-color: #fefefe;
-  margin: 10% auto;
-  padding: 30px;
-  border: 1px solid #888;
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  background-color: #fff;
+  padding: 35px;
+  border-radius: 23px;
   width: 80%;
-  max-width: 500px;
-  border-radius: 20px;
+  max-width: 500px; 
 }
 
 .modal-header {
@@ -387,12 +388,18 @@ form {
   flex-direction: column;
 }
 
+
 label {
-  margin: 5px 0;
-  font-weight: bold;
+  font-family: Poppins, sans-serif;
+  font-size: 1em; 
+  color: #000000;
+  margin-bottom: 0.5em;
+  display: block;
 }
 
-input[type="email"], input[type="text"], input[type="password"] {
+form input[type="email"], 
+form input[type="password"], 
+form input[type="text"] {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -452,6 +459,10 @@ input[type="submit"] {
   .left h2, .right h2, .book-title, .author-name{
     font-size: 13px; /* Adjust the font size as needed */
   }
+  label {
+    font-size: 0.85em; /* Slightly smaller font size for mobile screens */
+    margin-bottom: 0.8em; /* Slightly larger margin for mobile */
+  }
 }
 
 /* Media Queries */
@@ -469,15 +480,8 @@ input[type="submit"] {
   }
 
   label {
-    display: block;
-    font-size: 25px;
-    cursor: pointer;
-    transition: 0.3s color;
-    margin-left: auto;
-  }
-
-  label:hover {
-    color: #fff;
+    font-size: 0.9em; /* Adjust font size for tablets or smaller screens */
+    margin-bottom: 0.6em; /* Adjust margin for better spacing */
   }
   .carousel-item img {
     width: 100%;
@@ -511,4 +515,14 @@ input[type="submit"] {
   .left h1, .right h1, .left p, .right p {
     font-size: 18px; /* Adjust the font size as needed */
   }
+  label {
+    font-size: 0.9em; /* Adjust font size for tablets or smaller screens */
+    margin-bottom: 0.6em; /* Adjust margin for better spacing */
+  }
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }

@@ -5,7 +5,7 @@ session_start();
 $user_name = $_SESSION['user_name'];
 
 if (!isset($user_name)) {
-    header('location:login.php');
+    header('location:user_page.php');
     exit();
 }
 
