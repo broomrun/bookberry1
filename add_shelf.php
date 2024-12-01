@@ -25,7 +25,7 @@ if ($book_image) {
 $shelf_query = "INSERT INTO shelves (username, book_title, description, book_image) VALUES ('$user_name', '$book_title', '$description', '$book_image')";
 if (mysqli_query($conn, $shelf_query)) {
     // Redirect back to the shelves page
-    header('Location: shelves.php'); // Redirect to shelves page after adding
+    header('Location: profile.php'); // Redirect to shelves page after adding
     exit;
 } else {
     echo "Error: " . mysqli_error($conn);
