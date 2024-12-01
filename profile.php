@@ -21,7 +21,7 @@ if (isset($_SESSION['user_name'])) {
     // *1. Query untuk mendapatkan gambar profil*
     $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
     $image_result = mysqli_query($conn, $image_query);
-
+        /*i walk a frozen lake*/
     if ($image_result && mysqli_num_rows($image_result) > 0) {
         $row = mysqli_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
