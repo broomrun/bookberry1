@@ -6,15 +6,15 @@ body {
 }
 
 header {
-  position: fixed; /* Mengubah posisi menjadi tetap */
-  top: 0; /* Menetapkan posisi di bagian atas */
-  width: 100%; /* Memastikan lebar penuh */
+  position: fixed; 
+  top: 0;
+  width: 100%; 
   padding: 15px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff; /* Pastikan warna latar belakang untuk kontras */
-  z-index: 1000; /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
+  background-color: #ffffff; 
+  z-index: 1000; 
 }
 
 header .logo {
@@ -28,9 +28,9 @@ header .logo {
 }
 
 .logo-image {
-  max-width: 170px; /* Maksimal lebar gambar */
-  height: auto; /* Menjaga proporsi gambar */
-  display: block; /* Memastikan gambar tampil sebagai block-level element */
+  max-width: 170px; 
+  height: auto;
+  display: block;
 }
 
 .book-info {
@@ -40,7 +40,7 @@ header .logo {
   padding: 25px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between; /* Menyusun gambar, detail buku, dan link baca secara horizontal */
+  justify-content: space-between;
   gap: 25px;
   margin: 30px auto;
   transition: transform 0.3s ease-in-out;
@@ -48,7 +48,7 @@ header .logo {
 
 .book-details {
   flex: 1;
-  padding-right: 20px; /* Tambahkan sedikit ruang antara detail buku dan link */
+  padding-right: 20px;
 }
 
 .read-link {
@@ -67,10 +67,10 @@ header .logo {
 
 .book-cover {
   width: 130px;
-  height: 190px; /* Tetapkan tinggi gambar */
-  object-fit: cover; /* Menjaga aspek rasio dengan crop gambar bila perlu */
+  height: 190px; 
+  object-fit: cover; 
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tambah shadow untuk kesan modern */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
 .title {
@@ -104,9 +104,9 @@ header .logo {
 }
 
 .logo img {
-  max-height: 50px; /* Adjust as needed for logo size */
+  max-height: 50px;
   width: auto;
-  vertical-align: left; /* Aligns the image with the navigation */
+  vertical-align: left; 
   align-items: left;
   margin-right: auto;
 }
@@ -195,8 +195,8 @@ p {
 }
 
 .navbar-shadow {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
-  transition: box-shadow 0.3s ease; /* Transisi halus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: box-shadow 0.3s ease;
 }
 
 .nav-links {
@@ -248,14 +248,14 @@ p {
 }
 
 .dropdown select {
-  -webkit-appearance: none; /* Untuk browser berbasis WebKit (Chrome, Safari) */
-  -moz-appearance: none; /* Untuk Firefox */
-  appearance: none; /* Default */
-  background: none; /* Menghapus background */
-  border: none; /* Menghapus border jika perlu */
-  padding: 10px; /* Sesuaikan padding */
-  width: auto; /* Sesuaikan lebar sesuai kebutuhan */
-  outline: none; /* Menghapus outline */
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  appearance: none;
+  background: none; 
+  border: none; 
+  padding: 10px; 
+  width: auto;
+  outline: none; 
 }
 
 .book-card {
@@ -285,33 +285,31 @@ p {
   font-size: medium;
 }
 
-/* Card Styles */
 .card {
   overflow: hidden;
   transition: transform 0.2s;
-  border: none; /* Remove any default border */
-  box-shadow: none; /* Remove box-shadow if it's applied */
+  border: none;
+  box-shadow: none; 
   justify-content: center;
   display: flex;
-  flex-direction: column; /* Ensure content is stacked vertically */
-  align-items: center; /* Center the content horizontally */
+  flex-direction: column;
+  align-items: center; 
 }
 
 .card:hover {
   transform: scale(1.05);
 }
 
-/* Optional: If there is padding or margin you want to adjust */
 .card.mb-3 {
-  margin: 0; /* Adjust margin if necessary */
-  border-radius: 0; /* Optional: Remove rounded corners */
+  margin: 0;
+  border-radius: 0; 
 }
 
 .card-img-top {
-  width: 150px; /* Lebar khusus */
-  height: 220px; /* Tinggi khusus */
+  width: 150px;
+  height: 220px;
   border-radius: 5px;
-  object-fit: cover; /* Menjaga agar gambar tidak terdistorsi */
+  object-fit: cover; 
   margin-top: 25px;
   display: block;
   margin-left: auto;
@@ -328,9 +326,8 @@ p {
   font-weight: bold;
 }
 
-/* Modal Styles */
 .modal-dialog {
-  max-width: 90%; /* Lebar modal menjadi 90% dari viewport */
+  max-width: 90%; 
 }
 
 .modal-content {
@@ -355,7 +352,7 @@ p {
 }
 
 .search {
-  width: 300px; /* Adjust width as necessary */
+  width: 300px;
   border-radius: 5px;
 }
 
@@ -363,9 +360,8 @@ p {
   margin-left: 10px;
 }
 
-/* Jika Anda menggunakan Bootstrap, Anda mungkin perlu menambahkan ini juga */
 .form-select {
-  border: 1px solid #ccc; /* Ubah warna border jika diperlukan */
+  border: 1px solid #ccc; 
 }
 
 .form-control {
@@ -387,13 +383,13 @@ p {
   border: 2px solid #1e2a5e;
   border-radius: 50px;
   font-size: 16px;
-  margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
+  margin-right: 10px;
 }
 
 .dropdown {
   display: flex;
   align-items: center;
-  margin-right: 10px; /* Tambahkan margin kanan untuk spasi */
+  margin-right: 10px; 
 }
 
 .dropdown select {
@@ -411,7 +407,7 @@ p {
   border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s;
-  height: 48px; /* Menyesuaikan tinggi tombol */
+  height: 48px; 
 }
 
 .search-button:hover {
@@ -421,11 +417,11 @@ p {
 }
 
 .img-container {
-  width: 120px; /* Sesuaikan ukuran lebar buku */
-  height: auto; /* Tinggi mengikuti proporsi dari lebar */
-  margin: 10px; /* Spasi antar buku */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan pada buku */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi */
+  width: 120px; 
+  height: auto; 
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
 .img-container:hover {
@@ -440,14 +436,12 @@ p {
   border-radius: 10px;
 }
 
-/* Style for the title */
 .title {
   font-size: 2.5em;
   color: #1e2a5e;
   margin: 20px 0;
 }
 
-/* Common styles for all tiles */
 .tile {
   color: white;
   font-family: Arial, sans-serif;
@@ -457,11 +451,10 @@ p {
 }
 
 .tile:hover {
-  transform: scale(1.05); /* Sedikit membesarkan ukuran tile */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Memberikan bayangan saat di-hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
-/* Background color for each tile */
 .green {
   background-color: #004d00;
 }
@@ -484,10 +477,10 @@ p {
 
 footer {
   display: flex;
-  justify-content: space-around; /* Memberi jarak antar kolom */
+  justify-content: space-around;
   align-items: flex-start;
   width: 100%;
-  padding: 80px 10%; /* Mengurangi padding agar lebih lebar */
+  padding: 80px 10%;
   background-color: #1e2a5e;
   flex-wrap: wrap;
   margin-top: 100px;
@@ -495,9 +488,9 @@ footer {
 }
 
 .footer-content {
-  flex: 1 1 220px; /* Menambah minimal lebar kolom */
+  flex: 1 1 220px;
   margin: 0 1rem;
-  max-width: 300px; /* Menghindari kolom terlalu lebar */
+  max-width: 300px;
 }
 
 .footer-content h4 {
@@ -545,37 +538,37 @@ footer {
 }
 
 .custom-small-text {
-  font-size: 1rem; /* Sesuaikan ukuran sesuai kebutuhan */
+  font-size: 1rem; 
 }
 
 .opening {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Menjaga jarak antara teks dan gambar */
+  justify-content: space-between; 
 }
 
 .text {
-  flex: 1; /* Mengambil ruang yang tersedia untuk teks */
-  padding: 20px; /* Tambahkan padding untuk mempercantik tampilan */
+  flex: 1; 
+  padding: 20px; 
 }
 
 .image {
-  flex: 1; /* Mengambil ruang yang tersedia untuk gambar */
-  text-align: center; /* Menempatkan gambar di tengah */
+  flex: 1; 
+  text-align: center; 
 }
 
 .image img {
-  max-width: 100%; /* Memastikan gambar responsif */
+  max-width: 100%; 
   height: auto;
-  border-radius: 10px; /* Opsi untuk tampilan gambar yang lebih halus */
+  border-radius: 10px; 
 }
 
 .left {
-  flex-direction: row; /* Gambar di kanan */
+  flex-direction: row;
 }
 
 .right {
-  flex-direction: row-reverse; /* Gambar di kiri */
+  flex-direction: row-reverse;
 }
 
 .opening h1 {
@@ -588,7 +581,7 @@ footer {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #1e2a5e; /* Ganti warna sesuai keinginan */
+  background-color: #1e2a5e;
   color: white;
   text-decoration: none;
   border-radius: 50px;
@@ -598,14 +591,14 @@ footer {
 }
 
 .info-btn:hover {
-  background-color: #fff; /* Warna saat tombol di-hover */
+  background-color: #fff; 
   color: #1e2a5e;
   border: 3px solid #1e2a5e;
 }
 
 .story-description {
-  font-size: 17px; /* Adjust the size as needed */
-  line-height: 1.5; /* Optional: adjust line height for better readability */
+  font-size: 17px; 
+  line-height: 1.5; 
   display: flex;
 }
 
@@ -619,7 +612,6 @@ footer {
   padding: 20px;
 }
 
-/* Individual service box */
 .services .box {
   flex: 1 1 calc(33% - 20px);
   margin: 20px 0;
@@ -633,13 +625,11 @@ footer {
   color: #1a2a5e;
 }
 
-/* Hover effect for boxes */
 .services .box:hover {
   background: #1e2a5e;
   color: #fff;
 }
 
-/* Icon style */
 .services .box .icon {
   height: 50px;
   width: 50px;
@@ -657,43 +647,42 @@ footer {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px; /* Space between team members */
+  gap: 20px; 
 }
 
 .team-member {
-  background-color: #f9f9f9; /* Background color for team member card */
-  border-radius: 10px; /* Rounded corners */
-  padding: 20px; /* Padding around the content */
-  text-align: center; /* Center text alignment */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
-  width: 250px; /* Set the width of the member card */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .team-member:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+  transform: scale(1.05); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .team-image {
-  width: 100%; /* Ensure image fills the width of the card */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Rounded corners for the image */
+  width: 100%;
+  height: auto;
+  border-radius: 10px; 
 }
 
 .member-name {
   margin: 10px 0 5px;
-  font-size: 18px; /* Ukuran font nama */
+  font-size: 18px; 
   color: #4b2e10;
 }
 
 .member-role {
   margin: 5px 0;
-  font-size: 14px; /* Ukuran font peran */
-  color: gray; /* Warna teks peran */
+  font-size: 14px; 
+  color: gray; 
 }
 
-/* Header Section */
 .profile-header {
   display: flex;
   align-items: center;
@@ -734,27 +723,26 @@ footer {
   border: 2px solid #ccc;
 }
 
-/* Badge Container */
 .badge-container {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f7f5f2;
-  padding: 20px; /* Increased padding */
-  border-radius: 15px; /* Slightly rounded corners */
-  gap: 15px; /* Added spacing between badges */
+  padding: 20px; 
+  border-radius: 15px; 
+  gap: 15px; 
 }
 
 .badge-container img {
-  width: 100px; /* Increased image size */
-  height: 100px; /* Increased image size */
+  width: 100px;
+  height: 100px; 
 }
 
 .badge img {
-    width: 120px; /* Lebar mengikuti ukuran asli */
-    height: 120px; /* Tinggi mengikuti ukuran asli */
-    max-width: 100%; /* Agar tidak melebihi kontainer */
-    object-fit: contain; /* Jaga agar tidak terpotong */
+    width: 120px;
+    height: 120px; 
+    max-width: 100%;
+    object-fit: contain; 
 }
 
 .badge-container {
@@ -763,10 +751,9 @@ footer {
   flex-wrap: wrap;
 }
 
-/* Statistics Section */
 .stats {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two items per row */
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-top: 20px;
 }
@@ -786,7 +773,6 @@ footer {
   color: #666;
 }
 
-/* Top Reads Section */
 .top-read {
   margin-top: 20px;
 }
@@ -823,7 +809,6 @@ footer {
   text-align: center;
 }
 
-/* Shelves Section */
 .shelves {
   margin-top: 30px;
 }
@@ -879,8 +864,8 @@ footer {
 .comment-actions {
   display: flex;
   align-items: center;
-  gap: 10px; /* Jarak antar tombol */
-  margin-top: 10px; /* Jarak antara teks komentar dan tombol */
+  gap: 10px; 
+  margin-top: 10px; 
 }
 
 .comment-actions .btn {
@@ -901,11 +886,11 @@ footer {
 .reply-input {
   display: block;
   width: 100%;
-  max-width: 400px; /* Batas maksimal lebar */
+  max-width: 400px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  margin-bottom: 10px; /* Jarak dengan tombol */
+  margin-bottom: 10px; 
 }
 
 .reply-button {
