@@ -138,14 +138,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
 
                 <label for="signupPassword">Password:</label>
                 <div class="password-wrapper">
-                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required><br>
-                <i class="bx bx-hide" id="toggleLoginPassword"></i>
+                <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required><br>
+                <i class="bx bx-hide" id="toggleSignupPassword"></i>
                 </div>
 
                 <label for="confirmPassword">Confirm Password:</label>
                 <div class="password-wrapper">
-                <input type="password" id="loginPassword" name="password" placeholder="Confirm your password" required><br>
-                <i class="bx bx-hide" id="toggleLoginPassword"></i>
+                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required><br>
+                <i class="bx bx-hide" id="toggleConfirmPassword"></i>
                 </div>
 
                 <input type="hidden" name="action" value="signup">
