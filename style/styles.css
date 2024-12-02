@@ -906,6 +906,39 @@ footer {
 .reply-button:hover {
   background-color: #002266;
 }
+
+.hidden {
+  display: none !important;
+}
+
+.delete-btn {
+  background-color: #e74c3c; /* Red color */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+.edit-btn {
+  background-color: #1a2a5e; 
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #1a2a5e; 
+} tambah ini
+
 @media only screen and (max-width: 768px) {
   header {
     flex-direction: column;

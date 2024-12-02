@@ -1,7 +1,6 @@
-// add_shelf.php
 <?php
 session_start();
-include "config.php";
+include "config.php"; // This should contain PostgreSQL connection details
 
 // Periksa apakah pengguna telah login
 if (!isset($_SESSION['user_name'])) {
@@ -10,8 +9,8 @@ if (!isset($_SESSION['user_name'])) {
 }
 
 $user_name = $_SESSION['user_name'];
-$book_title = mysqli_real_escape_string($conn, $_POST['book_title']);
-$description = mysqli_real_escape_string($conn, $_POST['description']);
+$book_title = $conn->quote($_POST['book_title']);
+$description = $conn->quote($_POST['description']);
 $book_image = $_FILES['book_image']['name'];
 
 // Handle image upload
@@ -22,12 +21,14 @@ if ($book_image) {
 }
 
 // Insert the book to the shelf
-$shelf_query = "INSERT INTO shelves (username, book_title, description, book_image) VALUES ('$user_name', '$book_title', '$description', '$book_image')";
-if (mysqli_query($conn, $shelf_query)) {
+$shelf_query = "INSERT INTO shelves (username, book_title, description, book_image) 
+                VALUES ('$user_name', $book_title, $description, '$book_image')";
+
+if ($conn->exec($shelf_query)) {
     // Redirect back to the shelves page
     header('Location: profile.php'); // Redirect to shelves page after adding
     exit;
 } else {
-    echo "Error: " . mysqli_error($conn);
+    echo "Error: " . $conn->errorInfo()[2];
 }
 ?>
