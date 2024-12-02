@@ -2,15 +2,14 @@
 session_start();
 header('Content-Type: application/json'); // Pastikan respons dalam format JSON
 
-// Koneksi ke database
-$conn = new mysqli('localhost', 'root', '', 'bookberry');
+$conn = pg_connect("host=localhost dbname=bookberryss user=postgres password=kamisukses");
 
-// Periksa koneksi database
-if ($conn->connect_error) {
-    echo json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]);
+if (!$conn) {
+    echo json_encode(['error' => 'Database connection failed: ' . pg_last_error()]);
     exit;
 }
 
+// Menangani permintaan POST
 // Menangani permintaan POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -26,17 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Tentukan kolom yang perlu diperbarui
         $column = $action === 'like' ? 'likes' : 'dislikes';
-        $stmt = $conn->prepare("UPDATE comments SET $column = $column + 1 WHERE id = ?");
-        if ($stmt) {
-            $stmt->bind_param("i", $commentId);
-            if ($stmt->execute()) {
-                echo json_encode(['success' => 'Like/Dislike updated!']);
-            } else {
-                echo json_encode(['error' => 'Failed to update like/dislike']);
-            }
-            $stmt->close();
+        $query = "UPDATE comments SET $column = $column + 1 WHERE id = $commentId";
+        $result = pg_query($conn, $query);
+
+        if ($result) {
+            echo json_encode(['success' => 'Like/Dislike updated!']);
         } else {
-            echo json_encode(['error' => 'Failed to prepare statement']);
+            echo json_encode(['error' => 'Failed to update like/dislike']);
         }
         exit;
     }
@@ -53,15 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Simpan komentar
-    $stmt = $conn->prepare("INSERT INTO comments (book_title, username, text, parent_id) VALUES (?, ?, ?, ?)");
-    if ($stmt) {
-        $stmt->bind_param("sssi", $title, $username, $comment, $parent_id);
-        if ($stmt->execute()) {
+    $query = "INSERT INTO comments (book_title, username, text, parent_id) VALUES ($1, $2, $3, $4)";
+    $result = pg_prepare($conn, "insert_comment", $query);
+    if ($result) {
+        $result = pg_execute($conn, "insert_comment", array($title, $username, $comment, $parent_id));
+        if ($result) {
             echo json_encode(['success' => 'Comment saved!']);
         } else {
             echo json_encode(['error' => 'Failed to execute statement']);
         }
-        $stmt->close();
     } else {
         echo json_encode(['error' => 'Failed to prepare statement']);
     }
@@ -77,16 +72,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT comments.*, user_form.image FROM comments 
-                            LEFT JOIN user_form ON comments.username = user_form.name
-                            WHERE comments.book_title = ? ORDER BY comments.created_at ASC");
-    if ($stmt) {
-        $stmt->bind_param("s", $title);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $query = "SELECT comments.*, user_form.image FROM comments 
+                LEFT JOIN user_form ON comments.username = user_form.name
+                WHERE comments.book_title = $1
+                ORDER BY comments.created_at ASC";
+    $result = pg_prepare($conn, "get_comments", $query);
+    if ($result) {
+        $result = pg_execute($conn, "get_comments", array($title));
 
         $comments = [];
-        while ($row = $result->fetch_assoc()) {
+        while ($row = pg_fetch_assoc($result)) {
             // Add profile image to the comment data
             $profile_image = !empty($row['image']) ? 'uploaded_profile_images/' . $row['image'] : 'uploaded_profile_images/default_image.jpg';
             $row['profile_image'] = $profile_image;
@@ -105,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         echo json_encode(array_values($nestedComments));
-        $stmt->close();
     } else {
         echo json_encode(['error' => 'Failed to prepare statement']);
     }

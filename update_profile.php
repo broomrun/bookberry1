@@ -11,10 +11,18 @@ if (!isset($user_name)) {
 
 $message = [];
 
+// Create a connection to PostgreSQL
+$conn = pg_connect("host=localhost dbname=bookberryss user=postgres password=kamisukses");
+
+if (!$conn) {
+    die('Connection failed: ' . pg_last_error());
+}
+
 // Fetch user data and profile image from the database
-$query = mysqli_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'") or die('Query failed');
-if (mysqli_num_rows($query) > 0) {
-    $user_data = mysqli_fetch_assoc($query);
+$query = pg_query($conn, "SELECT * FROM user_form WHERE name = '$user_name'");
+
+if (pg_num_rows($query) > 0) {
+    $user_data = pg_fetch_assoc($query);
     $profile_image = !empty($user_data['image']) ? 'uploaded_profile_images/' . $user_data['image'] : 'uploaded_profile_images/default_image.jpg';
 } else {
     $message[] = 'User data not found.';
@@ -23,9 +31,9 @@ if (mysqli_num_rows($query) > 0) {
 // Handle profile update
 if (isset($_POST['update_profile'])) {
     // Update name and email if needed
-    $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
-    $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
-    mysqli_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update failed');
+    $update_name = pg_escape_string($conn, $_POST['update_name']);
+    $update_email = pg_escape_string($conn, $_POST['update_email']);
+    pg_query($conn, "UPDATE user_form SET name = '$update_name', email = '$update_email' WHERE name = '$user_name'") or die('Update failed');
 
     // Check if a new profile image is uploaded
     if (isset($_FILES['update_image']) && $_FILES['update_image']['error'] == 0) {
@@ -35,7 +43,7 @@ if (isset($_POST['update_profile'])) {
 
         // Move uploaded image to the specified folder and update in database
         if (move_uploaded_file($image_tmp_name, $image_folder)) {
-            mysqli_query($conn, "UPDATE user_form SET image = '$image_name' WHERE name = '$user_name'") or die('Image update failed');
+            pg_query($conn, "UPDATE user_form SET image = '$image_name' WHERE name = '$user_name'") or die('Image update failed');
             $message[] = "Profile image updated successfully!";
             $profile_image = $image_folder;  // Update variable to show new image instantly
         } else {
@@ -47,19 +55,21 @@ if (isset($_POST['update_profile'])) {
 // Handle account deletion
 if (isset($_POST['delete_account'])) {
     // Delete profile image if not default
+    pg_query($conn, "DELETE FROM shelves WHERE username = '$user_name'") or die('Failed to delete from shelves');
+
     if (!empty($user_data['image']) && $user_data['image'] !== 'default_image.jpg') {
         unlink('uploaded_profile_images/' . $user_data['image']);
     }
 
     // Delete user data from database
-    mysqli_query($conn, "DELETE FROM user_form WHERE name = '$user_name'") or die('Delete failed');
+    pg_query($conn, "DELETE FROM user_form WHERE name = '$user_name'") or die('Delete failed');
     session_destroy();
-    header('location:login.php');
+    header('location:user_page.php');
     exit();
 }
+
+pg_close($conn);  // Close the PostgreSQL connection
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,19 +91,14 @@ if (isset($_POST['delete_account'])) {
 
         header {
             position: fixed;
-            /* Mengubah posisi menjadi tetap */
             top: 0;
-            /* Menetapkan posisi di bagian atas */
             width: 100%;
-            /* Memastikan lebar penuh */
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #1e2a5e;
-            /* Pastikan warna latar belakang untuk kontras */
             z-index: 1000;
-            /* Menetapkan z-index untuk memastikan berada di atas konten lainnya */
         }
 
         header .logo {
@@ -108,13 +113,9 @@ if (isset($_POST['delete_account'])) {
 
         .logo-image {
             max-width: 170px;
-            /* Maksimal lebar gambar */
             height: auto;
-            /* Menjaga proporsi gambar */
             display: block;
-            /* Memastikan gambar tampil sebagai block-level element */
         }
-
 
         .navigation {
             display: flex;
@@ -131,20 +132,12 @@ if (isset($_POST['delete_account'])) {
             margin-right: 30px;
         }
 
-
         .logo img {
             max-height: 50px;
-            /* Adjust as needed for logo size */
             width: auto;
             vertical-align: left;
-            /* Aligns the image with the navigation */
             align-items: left;
             margin-right: auto;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
         }
 
         .navigation a:hover {
@@ -152,8 +145,6 @@ if (isset($_POST['delete_account'])) {
             color: #1e2a5e;
         }
 
-
-        /* warna inputan */
         input[type="text"],
         input[type="password"],
         input[type="file"] {
@@ -164,7 +155,6 @@ if (isset($_POST['delete_account'])) {
             transition: border-color 0.3s;
         }
 
-        /* Ubah border color */
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="file"]:focus {
@@ -245,19 +235,18 @@ if (isset($_POST['delete_account'])) {
                 </div>
 
                 <div>
-                    <label for="update_image" class="block text-gray-700">Update Profile Picture:</label>
-                    <input type="file" id="update_image" name="update_image" class="w-full">
+                    <label for="update_image" class="block text-gray-700">Profile Image:</label>
+                    <input type="file" name="update_image" class="w-full" id="update_image">
                 </div>
-                <button type="submit" name="update_profile" class="w-full bg-[#1e2a5e] text-white px-4 py-2 rounded-[50px] hover:bg-[#FFFFFF] hover:text-[#1e2a5e] hover:border border-[#1e2a5e] transition duration-200">Update Profile</button>
+
+                <button type="submit" name="update_profile" class="w-full bg-blue-500 text-white py-2 rounded-md">Update Profile</button>
+            </form>
+
+            <form method="POST" class="mt-4">
+                <button type="submit" name="delete_account" class="w-full bg-red-500 text-white py-2 rounded-md">Delete Account</button>
             </form>
         </div>
     </div>
-    <form method="POST">
-    <button type="submit" name="delete_account" onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.')" class="w-full bg-red-600 text-white px-4 py-2 rounded-[50px] hover:bg-red-700 transition duration-200">
-        Delete Account
-    </button>
-</form>
-
 </body>
 
 </html>

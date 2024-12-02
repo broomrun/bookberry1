@@ -6,7 +6,7 @@ include "config.php";
 if (!isset($_SESSION['user_name'])) {
     header('Location: user_page.php');
     exit;
-  }
+}
 
 // Variabel default
 $profile_image = 'default.jpg';
@@ -14,26 +14,33 @@ $streak_count = 0;
 $total_comments = 0;
 $badges = []; // Array untuk menyimpan badges yang sudah diperoleh
 
+// Koneksi ke PostgreSQL
+$conn = pg_connect("host=localhost dbname=bookberryss user=postgres password=kamisukses");
+
+if (!$conn) {
+    die("Connection failed: " . pg_last_error());
+}
+
 if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
     $current_date = date("Y-m-d");
 
-    // *1. Query untuk mendapatkan gambar profil*
-    $image_query = "SELECT image FROM user_form WHERE name = '$user_name'";
-    $image_result = mysqli_query($conn, $image_query);
-        /*i walk a frozen lake*/
-    if ($image_result && mysqli_num_rows($image_result) > 0) {
-        $row = mysqli_fetch_assoc($image_result);
+    // 1. Query untuk mendapatkan gambar profil
+    $image_query = "SELECT image FROM user_form WHERE name = $1";
+    $image_result = pg_query_params($conn, $image_query, array($user_name));
+
+    if ($image_result && pg_num_rows($image_result) > 0) {
+        $row = pg_fetch_assoc($image_result);
         $image_path = $row['image'] ? 'uploaded_profile_images/' . $row['image'] : 'default.jpg';
         $profile_image = $image_path . '?t=' . time(); // Tambahkan parameter unik untuk memaksa refresh
     }
 
-    // *2. Query untuk mendapatkan last_login, streak_count, dan badges*
-    $streak_query = "SELECT last_login, streak_count, badges FROM user_form WHERE name = '$user_name'";
-    $streak_result = mysqli_query($conn, $streak_query);
+    // 2. Query untuk mendapatkan last_login, streak_count, dan badges
+    $streak_query = "SELECT last_login, streak_count, badges FROM user_form WHERE name = $1";
+    $streak_result = pg_query_params($conn, $streak_query, array($user_name));
 
-    if ($streak_result && mysqli_num_rows($streak_result) > 0) {
-        $user_data = mysqli_fetch_assoc($streak_result);
+    if ($streak_result && pg_num_rows($streak_result) > 0) {
+        $user_data = pg_fetch_assoc($streak_result);
 
         $last_login = $user_data['last_login'];
         $streak_count = $user_data['streak_count'];
@@ -49,20 +56,21 @@ if (isset($_SESSION['user_name'])) {
             }
 
             // Update last_login dan streak_count
-            $update_query = "UPDATE user_form SET last_login = '$current_date', streak_count = '$streak_count' WHERE name = '$user_name'";
-            mysqli_query($conn, $update_query);
+            $update_query = "UPDATE user_form SET last_login = $1, streak_count = $2 WHERE name = $3";
+            pg_query_params($conn, $update_query, array($current_date, $streak_count, $user_name));
         }
     }
 
-    // *3. Query untuk mendapatkan total review*
-    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = '$user_name'";
-    $comment_result = mysqli_query($conn, $comment_query);
-    if ($comment_result && mysqli_num_rows($comment_result) > 0) {
-        $comment_data = mysqli_fetch_assoc($comment_result);
+    // 3. Query untuk mendapatkan total review
+    $comment_query = "SELECT COUNT(*) AS total_comments FROM comments WHERE username = $1";
+    $comment_result = pg_query_params($conn, $comment_query, array($user_name));
+
+    if ($comment_result && pg_num_rows($comment_result) > 0) {
+        $comment_data = pg_fetch_assoc($comment_result);
         $total_comments = intval($comment_data['total_comments']);
     }
 
-    // *5. Logika pemberian badge*
+    // 5. Logika pemberian badge
     $updated_badges = [];
 
     // Badge 1: streak > 10
@@ -75,26 +83,23 @@ if (isset($_SESSION['user_name'])) {
         $updated_badges[] = 'badge3';
     }
 
-    // *6. Simpan data badges kembali ke database*
+    // 6. Simpan data badges kembali ke database
     $badges_string = implode(',', $updated_badges); // Gabungkan badge menjadi string
-    $update_badges_query = "UPDATE user_form SET badges = '$badges_string' WHERE name = '$user_name'";
-    if (!mysqli_query($conn, $update_badges_query)) {
-        die('Update badges query failed: ' . mysqli_error($conn));
-    }
+    $update_badges_query = "UPDATE user_form SET badges = $1 WHERE name = $2";
+    pg_query_params($conn, $update_badges_query, array($badges_string, $user_name));
 
     // Perbarui variabel $badges
     $badges = $updated_badges;
 
-    // Query to get the books with the most comments by the user
-$top_read_query = "
-SELECT book_title, COUNT(*) AS comment_count
-FROM comments
-WHERE username = '$user_name'
-GROUP BY book_title
-ORDER BY comment_count DESC
-LIMIT 4"; // Limit to 4 top books
-$top_read_result = mysqli_query($conn, $top_read_query);    
-
+    // Query untuk mendapatkan buku dengan komentar terbanyak oleh pengguna
+    $top_read_query = "
+    SELECT book_title, COUNT(*) AS comment_count
+    FROM comments
+    WHERE username = $1
+    GROUP BY book_title
+    ORDER BY comment_count DESC
+    LIMIT 4"; // Batasi ke 4 buku teratas
+    $top_read_result = pg_query_params($conn, $top_read_query, array($user_name));
 }
 
 function getBookImageFromAPI($book_title) {
@@ -125,23 +130,25 @@ function getBookImageFromAPI($book_title) {
 
     // Return a default image if the API fails or no image found
     return "assets/default-book-image.jpg";
-
-
-    
 }
-// Query to count the books in the user's shelf
-$shelf_query = "SELECT COUNT(*) AS book_count FROM shelves WHERE username = '$user_name'";
-$shelf_result = mysqli_query($conn, $shelf_query);
 
-$book_count = 0; // Default book count
+// Update your query to use a placeholder for the username
+$shelf_query = "SELECT COUNT(*) AS book_count FROM shelves WHERE username = $1";
 
-if ($shelf_result && mysqli_num_rows($shelf_result) > 0) {
-    $row = mysqli_fetch_assoc($shelf_result);
+// Execute the query with the user_name parameter
+$result = pg_query_params($conn, $shelf_query, array($username));
+
+if ($result) {
+    $row = pg_fetch_assoc($result);
     $book_count = $row['book_count']; // Assign the count to $book_count
+} else {
+    // Handle query failure
+    echo "Error executing query.";
 }
 
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -532,11 +539,11 @@ body {
     <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Top Read</div>
     <div class="bookshelf">
         <?php
-        if ($top_read_result && mysqli_num_rows($top_read_result) > 0) {
-            while ($row = mysqli_fetch_assoc($top_read_result)) {
+        if ($top_read_result && pg_num_rows($top_read_result) > 0) {
+            while ($row = pg_fetch_assoc($top_read_result)) {
                 $book_title = htmlspecialchars($row['book_title']);
                 $comment_count = $row['comment_count'];
-
+    
                 // Get the book image URL from the API
                 $book_image = getBookImageFromAPI($book_title); // Fetch image from API
                 ?>
@@ -567,31 +574,40 @@ body {
 <div class="shelves">
     <div class="section-title"><?php echo $_SESSION['user_name']; ?>'s Shelves</div>
     <div class="shelves-container">
-        <?php
-        $shelf_query = "SELECT * FROM shelves WHERE username = '$user_name' ORDER BY created_at DESC";
-        $shelf_result = mysqli_query($conn, $shelf_query);
+    <?php
+// Assuming $conn is the PostgreSQL connection established with pg_connect
 
-        if ($shelf_result && mysqli_num_rows($shelf_result) > 0) {
-            $book_count = mysqli_num_rows($shelf_result); // Count the number of books
-            while ($row = mysqli_fetch_assoc($shelf_result)) {
-                $book_title = htmlspecialchars($row['book_title']);
-                $description = htmlspecialchars($row['description']);
-                $book_image = htmlspecialchars($row['book_image']);
-                $book_image_path = !empty($book_image) ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg';
-                ?>
-                <div class="shelf">
-                    <img src="<?php echo $book_image_path; ?>" alt="<?php echo $book_title; ?>">
-                    <h4><?php echo $book_title; ?></h4>
-                    <p><?php echo $description; ?></p>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<p>You haven't added any books yet.</p>";
-        }
+$shelf_query = "SELECT * FROM shelves WHERE username = '$user_name' ORDER BY created_at DESC";  // Use the correct column name
+$shelf_result = pg_query($conn, $shelf_query);
+
+if ($shelf_result && pg_num_rows($shelf_result) > 0) {
+    $book_count = pg_num_rows($shelf_result); // Count the number of books
+    while ($row = pg_fetch_assoc($shelf_result)) {
+        $book_id = $row['id']; // Assuming 'id' is the primary key for books in shelves
+        $book_title = htmlspecialchars($row['book_title']);
+        $description = htmlspecialchars($row['description']);
+        $book_image = htmlspecialchars($row['book_image']);
+        $book_image_path = !empty($book_image) ? 'uploaded_books/' . $book_image : 'assets/default-book-image.jpg';
         ?>
+        <div class="shelf">
+            <img src="<?php echo $book_image_path; ?>" alt="<?php echo $book_title; ?>">
+            <h4><?php echo $book_title; ?></h4>
+            <p><?php echo $description; ?></p>
+            <form action="delete_shelf.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?')">
+                <input type="hidden" name="book_id" value="<?php echo $book_id; ?>">
+                <button type="submit" class="info-btn delete-btn">Delete</button>
+            </form>
+        </div>
+        <?php
+    }
+} else {
+    echo "<p>You haven't added any books yet.</p>";
+}
+?>
+
     </div>
 </div>
+
         <a href="user_page.php" class="info-btn">Log Out</a>
     </div>
 

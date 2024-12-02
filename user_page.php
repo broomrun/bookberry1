@@ -2,21 +2,22 @@
 include 'config.php';
 session_start();
 
-$emailValue = ''; // Untuk menyimpan nilai email input
-$login_error = '';
-$signup_error = '';
-
+$emailValue = '';
 // Login Form
 if (isset($_POST['action']) && $_POST['action'] == 'login') {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $email = $_POST['email'];
     $pass = $_POST['password'];
     $emailValue = $email; // Menyimpan email yang diinput
 
-    $select = "SELECT * FROM user_form WHERE email = '$email'";
-    $result = mysqli_query($conn, $select);
-
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_array($result);
+    // Query dengan PDO untuk mencari user
+    $select = "SELECT * FROM user_form WHERE email = :email";
+    $stmt = $conn->prepare($select);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($row) {
         if (password_verify($pass, $row['password'])) {
             $_SESSION['user_name'] = $row['name'];
             echo "success";  // Berhasil login
@@ -34,10 +35,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'login') {
 
 // Sign Up Form
 if (isset($_POST['action']) && $_POST['action'] == 'signup') {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
     // Validasi password
     if ($password !== $confirm_password) {
@@ -46,14 +47,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Cek jika email atau username sudah digunakan
-        $check_query = "SELECT * FROM user_form WHERE email = '$email' OR name = '$username'";
-        $check_result = mysqli_query($conn, $check_query);
+        $check_query = "SELECT * FROM user_form WHERE email = :email OR name = :username";
+        $stmt = $conn->prepare($check_query);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
 
-        if (mysqli_num_rows($check_result) > 0) {
+        if ($stmt->rowCount() > 0) {
             $signup_error = 'Email or username already exists.';
         } else {
-            $insert_query = "INSERT INTO user_form (email, name, password) VALUES ('$email', '$username', '$hashed_password')";
-            if (mysqli_query($conn, $insert_query)) {
+            $insert_query = "INSERT INTO user_form (email, name, password) VALUES (:email, :username, :password)";
+            $stmt = $conn->prepare($insert_query);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR);
+            if ($stmt->execute()) {
                 echo "success";  // Berhasil signup
                 exit;
             } else {
@@ -66,7 +74,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
     exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -341,14 +348,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'signup') {
             closeModal(signupModal);
         }
     };
-    
-// AJAX for Login
+ // AJAX for Login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var formData = new FormData(this);
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '', true);
+    xhr.open('POST', '', true);  // Pastikan untuk mengarahkan ke file PHP yang sesuai
     xhr.onload = function() {
         if (xhr.status == 200) {
             var response = xhr.responseText.trim();
@@ -368,7 +374,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 
     var formData = new FormData(this);
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '', true);
+    xhr.open('POST', '', true);  // Pastikan untuk mengarahkan ke file PHP yang sesuai
     xhr.onload = function() {
         if (xhr.status == 200) {
             var response = xhr.responseText.trim();
